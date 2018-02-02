@@ -1,65 +1,36 @@
-import React from 'react';
-import { Button, StyleSheet, Text, View } from 'react-native';
-import StockGraphContainer from '@Containers/StockGraphContainer.js';
-import { Icon } from 'react-native-elements';
-
+import React from 'react'
+import { StyleSheet, View } from 'react-native'
+import HomePageContainer from '@Containers/HomePageContainer.js'
+import AuthPageContainer from '@Containers/AuthPageContainer.js'
 
 export default class App extends React.Component {
+
+  state ={
+    isLoggedIn:false
+  }
+
   render() {
-    return (
-      <View style={styles.container}>
-        <View style={styles.ButtonsContainer}>
-          <Icon containerStyle={styles.IconContainerLeft} size={32} name="user" type='feather' onPress={() => console.log('user')} color='#000'/>
-          <Icon containerStyle={styles.IconContainerRight} size={32} name="globe" type='feather' onPress={() => console.log('globe')} color='#000'/>
+    if (this.state.isLoggedIn)
+      return (
+        <View style={style.container}>
+          <HomePageContainer/>
         </View>
-
-        <View style={styles.StockGraphView}>
-          <StockGraphContainer/>
+        );
+    else
+      return (
+        <View style={style.container}>
+          <AuthPageContainer/>
         </View>
-
-        <View style={styles.AppFooter}>
-          <Text>Cypher Inc.</Text>
-        </View>
-      </View>
-    );
+      )
   }
 }
 
-const styles = StyleSheet.create({
-  StockGraphView:{
-    flex:1,
-    paddingTop:5
-  },
+const style = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#fff',
     alignItems: 'center',
     justifyContent: 'center',
   },
-  AppFooter:{
-    flex:0.2,
-    justifyContent:'center'
-  },
-  IconContainerLeft:{
-    flex:1,
-    paddingLeft:15,
-    paddingTop:25,
-    flexDirection:'row',
-    justifyContent:'flex-start'
-  },
-  IconContainerRight:{
-    flex:1,
-    paddingRight:15,
-    paddingTop:25,
-    flexDirection:'row',
-    justifyContent:'flex-end'
 
-  },
-
-  ButtonsContainer:{
-    flex:0.25,
-    flexDirection:'row',
-    justifyContent:'space-between',
-    alignItems:'stretch',
-  },
-});
+})
