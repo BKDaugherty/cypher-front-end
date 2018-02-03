@@ -1,7 +1,9 @@
 //Wrapper for CypherAPI
-const BASEURL = "localhost:8000"
+//This needs to be set to the ip address of the machine
+//running the API
+const BASEURL = "http://131.179.24.98:8000"
 
-export const postSignUp = (firstName, lastName, email, password) => {
+const postSignUp = (firstName, lastName, email, password) => {
   return fetch(BASEURL + '/user/signup',
   { method: 'POST',
     body:{
@@ -13,24 +15,38 @@ export const postSignUp = (firstName, lastName, email, password) => {
     headers: new Headers({
       'Content-Type': 'application/json'
     })
+  }).then((response) => {
+    return response.json()
   })
 }
 
-export const postLogin = (username, password) => {
-  return fetch(BASEURL + '/user/login', {method: 'POST',
-  body:{
+const postLogin = (email, password) => {
+
+  const postBody = {
     "email":email,
     "password":password
-  },
+  }
+
+  return fetch(BASEURL + '/user/login', {method: 'POST',
+  body:JSON.stringify(postBody),
   headers: new Headers({
     'Content-Type': 'application/json'
-  })})
+  })}).then((response) => {
+    return response.json()
+  })
 }
 
-export const getCoinbase = (access_token) => {
+const getCoinbase = (access_token) => {
 
 }
 
-export const postCoinbase = (access_token) => {
+const postCoinbase = (access_token) => {
 
+}
+
+export default {
+  postLogin,
+  postSignUp,
+  getCoinbase,
+  postCoinbase
 }

@@ -5,10 +5,12 @@ import Application from '@Containers/Application.js';
 import store from '@Store/store.js';
 import ReduxNavigation from '@Navigation/ReduxNavigation.js'
 
+const storeObj = store()
+
 export default class App extends Component {
   render() {
     return (
-      <Provider store={store()}>
+      <Provider store={storeObj}>
         <ReduxNavigation />
       </Provider>
     );

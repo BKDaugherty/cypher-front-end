@@ -1,23 +1,25 @@
+import ActionTypes from '@Actions/ActionTypes'
+
 //Default state
 const defaultState = {
     isLoggedIn: false,
     username: '',
-    password: ''
+    token: ''
 };
 
 export default function reducer(state = defaultState, action) {
     switch (action.type) {
-        case 'LOGIN_REQUEST':
+        case ActionTypes.LOGIN_REQUEST_SUCCESS:
             return Object.assign({}, state, {
                 isLoggedIn: true,
                 username: action.username,
-                password: action.password
+                token: action.token
             });
-        case 'LOGOUT':
+        case ActionTypes.LOGOUT:
             return Object.assign({}, state, {
                 isLoggedIn: false,
                 username: '',
-                password: ''
+                token: ''
             });
         default:
             return state;

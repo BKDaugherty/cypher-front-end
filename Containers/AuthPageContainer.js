@@ -1,6 +1,6 @@
 import React from 'react';
 import {connect} from 'react-redux'
-import { login } from '@Actions/auth.js'
+import { loginRequest } from '@Actions/auth.js'
 import {StyleSheet, Text, Button, TextInput,ScrollView, View} from 'react-native'
 
 class AuthPageContainer extends React.Component{
@@ -16,12 +16,8 @@ class AuthPageContainer extends React.Component{
 
   userLogin(e) {
     //Run the passed function with the current username and password
-    this.props.onLogin(this.state.username, this.state.password)
-    //Eventually get this running as an async request
-    this.props.navigation.navigate("HomePage")
-    // .then(() => {
-    //   navigate("homePage")
-    // });
+    const navigate = this.props.navigation.navigate
+    this.props.onLogin(this.state.username, this.state.password, navigate)
     e.preventDefault();
   }
 
@@ -81,7 +77,7 @@ const mapStateToProps = (state, ownProps) => {
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        onLogin: (username, password) => { dispatch(login(username, password)); },
+        onLogin: (username, password, navigate) => { dispatch(loginRequest(username, password, navigate)); },
         onSignUp: (username, password) => { dispatch(signup(username, password)); }
     }
 }
