@@ -5,11 +5,17 @@ import { Icon } from 'react-native-elements';
 
 
 export default class HomePageContainer extends React.Component{
+
+static navigationOptions = {
+  drawerLabel:"Portfolio",
+  drawerIcon: () => ( <Icon size={32} type="evilicon" name="chart"/>)
+}
+
 render() {
   return (
 <View style={styles.container}>
   <View style={styles.ButtonsContainer}>
-    <Icon containerStyle={styles.IconContainerLeft} size={32} name="user" type='feather' onPress={() => console.log('user')} color='#000'/>
+    <Icon containerStyle={styles.IconContainerLeft} size={32} name="user" type='feather' onPress={() => this.props.navigation.navigate('DrawerOpen')} color='#000'/>
     <Icon containerStyle={styles.IconContainerRight} size={32} name="globe" type='feather' onPress={() => console.log('globe')} color='#000'/>
   </View>
 

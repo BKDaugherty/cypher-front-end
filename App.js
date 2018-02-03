@@ -1,36 +1,16 @@
-import React from 'react'
-import { StyleSheet, View } from 'react-native'
-import HomePageContainer from '@Containers/HomePageContainer.js'
-import AuthPageContainer from '@Containers/AuthPageContainer.js'
+import React, { Component } from 'react';
+import { AppRegistry } from 'react-native';
+import { Provider } from 'react-redux';
+import Application from '@Containers/Application.js';
+import store from '@Store/store.js';
+import ReduxNavigation from '@Navigation/ReduxNavigation.js'
 
-export default class App extends React.Component {
-
-  state ={
-    isLoggedIn:false
-  }
-
+export default class App extends Component {
   render() {
-    if (this.state.isLoggedIn)
-      return (
-        <View style={style.container}>
-          <HomePageContainer/>
-        </View>
-        );
-    else
-      return (
-        <View style={style.container}>
-          <AuthPageContainer/>
-        </View>
-      )
+    return (
+      <Provider store={store()}>
+        <ReduxNavigation />
+      </Provider>
+    );
   }
 }
-
-const style = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-
-})

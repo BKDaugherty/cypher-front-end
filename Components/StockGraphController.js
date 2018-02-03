@@ -1,21 +1,18 @@
 import React from 'react';
+import {connect} from 'react-redux'
 import {StyleSheet, Button, View, Text} from 'react-native'
+import {setTimeScale} from '@Actions/stockGraph'
 
-const onPressSetWeekValue = (weekValue) => {
-  return () => {
-    console.log(weekValue)
-  }
-}
 
-export default class StockGraphController extends React.Component {
+class StockGraphController extends React.Component {
   render() {
     return (
     <View style={styles.ButtonView}>
-      <Button onPress={onPressSetWeekValue('24HR')} title="24HR"/>
-      <Button onPress={onPressSetWeekValue('1W')} title="1W"/>
-      <Button onPress={onPressSetWeekValue('1M')} title="1M"/>
-      <Button onPress={onPressSetWeekValue('3M')} title="3M"/>
-      <Button onPress={onPressSetWeekValue('1YR')} title="1YR"/>
+      <Button onPress={() => {this.props.onUpdateTimescale("24HR")}} title="24HR"/>
+      <Button onPress={() => {this.props.onUpdateTimescale("1W")}} title="1W"/>
+      <Button onPress={() => {this.props.onUpdateTimescale("1M")}} title="1M"/>
+      <Button onPress={() => {this.props.onUpdateTimescale("3M")}} title="3M"/>
+      <Button onPress={() => {this.props.onUpdateTimescale("1YR")}} title="1YR"/>
     </View>);
   }
 }
@@ -28,3 +25,12 @@ const styles = StyleSheet.create({
     justifyContent:"space-between"
   }
 })
+
+
+const mapDispatchToProps = (dispatch) => {
+    return {
+        onUpdateTimescale: (timeScale) => { dispatch(setTimeScale(timeScale)); },
+    }
+}
+
+export default connect(null, mapDispatchToProps)(StockGraphController);

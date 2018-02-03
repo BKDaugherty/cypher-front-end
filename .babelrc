@@ -7,7 +7,12 @@
         "root": ["./"],
         "alias": {
           "@Components": "./Components",
-          "@Containers": "./Containers"
+          "@Containers": "./Containers",
+          "@Actions":"./Actions",
+          "@Reducers":"./Reducers",
+          "@Store":"./Store",
+          "@Navigation":"./Navigation",
+          "@Data":"./Data"
         }
       }]]
     }
