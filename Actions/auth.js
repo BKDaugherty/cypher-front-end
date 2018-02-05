@@ -26,16 +26,27 @@ export const loginRequestSuccess = (username, token) => {
   return {type: ActionTypes.LOGIN_REQUEST_SUCCESS, username, token}
 }
 
+export const signUpRequest = (firstName, lastName, email, password, navigate) => {
+  return (dispatch) => {
+    return CypherAPI.postSignUp(firstName, lastName, email, password)
+    .then((response) => {
+      //Tell the user signup was successful?
+      console.log(response)
+      navigate('loginScreen')
+    }).catch(error => {
+      console.log(error)
+      throw(error)
+    })
+  }
+}
 
+export const signUpRequestSuccess = () => {
+  return {type: ActionTypes.SIGNUP_REQUEST_SUCCESS}
+}
 
 
 export const logout = () => {
     return {
         type: ActionTypes.LOGOUT
     };
-};
-
-export const signup = (username, password) => {
-   return (dispatch) => {
-   };
 };

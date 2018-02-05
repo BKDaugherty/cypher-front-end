@@ -2,17 +2,18 @@ import React from 'react';
 import {connect} from 'react-redux'
 import {StyleSheet, Button, View, Text} from 'react-native'
 import {setTimeScale} from '@Actions/stockGraph'
+import {APPPURPLE, APPBLUE, APPRED} from '@Style/constants.js'
 
 
 class StockGraphController extends React.Component {
   render() {
     return (
     <View style={styles.ButtonView}>
-      <Button onPress={() => {this.props.onUpdateTimescale("24HR")}} title="24HR"/>
-      <Button onPress={() => {this.props.onUpdateTimescale("1W")}} title="1W"/>
-      <Button onPress={() => {this.props.onUpdateTimescale("1M")}} title="1M"/>
-      <Button onPress={() => {this.props.onUpdateTimescale("3M")}} title="3M"/>
-      <Button onPress={() => {this.props.onUpdateTimescale("1YR")}} title="1YR"/>
+      <Button color={'#fff'} onPress={() => {this.props.onUpdateTimescale("24HR")}} title="24HR"/>
+      <Button color={'#fff'} onPress={() => {this.props.onUpdateTimescale("1W")}} title="1W"/>
+      <Button color={'#fff'} onPress={() => {this.props.onUpdateTimescale("1M")}} title="1M"/>
+      <Button color={'#fff'} onPress={() => {this.props.onUpdateTimescale("3M")}} title="3M"/>
+      <Button color={'#fff'} onPress={() => {this.props.onUpdateTimescale("1YR")}} title="1YR"/>
     </View>);
   }
 }

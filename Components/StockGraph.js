@@ -2,6 +2,8 @@ import React from 'react';
 import { LineChart } from 'react-native-svg-charts'
 import * as shape from 'd3-shape'
 import {View, Text} from 'react-native'
+import {APPPURPLE, APPBLUE, APPRED} from '@Style/constants.js'
+
 
 export default class StockGraph extends React.Component {
   render() {
@@ -9,12 +11,12 @@ export default class StockGraph extends React.Component {
     return (
       <View>
         <LineChart
-          style={ {height:250, width:250} }
+          style={ {height:250, width:250, } }
           dataPoints={ data }
           fillColor={ 'blue' }
           shadowOffset={3}
           svg={{
-            stroke: 'rgb(134, 65, 244)',
+            stroke: APPPURPLE,
           }}
           shadowSvg={{
             stroke: 'rgba(134, 65, 244, 0.2)',

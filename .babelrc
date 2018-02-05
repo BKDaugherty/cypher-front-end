@@ -12,7 +12,10 @@
           "@Reducers":"./Reducers",
           "@Store":"./Store",
           "@Navigation":"./Navigation",
-          "@Data":"./Data"
+          "@Data":"./Data",
+          "@Style":"./Style",
+          "@Images":"./Assets/Images",
+          "@Assets":"./Assets"
         }
       }]]
     }

@@ -2,13 +2,13 @@ import React from 'react';
 import {connect} from 'react-redux'
 import { loginRequest } from '@Actions/auth.js'
 import {StyleSheet, Text, Button, TextInput,ScrollView, View} from 'react-native'
-
+import {APPDARKGRAY} from '@Style/constants.js'
+import AppLogo from '@Components/AppLogo.js'
 class AuthPageContainer extends React.Component{
 
   constructor(props) {
     super(props)
     this.state = {
-      route: 'Login',
       username: '',
       password: ''
     }
@@ -21,12 +21,19 @@ class AuthPageContainer extends React.Component{
     e.preventDefault();
   }
 
+  userSignUp(e) {
+    this.props.navigation.navigate('signUpScreen')
+    e.preventDefault()
+  }
+
 
   render() {
     return(
-      <ScrollView contentContainerStyle={style.PageView}>
-        <Text style={{fontSize:40, padding:20}}>{this.state.route}</Text>
+      <View style={style.PageView}>
+      <AppLogo/>
+      <View style={style.formContainer}>
         <TextInput style={style.CustomInputBox}
+            placeholderTextColor='#fff'
             placeholder='Username'
             autoCapitalize='none'
             autoCorrect={false}
@@ -35,6 +42,7 @@ class AuthPageContainer extends React.Component{
             value={this.state.username}
             onChangeText={(text) => this.setState({ username: text })} />
             <TextInput style={style.CustomInputBox}
+                placeholderTextColor='#fff'
                 placeholder='Password'
                 autoCapitalize='none'
                 autoCorrect={false}
@@ -42,10 +50,13 @@ class AuthPageContainer extends React.Component{
                 value={this.state.password}
                 onChangeText={(text) => this.setState({ password: text })}/>
         <View style ={style.ButtonContainer}>
-          <Button onPress={(e) => this.userLogin(e)} buttonStyle={{backgroundColor:'#00d'}} title="Log In"/>
-          <Button onPress={(e) => console.log(e)} buttonStyle={{backgroundColor:'#00d'}} title="Sign Up"/>
+          <Button onPress={(e) => this.userLogin(e)} color='#fff' title="Log In"/>
         </View>
-      </ScrollView>
+        </View>
+        <View style={style.signUpView}>
+          <Button color='#fff' title="Don't have an account? Press Here" onPress={(e) => { this.userSignUp(e)}}/>
+        </View>
+      </View>
       );
   }
 }
@@ -54,7 +65,7 @@ const style = StyleSheet.create({
   PageView:{
     flex: 1,
     padding:20,
-    backgroundColor: '#fff',
+    backgroundColor: APPDARKGRAY,
     justifyContent: 'center',
   },
   ButtonContainer:{
@@ -63,9 +74,20 @@ const style = StyleSheet.create({
     padding:2,
   },
   CustomInputBox:{
+    color:'#fff',
     padding:10,
     margin:1,
-    borderWidth:0.5
+    borderWidth:0.5,
+    borderColor:'#fff'
+  },
+  signUpView:{
+    flexDirection:'row',
+    justifyContent:'center',
+  },
+  formContainer:{
+    flex:1,
+    paddingTop:10,
+    justifyContent:'flex-start'
   }
 })
 
@@ -78,7 +100,7 @@ const mapStateToProps = (state, ownProps) => {
 const mapDispatchToProps = (dispatch) => {
     return {
         onLogin: (username, password, navigate) => { dispatch(loginRequest(username, password, navigate)); },
-        onSignUp: (username, password) => { dispatch(signup(username, password)); }
+        onSignUp: (username, password) => { dispatch(signupRequest(username, password)); }
     }
 }
 

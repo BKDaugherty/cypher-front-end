@@ -18,7 +18,7 @@ const styles = StyleSheet.create({
     justifyContent:'center'
   },
   bigText: {
-    color:'#000',
+    color:'#fff',
     fontSize:80
   },
   smallGreenText:{
@@ -32,7 +32,7 @@ const styles = StyleSheet.create({
     textAlign:'center'
   },
   smallText:{
-    color:'#000',
+    color:'#fff',
     fontSize:18
   }
 });
