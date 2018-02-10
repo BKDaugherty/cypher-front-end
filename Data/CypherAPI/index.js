@@ -1,7 +1,7 @@
 //Wrapper for CypherAPI
 //This needs to be set to the ip address of the machine
 //running the API
-const BASEURL = "http://192.168.0.34:8000"
+const BASEURL = "http://192.168.0.68:8000"
 
 const postSignUp = (firstName, lastName, email, password) => {
   const postBody = {

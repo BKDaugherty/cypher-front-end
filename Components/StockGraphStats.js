@@ -2,6 +2,7 @@ import React from 'react';
 import {connect} from 'react-redux'
 import {StyleSheet, View, Text} from 'react-native'
 
+
 class StockGraphStats extends React.Component {
   render() {
     return (

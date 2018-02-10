@@ -4,7 +4,6 @@ import { Provider } from 'react-redux';
 import Application from '@Containers/Application.js';
 import store from '@Store/store.js';
 import ReduxNavigation from '@Navigation/ReduxNavigation.js'
-//PT mono font
 
 const storeObj = store()
 
