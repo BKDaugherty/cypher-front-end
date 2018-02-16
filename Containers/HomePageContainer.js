@@ -1,5 +1,5 @@
 import React from 'react';
-import { Button, StyleSheet, Text, View } from 'react-native';
+import {StyleSheet, Text, View, TouchableHighlight } from 'react-native';
 import StockGraphContainer from '@Containers/StockGraphContainer.js';
 import { Icon } from 'react-native-elements';
 import {APPDARKGRAY} from '@Style/constants.js'
@@ -15,9 +15,17 @@ static navigationOptions = {
 render() {
   return (
 <View style={styles.container}>
-  <View style={styles.ButtonsContainer}>
-    <Icon color='#fff' containerStyle={styles.IconContainerLeft} size={32} name="user" type='feather' onPress={() => this.props.navigation.navigate('DrawerOpen')} />
-    <Icon color='#fff' containerStyle={styles.IconContainerRight} size={32} name="globe" type='feather' onPress={() => console.log('globe')} />
+      <View style={styles.ButtonsContainer}>
+      <View style={styles.IconContainerLeft}>
+      <TouchableHighlight onPress={() => this.props.navigation.navigate('DrawerOpen')}>
+      <Icon color='#fff' size={32} name="user" type='feather'/>
+      </TouchableHighlight>
+      </View>
+      <View style={styles.IconContainerRight}>
+      <TouchableHighlight onPress={() => console.log('globe pressed')}>
+      <Icon color='#fff' size={32} name="globe" type='feather' />
+      </TouchableHighlight>
+      </View>
   </View>
 
   <View style={styles.StockGraphView}>
@@ -69,6 +77,6 @@ const styles = StyleSheet.create({
     flex:0.25,
     flexDirection:'row',
     justifyContent:'space-between',
-    alignItems:'stretch',
+    alignItems:'center',
   },
 });

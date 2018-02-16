@@ -10,7 +10,7 @@ const PrimaryNav = StackNavigator({
   // Default config for all screens
   title:'Main',
   headerMode: 'none',
-  initialRouteName: 'SecureStack'
+  initialRouteName: 'AuthStack'
 })
 
 export default PrimaryNav

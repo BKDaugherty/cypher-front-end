@@ -3,7 +3,7 @@ import ActionTypes from '@Actions/ActionTypes'
 //Default state
 const defaultState = {
     isLoggedIn: false,
-    username: '',
+    username: 'TEST',
     token: ''
 };
 
