@@ -29,9 +29,15 @@ userSignUp(e){
   e.preventDefault()
 }
 
+  backToHome(e){
+    this.props.navigation.navigate('loginScreen')
+    e.preventDefault()
+  }
+
 render() {
   return(
     <View style={style.PageView}>
+    <Button color='#fff' onPress={(e) => this.backToHome(e)} buttonStyle={{backgroundColor:'#00d'}} title="Back"/>
     <Text style={{color:'#fff', fontSize:30, padding:20, alignSelf:'center'}}>{"Sign Up"}</Text>
   <View style={style.formContainer}>
     <TextInput style={style.CustomInputBox}
@@ -69,7 +75,7 @@ render() {
             onChangeText={(text) => this.setState({ password: text })}/>
     <View style ={style.ButtonContainer}>
       <Button color='#fff' onPress={(e) => this.userSignUp(e)} buttonStyle={{backgroundColor:'#00d'}} title="Sign Up"/>
-    </View>
+      </View>
     </View>
     </View>);
 }
