@@ -26,7 +26,6 @@ class AuthPageContainer extends React.Component{
     e.preventDefault()
   }
 
-
   render() {
     return(
       <View style={style.PageView}>
@@ -54,7 +53,7 @@ class AuthPageContainer extends React.Component{
         </View>
         </View>
         <View style={style.signUpView}>
-          <Button color='#fff' title="Don't have an account? Press Here" onPress={(e) => { this.userSignUp(e)}}/>
+          <Button color='#fff' title="Do have an account? Press Here" onPress={(e) => { this.userSignUp(e)}}/>
         </View>
       </View>
       );

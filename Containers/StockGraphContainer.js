@@ -7,7 +7,9 @@ import StockGraphStats from '@Components/StockGraphStats'
 import StockGraphController from '@Components/StockGraphController'
 
 
-export default class StockGraphContainer extends React.Component {
+//Make a request in constructor for stats
+
+class StockGraphContainer extends React.Component {
 
   render() {
     return (
@@ -29,12 +31,14 @@ const styles = StyleSheet.create({
 
 const mapStateToProps = (state, ownProps) => {
     return {
-        stockGraphTimeScale: state.stockGraph.stockGraphTimeScale
+
     };
 }
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        onUpdateTimescale: (timeScale) => { dispatch(setTimeScale(timeScale)); },
+
     }
 }
+
+export default connect(mapStateToProps, mapDispatchToProps)(StockGraphContainer)

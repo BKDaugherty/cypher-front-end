@@ -10,7 +10,6 @@ export default function reducer(state = defaultState, action){
 	case ActionTypes.COINBASE_OAUTH_SUCCESS:
 	    return Object.assign({}, state, {
 		isComplete:true,
-		token:action.token
 	    })
 	default:
 	    return state

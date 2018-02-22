@@ -15,6 +15,10 @@ export default function reducer(state = defaultState, action) {
                 username: action.username,
                 token: action.token
             });
+
+	case ActionTypes.SIGNUP_REQUEST_SUCCESS:
+            return Object.assign({}, state, {
+            });
         case ActionTypes.LOGOUT:
             return Object.assign({}, state, {
                 isLoggedIn: false,

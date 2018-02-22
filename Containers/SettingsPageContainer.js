@@ -18,7 +18,8 @@ class SettingsPageContainer extends React.Component {
     }
     
     coinbaseOauthCompletion(result) {
-	this.props.onCoinbaseOauthComplete(result)
+	const token = this.props.cypherAccessToken
+	this.props.onCoinbaseOauthComplete(result, token)
     }
 
     plaidOauthCompletion(result) {
@@ -53,15 +54,16 @@ class SettingsPageContainer extends React.Component {
 	    </View>)
     }
 }
-  const mapStateToProps = (state, ownProps) => {
+const mapStateToProps = (state, ownProps) => {
       return {
 	  coinbaseComplete:state.coinbaseOauth.isComplete,
+	  cypherAccessToken:state.auth.token
       };
   }
 
   const mapDispatchToProps = (dispatch) => {
       return {
-	  onCoinbaseOauthComplete: (result) => {dispatch(onCoinbaseOauthComplete(result)) }
+	  onCoinbaseOauthComplete: (result, cypherAccessToken) => {dispatch(onCoinbaseOauthComplete(result, cypherAccessToken)) }
       }
   }
 

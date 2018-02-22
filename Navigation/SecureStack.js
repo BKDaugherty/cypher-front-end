@@ -1,24 +1,26 @@
-import {DrawerNavigator} from 'react-navigation'
+import {TabNavigator} from 'react-navigation'
 import HomePageContainer from '@Containers/HomePageContainer.js'
 //import AccountPageContainer from '@Containers/AccountPageContainer.js'
 //import forgotPasswordScreen from '@Navigation/Auth/forgotPasswordScreen.js'
 import SettingsPageContainer from '@Containers/SettingsPageContainer.js'
-import SideSecureMenuContainer from '@Containers/SideSecureMenuContainer.js'
+import CypherTabBar from '@Components/CypherTabBar.js'
 
 
 //The Navigator for the secure portion of our app
-export const SecureStack = DrawerNavigator(
+export const SecureStack = TabNavigator(
     {
 	HomePage: { screen: HomePageContainer },
-	SettingsPage: { screen: SettingsPageContainer },
+	SettingsPage: {
+	    screen: SettingsPageContainer,
+	    tabBarOptions:{
+		tabStyle:{
+		    backgroundColor:'blue'
+		}
+	    }},
     },
     {
-	//Adds a custom side menu defined
-	//by my component
-	contentComponent:SideSecureMenuContainer,
-	headerMode: 'none',
-	navigationOptions: {
-	    headerStyle: {backgroundColor: '#E73536'},
-	    headerTintColor: 'white'
-	}
+	tabBarComponent: CypherTabBar,
+	tabBarPosition:'bottom'
+
+
     })
