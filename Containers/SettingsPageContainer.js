@@ -54,7 +54,7 @@ class SettingsPageContainer extends React.Component {
 	
 	return (
 	    <View style={styles.container}>
-	    <Text style={styles.headerText}>Settings is working, {this.props.username}</Text>
+	    <Text style={styles.headerText}>Settings</Text>
 	    <View style={styles.oauthContainer}>
 	    <OAUTHSwitch {...coinbaseOAUTH} />
 	    <OAUTHSwitch {...plaidOAUTH}/>
