@@ -4,6 +4,7 @@ import { loginRequest } from '@Actions/auth.js'
 import {StyleSheet, Text, Button, TextInput,ScrollView, View} from 'react-native'
 import {APPDARKGRAY} from '@Style/constants.js'
 import AppLogo from '@Components/AppLogo.js'
+
 class AuthPageContainer extends React.Component{
 
   constructor(props) {
@@ -53,7 +54,7 @@ class AuthPageContainer extends React.Component{
         </View>
         </View>
         <View style={style.signUpView}>
-          <Button color='#fff' title="Do have an account? Press Here" onPress={(e) => { this.userSignUp(e)}}/>
+          <Button color='#fff' title="Don't have an account? Press Here" onPress={(e) => { this.userSignUp(e)}}/>
         </View>
       </View>
       );

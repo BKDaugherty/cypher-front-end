@@ -1,18 +1,17 @@
 import React from 'react'
 import {connect} from 'react-redux'
 import {Switch, StyleSheet, Text, View, TouchableHighlight } from 'react-native'
-import { APPDARKGRAY} from '@Style/constants.js'
+import {APPDARKGRAY} from '@Style/constants.js'
 import {AuthSession} from 'expo'
 
-//Oauth container takes Props and gives us back an OAUTH result or something --> Need to store to redux
-
-
-export default class OAUTHContainer extends React.Component {
+//OauthComponent to handle
+//Oauth integration
+export default class OAUTHSwitch extends React.Component {
     constructor(props){
 	super(props)
 	console.log(this.props.callback)
 	this.state = {
-	    oauthSetup: this.props.oAuthComplete ? true : false
+	    oauthSetup: this.props.OAUTHComplete ? true : false
 	}
     }
     
@@ -64,7 +63,3 @@ const styles = StyleSheet.create({
 	paddingRight:'5%',
     }
 })
-
-	    
-	    
-

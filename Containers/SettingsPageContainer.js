@@ -1,46 +1,54 @@
+//React
 import React from 'react'
-import {connect} from 'react-redux'
 import {StyleSheet, Text, View, TouchableHighlight } from 'react-native'
-import { APPDARKGRAY} from '@Style/constants.js'
-import OAUTHContainer from '@Containers/OAUTHContainer.js'
-import {CoinbaseAuthRequestURL} from '@Data/CoinbaseAPI/CoinbaseConfig.js'
-import {onCoinbaseOauthComplete} from '@Actions/coinbaseOauth.js'
 
-const PlaidAuthRequestURL = 'null'
+//Styles
+import { APPDARKGRAY} from '@Style/constants.js'
+
+//OAUTH Implementations
+import OAUTHSwitch from '@Components/OAUTHSwitch.js'
+import {plaidOnOAUTHComplete, coinbaseOnOAUTHComplete} from '@Actions/oauth.js'
+
+//OAUTH Configurations
+import {CoinbaseAuthRequestURL} from '@Data/OAUTH/CoinbaseConfig.js'
+import {PlaidAuthRequestURL} from '@Data/OAUTH/PlaidConfig.js'
+
+//Redux
+import {connect} from 'react-redux'
 
 class SettingsPageContainer extends React.Component {
-
-    //Necessary?
+    
     constructor(props) {
 	super(props)
-	this.coinbaseOauthCompletion = this.coinbaseOauthCompletion.bind(this)
-	this.plaidOauthCompletion = this.plaidOauthCompletion.bind(this)
+	//Bind this context to ensure that javascript this is correct
+	this.coinbaseOAUTHCompletion = this.coinbaseOAUTHCompletion.bind(this)
+	this.plaidOAUTHCompletion = this.plaidOAUTHCompletion.bind(this)
     }
     
-    coinbaseOauthCompletion(result) {
+    coinbaseOAUTHCompletion(result) {
 	const token = this.props.cypherAccessToken
-	this.props.onCoinbaseOauthComplete(result, token)
+	this.props.onCoinbaseOAUTHComplete(result, token)
     }
 
-    plaidOauthCompletion(result) {
+    plaidOAUTHCompletion(result) {
 	console.log(result)
     }
     
     render(){
 
-	const coinbaseOauth= {
+	const coinbaseOAUTH= {
 	    //Should get state for oauthComplete
-	    oAuthComplete:this.props.coinbaseComplete,
+	    OAUTHComplete:this.props.coinbaseComplete,
 	    authURL:CoinbaseAuthRequestURL,
 	    label:"Coinbase",
-	    callback:this.coinbaseOauthCompletion
+	    callback:this.coinbaseOAUTHCompletion
 	}
 	
-	const plaidOauth = {
-	    oAuthComplete:false,
+	const plaidOAUTH = {
+	    OAUTHComplete:false,
 	    authURL:PlaidAuthRequestURL,
 	    label:"Plaid",
-	    callback:this.plaidOauthCompletion
+	    callback:this.plaidOAUTHCompletion
 	}
 
 	
@@ -48,27 +56,28 @@ class SettingsPageContainer extends React.Component {
 	    <View style={styles.container}>
 	    <Text style={styles.headerText}>Settings is working, {this.props.username}</Text>
 	    <View style={styles.oauthContainer}>
-	    <OAUTHContainer {...coinbaseOauth} />
-	    <OAUTHContainer {...plaidOauth}/>
+	    <OAUTHSwitch {...coinbaseOAUTH} />
+	    <OAUTHSwitch {...plaidOAUTH}/>
 	    </View>
 	    </View>)
     }
 }
 const mapStateToProps = (state, ownProps) => {
       return {
-	  coinbaseComplete:state.coinbaseOauth.isComplete,
+	  coinbaseComplete:state.coinbase.isComplete,
+	  plaidComplete:state.plaid.isComplete,
 	  cypherAccessToken:state.auth.token
       };
   }
 
   const mapDispatchToProps = (dispatch) => {
       return {
-	  onCoinbaseOauthComplete: (result, cypherAccessToken) => {dispatch(onCoinbaseOauthComplete(result, cypherAccessToken)) }
+	  onCoinbaseOAUTHComplete: (result, cypherAccessToken) => {
+	      return dispatch(coinbaseOnOAUTHComplete(result, cypherAccessToken)) },
+	  onPlaidOAUTHComplete: (result, cypherAccessToken) => { return dispatch(plaidOnOAUTHComplete(result, cypherAccessToken))
+	  }
       }
   }
-
-
-	    
 	    
 const styles = StyleSheet.create({
     container:{
@@ -94,6 +103,3 @@ const styles = StyleSheet.create({
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(SettingsPageContainer);
-	    
-	    
-
