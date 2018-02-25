@@ -58,14 +58,14 @@ export const BitcoinContainer = genCypherTabPage({
 })
 
 export const EthereumContainer = genCypherTabPage({
-    backgroundColor:APPGREEN,
+    backgroundColor:APPNAVY,
     value:'$8000',
     footer:'Balance:',
     title:'Ethereum',
 })
 
 export const BitcoinCashContainer = genCypherTabPage({
-    backgroundColor:APPNAVY,
+    backgroundColor:APPGREEN,
     value:'$8000',
     footer:'Balance:',
     title:'Bitcoin Cash',

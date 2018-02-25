@@ -4,5 +4,6 @@
 	"slug":"cypher",
 	"sdkVersion": "25.0.0",
 	"scheme":"cypherapp",
+	"orientation":"portrait",
   }
 }

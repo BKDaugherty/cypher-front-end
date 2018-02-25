@@ -1,6 +1,6 @@
 
 const sampleBankCredentials = {
-    username: 'user_good'
+    username: 'user_good',
     password: 'pass_good'
 }
 

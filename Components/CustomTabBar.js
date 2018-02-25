@@ -10,8 +10,8 @@ import {APPDARK, APPGREEN, APPGRAY, APPNAVY, APPYELLOW} from '@Style/constants'
 const colorArray = [
     APPDARK,
     APPYELLOW,
-    APPGREEN,
     APPNAVY,
+    APPGREEN,
     APPGRAY
 ]
 

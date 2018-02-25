@@ -3,14 +3,12 @@ import CypherAPI from '@Data/CypherAPI/index.js'
 
 
 const genOnOAUTHComplete = (cypherAPILink) => {
-    return (result, cypherAccessToken) => {
+    return (appAuthCode, cypherAccessToken) => {
 	return(dispatch) => {
 	    //Hoping that both coinbase and
 	    //plaid use the same configuration...
-	    const appAuthCode = result.params.code
 	    
 	    const linkAppToCypher = genLinkToCypherAction(cypherAPILink)
-	
 	    //Define general dispatch to link app with?
 	    return dispatch(linkAppToCypher(cypherAccessToken, appAuthCode))
 	}

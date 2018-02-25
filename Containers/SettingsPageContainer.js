@@ -1,6 +1,6 @@
 //React
 import React from 'react'
-import {StyleSheet, Text, View, TouchableHighlight } from 'react-native'
+import {Button, StyleSheet, Text, View, TouchableHighlight, Modal } from 'react-native'
 
 //Styles
 import { APPDARKGRAY} from '@Style/constants.js'
@@ -11,7 +11,7 @@ import {plaidOnOAUTHComplete, coinbaseOnOAUTHComplete} from '@Actions/oauth.js'
 
 //OAUTH Configurations
 import {CoinbaseAuthRequestURL} from '@Data/OAUTH/CoinbaseConfig.js'
-import {PlaidAuthRequestURL} from '@Data/OAUTH/PlaidConfig.js'
+import PlaidAuthenticator from 'react-native-plaid-link'
 
 //Redux
 import {connect} from 'react-redux'
@@ -22,18 +22,61 @@ class SettingsPageContainer extends React.Component {
 	super(props)
 	//Bind this context to ensure that javascript this is correct
 	this.coinbaseOAUTHCompletion = this.coinbaseOAUTHCompletion.bind(this)
-	this.plaidOAUTHCompletion = this.plaidOAUTHCompletion.bind(this)
+	this.plaidOnMessage = this.plaidOnMessage.bind(this)
+	this.plaidOnSuccess = this.plaidOnSuccess.bind(this)
+	this.plaidOnExit = this.plaidOnExit.bind(this)
+	
     }
     
     coinbaseOAUTHCompletion(result) {
 	const token = this.props.cypherAccessToken
-	this.props.onCoinbaseOAUTHComplete(result, token)
+	//Need to do error handling somewhere...
+	const public_code = result.params.code
+	this.props.onCoinbaseOAUTHComplete(public_code, token)
     }
 
-    plaidOAUTHCompletion(result) {
-	console.log(result)
+    state = {
+	modalVisible: false
+    }
+
+    plaidOnSuccess(public_token, metadata) {
+	//Dispatch this to matthew
+	console.log(public_token)
+	const token = this.props.cypherAccessToken
+	this.props.onPlaidOAUTHComplete(public_token, token)
+	this.closeModal()
+    }
+
+    plaidOnExit(err, metadata){
+	//Do something with error
+	console.log(err)
+	this.closeModal()
+    }
+
+    plaidOnMessage(data){
+	if(data && data.eventName){
+	    console.log(data.eventName)
+	}
+
+	//Success
+	if(data.action == "plaid_link-undefined::connected"){
+	    this.plaidOnSuccess(data.metadata.public_token
+			      , data.metadata)
+	}
+	//User exit
+	else if (data.action == "plaid_link-undefined::exit") {
+	    this.plaidOnExit(data.error, data.metadata)
+	}
     }
     
+    openModal(){
+	this.setState({modalVisible:true})
+    }
+
+    closeModal(){
+	this.setState({modalVisible:false})
+    }
+
     render(){
 
 	const coinbaseOAUTH= {
@@ -43,13 +86,6 @@ class SettingsPageContainer extends React.Component {
 	    label:"Coinbase",
 	    callback:this.coinbaseOAUTHCompletion
 	}
-	
-	const plaidOAUTH = {
-	    OAUTHComplete:false,
-	    authURL:PlaidAuthRequestURL,
-	    label:"Plaid",
-	    callback:this.plaidOAUTHCompletion
-	}
 
 	
 	return (
@@ -57,7 +93,24 @@ class SettingsPageContainer extends React.Component {
 	    <Text style={styles.headerText}>Settings</Text>
 	    <View style={styles.oauthContainer}>
 	    <OAUTHSwitch {...coinbaseOAUTH} />
-	    <OAUTHSwitch {...plaidOAUTH}/>
+	    <TouchableHighlight onPress={ () => this.openModal()}>
+	    <Text style={styles.headerText}>Plaid</Text>
+	    </TouchableHighlight>
+	    
+	    <Modal
+	    visible={this.state.modalVisible}
+	    animationType={'slide'}
+	    onRequestClose={() => this.closeModal()}
+	    >
+
+	    <PlaidAuthenticator
+	    publicKey="9e65f7709aa6105fdcce6c62aa6f8b"
+	    env="sandbox"
+	    product="auth,transactions"
+	    clientName="Cypher"
+	    onMessage={this.plaidOnMessage}
+	    />
+	    </Modal>
 	    </View>
 	    </View>)
     }
