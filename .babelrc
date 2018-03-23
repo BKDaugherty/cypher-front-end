@@ -1,12 +1,14 @@
 {
-  "presets": ["babel-preset-expo"],
+"presets": ["babel-preset-expo"],
   "env": {
     "development": {
-      "plugins": ["transform-react-jsx-source",
-        ["module-resolver", {
-        "root": ["./"],
-        "alias": {
-          "@Components": "./Components",
+      "plugins": ["transform-react-jsx-source"]
+    }
+  },
+  "plugins": [
+    ["module-resolver", {
+      "alias": {
+       "@Components": "./Components",
           "@Containers": "./Containers",
           "@Actions":"./Actions",
           "@Reducers":"./Reducers",
@@ -16,8 +18,7 @@
           "@Style":"./Style",
           "@Images":"./Assets/Images",
           "@Assets":"./Assets"
-        }
-      }]]
-    }
-  }
+      }
+    }]
+  ]
 }

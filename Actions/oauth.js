@@ -30,7 +30,6 @@ const genLinkToCypherAction = (CypherAPILink) => {
 }
 
 export const plaidOnOAUTHComplete = genOnOAUTHComplete(CypherAPI.linkPlaidToCypher)
-
 export const coinbaseOnOAUTHComplete = genOnOAUTHComplete(CypherAPI.linkCoinbaseToCypher)
 
 

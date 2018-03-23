@@ -3,6 +3,8 @@ import {StyleSheet, Text, View, TouchableHighlight } from 'react-native';
 import StockGraph from '@Components/StockGraph.js';
 
 
+//Each CypherTab Page will be using the GDAX API
+
 const genCypherTabPage = (config) => {
     const styles = genStyles(config)
     return () => {

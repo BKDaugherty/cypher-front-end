@@ -1,26 +1,25 @@
 import CypherAPI from '@Data/CypherAPI/index.js'
 import ActionTypes from '@Actions/ActionTypes.js'
+
+
 //Pure functions yay!
-
-export const loginRequest = (username, password, navigate) => {
-  return (dispatch) => {
-    return CypherAPI.postLogin(username, password)
-    .then(response => {
-
-	//Need someway to implement refresh logic --> Add a subscriber
-	//Or set timeout to perform another login request here!
-	//Thank the lord for Event Driven Programming!
-	const token = response.access_token
-
-	console.log("success")
-	return dispatch(loginRequestSuccess(username, token, navigate))
-
-    }).catch(error => {
-
-	console.log(error)
-	return dispatch(loginRequestFailure(username))
-
-    })
+export function loginRequest(username, password, navigate) {
+  return async (dispatch) => {
+    //Start the login request
+    console.log("Starting login request")
+    dispatch({type:ActionTypes.INITIATE_LOGIN_REQUEST})
+    try {
+        //Get the response from the Cypher Server
+        const response = await CypherAPI.postLogin(username, password)
+        //Dispatch success
+        return dispatch(loginRequestSuccess(username, response.token, navigate))
+    }
+    catch(error){
+        //Extract the error
+        const errorObject = await error
+        const errorMessage = errorObject.error
+        return dispatch(loginRequestFailure(errorMessage))
+    }
   }
 }
 
@@ -32,31 +31,40 @@ export const loginRequestSuccess = (username, token, navigate) => {
 }
 
 //Dispatched on failure
-export const loginRequestFailure = (username) => {
-    return {type:ActionTypes.LOGIN_REQUEST_FAILURE, username}
+export const loginRequestFailure = (error) => {
+    return {type:ActionTypes.LOGIN_REQUEST_FAILURE, error}
 }
 
 export const signUpRequest = (firstName, lastName, email, password, navigate) => {
-    return (dispatch) => {
-	console.log("Attempting signup")
-    return CypherAPI.postSignUp(firstName, lastName, email, password)
-    .then((response) => {
-	//Tell the user signup was successful?
-	navigate('loginScreen')
-	return dispatch(signUpRequestSuccess())
-    }).catch(error => {
-      console.log(error)
-      throw(error)
-    })
+
+    return async (dispatch) => {
+        
+        //Signal to the redux store that the signup has begun processing
+        dispatch({type:ActionTypes.INITIATE_SIGNUP_REQUEST})
+
+        try{
+            //Await the response from the cypher server
+            const response = await CypherAPI.postSignUp(firstName, lastName, email, password)
+
+            //Navigate back to login --> Don't really like that this is here...
+            navigate('loginScreen')
+
+            //Dispatch the success of signup
+            //Signal to the user that signup was successful
+            return dispatch({type:ActionTypes.SIGNUP_REQUEST_SUCCESS})
+        } 
+        catch(error){
+            const errorObj = await error
+            const errorMessage = error.error
+            console.log(errorObj)
+            return dispatch({
+                type:ActionTypes.SIGNUP_REQUEST_FAILURE,
+                error: errorMessage
+            })
+            
+        }
   }
 }
-
-//Signal to the user that signup was successful
-//Should in a real app send them an email?
-export const signUpRequestSuccess = () => {
-  return {type: ActionTypes.SIGNUP_REQUEST_SUCCESS}
-}
-
 
 export const logout = () => {
     return {

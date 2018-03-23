@@ -1,7 +1,7 @@
 import React from 'react';
 import {connect} from 'react-redux'
 import { loginRequest } from '@Actions/auth.js'
-import {StyleSheet, Text, Button, TextInput,ScrollView, View} from 'react-native'
+import {StyleSheet, Text, Button, TextInput,ScrollView, View, ActivityIndicator} from 'react-native'
 import {APPDARKGRAY} from '@Style/constants.js'
 import AppLogo from '@Components/AppLogo.js'
 
@@ -41,15 +41,17 @@ class AuthPageContainer extends React.Component{
             keyboardType='email-address'
             value={this.state.username}
             onChangeText={(text) => this.setState({ username: text })} />
-            <TextInput style={style.CustomInputBox}
-                placeholderTextColor='#fff'
-                placeholder='Password'
-                autoCapitalize='none'
-                autoCorrect={false}
-                secureTextEntry={true}
-                value={this.state.password}
-                onChangeText={(text) => this.setState({ password: text })}/>
+        <TextInput style={style.CustomInputBox}
+            placeholderTextColor='#fff'
+            placeholder='Password'
+            autoCapitalize='none'
+            autoCorrect={false}
+            secureTextEntry={true}
+            value={this.state.password}
+            onChangeText={(text) => this.setState({ password: text })}/>
         <View style ={style.ButtonContainer}>
+          <ActivityIndicator size="small" color="#fff" animating={this.props.isLoggingIn}/>
+          <Text>{this.props.error}</Text>
           <Button onPress={(e) => this.userLogin(e)} color='#fff' title="Log In"/>
         </View>
         </View>
@@ -93,7 +95,9 @@ const style = StyleSheet.create({
 
 const mapStateToProps = (state, ownProps) => {
     return {
-        isLoggedIn: state.auth.isLoggedIn
+        isLoggedIn: state.auth.isLoggedIn,
+        isLoggingIn: state.auth.isLoggingIn,
+        error:state.auth.error
     };
 }
 

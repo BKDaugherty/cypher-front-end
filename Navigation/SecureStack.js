@@ -6,7 +6,8 @@ import SettingsPageContainer from '@Containers/SettingsPageContainer'
 
 import CustomTabBar from '@Components/CustomTabBar'
 
-import {BitcoinContainer,
+import {
+	BitcoinContainer,
 	EthereumContainer,
 	BitcoinCashContainer,
 	LitecoinContainer,

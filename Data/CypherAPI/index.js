@@ -10,21 +10,23 @@ const postSignUp = (first_name, last_name, email, password) => {
   }
 
     return standardRequest(Endpoints.userSignUp, 'post', postBody) 
-     .then((response) => {
-	 return response.json()
-     })
 }
 
 const postLogin = (email, password) => {
     const postBody = {
-	email,
-	password
+	    email,
+	    password
     }
 
-    return standardRequest(Endpoints.userLogin, 'post', postBody) 
-     .then((response) => {
-	 return response.json()
-     })
+    return standardRequest(Endpoints.userLogin, 'post', postBody)
+}
+
+function parseResponse(response) {
+    if(response.status >= 400){
+        throw response.json()
+    } else {
+        return response.json()
+    }
 }
 
 //These two could prolly be abstracted into one function as well...
@@ -70,6 +72,8 @@ const standardRequest = (endPoint, method ='get',  body = {}, passedHeaders = {}
     })
     
     return fetch(`${BASEURL}${endPoint}`, {method, body:JSON.stringify(body), headers})
+    .then(parseResponse) 
+
     
 }
 

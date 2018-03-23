@@ -1,17 +1,10 @@
 import React from 'react';
 import {connect} from 'react-redux'
 import {signUpRequest } from '@Actions/auth.js'
-import {StyleSheet, Text, Button, TextInput,ScrollView, View} from 'react-native'
+import {StyleSheet, Text, Button, TextInput,ScrollView, View, ActivityIndicator} from 'react-native'
 import {APPDARKGRAY, APPRED} from '@Style/constants.js'
 
 class SignUpPageContainer extends React.Component{
-
-  static navigationOptions = {
-    title: 'Sign Up',
-		headerStyle: { backgroundColor: APPRED },
-		headerTintColor: '#fff'
-  }
-
 
   constructor(props) {
     super(props)
@@ -29,15 +22,10 @@ userSignUp(e){
   e.preventDefault()
 }
 
-  backToHome(e){
-    this.props.navigation.navigate('loginScreen')
-    e.preventDefault()
-  }
 
 render() {
   return(
-    <View style={style.PageView}>
-    <Button color='#fff' onPress={(e) => this.backToHome(e)} buttonStyle={{backgroundColor:'#00d'}} title="Back"/>
+  <View style={style.PageView}>
     <Text style={{color:'#fff', fontSize:30, padding:20, alignSelf:'center'}}>{"Sign Up"}</Text>
   <View style={style.formContainer}>
     <TextInput style={style.CustomInputBox}
@@ -74,6 +62,8 @@ render() {
             value={this.state.password}
             onChangeText={(text) => this.setState({ password: text })}/>
     <View style ={style.ButtonContainer}>
+      <ActivityIndicator color="#fff" animating={this.props.isSigningUp} size="small"/>
+      <Text></Text>
       <Button color='#fff' onPress={(e) => this.userSignUp(e)} buttonStyle={{backgroundColor:'#00d'}} title="Sign Up"/>
       </View>
     </View>
@@ -115,7 +105,7 @@ const style = StyleSheet.create({
 
   const mapStateToProps = (state, ownProps) => {
       return {
-          isLoggedIn: state.auth.isLoggedIn
+          isSigningUp: state.auth.isSigningUp
       };
   }
 
