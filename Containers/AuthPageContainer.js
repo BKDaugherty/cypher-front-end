@@ -1,7 +1,7 @@
 import React from 'react';
 import {connect} from 'react-redux'
 import { loginRequest } from '@Actions/auth.js'
-import {StyleSheet, Text, Button, TextInput,ScrollView, View, ActivityIndicator} from 'react-native'
+import {TouchableOpacity, KeyboardAvoidingView, StyleSheet, Text, Button, TextInput,ScrollView, View, ActivityIndicator} from 'react-native'
 import {APPDARKGRAY} from '@Style/constants.js'
 import AppLogo from '@Components/AppLogo.js'
 
@@ -31,7 +31,8 @@ class AuthPageContainer extends React.Component{
     return(
       <View style={style.PageView}>
       <AppLogo/>
-      <View style={style.formContainer}>
+      <KeyboardAvoidingView style={style.formContainer}
+      behavior="padding">
         <TextInput style={style.CustomInputBox}
             placeholderTextColor='#fff'
             placeholder='Username'
@@ -52,12 +53,18 @@ class AuthPageContainer extends React.Component{
         <View style ={style.ButtonContainer}>
           <ActivityIndicator size="small" color="#fff" animating={this.props.isLoggingIn}/>
           <Text>{this.props.error}</Text>
-          <Button onPress={(e) => this.userLogin(e)} color='#fff' title="Log In"/>
+          <TouchableOpacity style={{backgroundColor:APPDARKGRAY}} onPress={(e) => this.userLogin(e)}>
+            <Text style={{fontSize:20, color:'#fff', fontFamily:'pt-mono'}}>Log In</Text>
+          </TouchableOpacity>
         </View>
-        </View>
+        </KeyboardAvoidingView>
         <View style={style.signUpView}>
-          <Button color='#fff' title="Don't have an account? Press Here" onPress={(e) => { this.userSignUp(e)}}/>
-        </View>
+          <TouchableOpacity onPress={(e) => { this.userSignUp(e)}}>
+            <Text style={{fontSize:16, fontFamily:'pt-mono', color:'#fff'}}>
+            Don't have an account? Press Here
+            </Text>
+            </TouchableOpacity>
+        </View> 
       </View>
       );
   }
@@ -80,7 +87,8 @@ const style = StyleSheet.create({
     padding:10,
     margin:1,
     borderWidth:0.5,
-    borderColor:'#fff'
+    borderColor:'#fff',
+    fontFamily:'pt-mono'
   },
   signUpView:{
     flexDirection:'row',

@@ -29,6 +29,11 @@ export const SecureStack = TabNavigator(
 	tabBarPosition:'bottom',
 	swipeEnabled:true,
 	animationEnabled:true,
+	//Lazy should be true... But there seems to be a bug?
+	//https://github.com/react-navigation/react-navigation/issues/1627
+	//Setting to false causes the App to be synchronous and is not a good 
+	//call!!!
+	lazy:false,
     })
 
 

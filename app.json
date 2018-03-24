@@ -1,9 +1,10 @@
 {
     "expo": {
-	"name":"Cypher",
-	"slug":"cypher",
-	"sdkVersion": "25.0.0",
-	"scheme":"cypherapp",
-	"orientation":"portrait",
+		"name":"Cypher",
+		"slug":"cypher",
+		"sdkVersion": "25.0.0",
+		"scheme":"cypherapp",
+		"orientation":"portrait",
+		"description":"CYPHER WOOOOOO"
   }
 }

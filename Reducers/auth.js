@@ -19,14 +19,16 @@ export default function reducer(state = defaultState, action) {
             });
         case ActionTypes.INITIATE_LOGIN_REQUEST:
             return Object.assign({}, state, {
-                isLoggingIn:true
+                isLoggingIn:true,
+                error:null,
             });
         case ActionTypes.LOGIN_REQUEST_SUCCESS:
             return Object.assign({}, state, {
                 isLoggedIn: true,
                 isLoggingIn: false,
                 username: action.username,
-                token: action.token
+                token: action.token,
+                error:null
             });
         case ActionTypes.LOGIN_REQUEST_FAILURE:
             return Object.assign({}, state, {

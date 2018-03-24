@@ -1,7 +1,7 @@
 import React from 'react';
 import {connect} from 'react-redux'
 import {signUpRequest } from '@Actions/auth.js'
-import {StyleSheet, Text, Button, TextInput,ScrollView, View, ActivityIndicator} from 'react-native'
+import {TouchableOpacity, StyleSheet,Text, TextInput,ScrollView, View, ActivityIndicator} from 'react-native'
 import {APPDARKGRAY, APPRED} from '@Style/constants.js'
 
 class SignUpPageContainer extends React.Component{
@@ -26,7 +26,7 @@ userSignUp(e){
 render() {
   return(
   <View style={style.PageView}>
-    <Text style={{color:'#fff', fontSize:30, padding:20, alignSelf:'center'}}>{"Sign Up"}</Text>
+    <Text style={{fontFamily:'pt-mono', color:'#fff', fontSize:30, padding:20, alignSelf:'center'}}>{"Sign Up"}</Text>
   <View style={style.formContainer}>
     <TextInput style={style.CustomInputBox}
         placeholderTextColor='#fff'
@@ -63,8 +63,10 @@ render() {
             onChangeText={(text) => this.setState({ password: text })}/>
     <View style ={style.ButtonContainer}>
       <ActivityIndicator color="#fff" animating={this.props.isSigningUp} size="small"/>
-      <Text></Text>
-      <Button color='#fff' onPress={(e) => this.userSignUp(e)} buttonStyle={{backgroundColor:'#00d'}} title="Sign Up"/>
+      <Text>{/*Put error here*/}</Text>
+      <TouchableOpacity style={{backgroundColor:APPDARKGRAY}} onPress={(e) => this.userSignUp(e)}>
+        <Text style={{color:'#fff', fontFamily:'pt-mono'}}>Sign Up</Text>
+      </TouchableOpacity>
       </View>
     </View>
     </View>);
@@ -89,7 +91,8 @@ const style = StyleSheet.create({
     padding:10,
     margin:1,
     borderWidth:0.5,
-    borderColor:'#fff'
+    borderColor:'#fff',
+    fontFamily:'pt-mono'
   },
   signUpView:{
     flexDirection:'row',
