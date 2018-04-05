@@ -1,5 +1,6 @@
-import { createReduxBoundAddListener,
-	 createReactNavigationReduxMiddleware,
+import { 
+    createReduxBoundAddListener,
+	createReactNavigationReduxMiddleware,
 } from 'react-navigation-redux-helpers'
 
 //Required to integrate navigation with redux

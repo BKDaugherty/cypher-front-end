@@ -1,8 +1,9 @@
 import React from 'react';
 import {ActivityIndicator, StyleSheet, Text, View, TouchableHighlight } from 'react-native';
 import {connect} from 'react-redux'
-import StockGraph from '@Components/StockGraph.js';
+import StockGraph from '@Components/StockGraph.js'
 import gdaxActions from '@Actions/GDAX'
+import {getCoinBalance} from '@Actions/balance'
 
 //Used to get out of Redux/Native Optimization of requiring
 //styles to be an object if used with connect
@@ -46,7 +47,8 @@ export const genCypherTabPage = (config) => {
 	//Dispatch mapper
     const mapDispatchToProps = (dispatch) => {
         return {
-		   loadHistoricPriceData: (granularity) => {dispatch(gdaxActions[coinName].initiateRequest(granularity))}
+		   loadHistoricPriceData: (granularity) => {dispatch(gdaxActions[coinName].initiateRequest(granularity))},
+		   loadCoinBalance: (access_token) => {dispatch(getCoinBalance(access_token, coinName))}
 		}
     }
 
@@ -57,7 +59,8 @@ export const genCypherTabPage = (config) => {
             isLoadingCoinPriceData: state.gdax[coinName].isPending,
             coinPriceData:state.gdax[coinName].data,
 			coinPriceError:state.gdax[coinName].error,
-			coinBalance:0
+			coinBalance:0,
+			Cypher_Token:state.auth.token
         };
     }
 
@@ -72,30 +75,44 @@ export const genCypherTabPage = (config) => {
 			//Bind member functions
 			this.loadHistoricPriceData.bind(this)
 			this.componentDidMount.bind(this)
+			this.loadCoinBalance.bind(this)
+			
 		}
 
 		componentDidMount(){
 			this.loadHistoricPriceData()
+			if(this.props.Cypher_Token){
+				console.log("Going for coin balances")
+				this.loadCoinBalance(this.props.Cypher_Token)
+			}
+		}
+
+		loadCoinBalance(access_token){
+			this.props.loadCoinBalance(access_token)
 		}
 
 		loadHistoricPriceData(){
-			this.props.loadHistoricPriceData(60)
+			this.props.loadHistoricPriceData(86400)
 		}
 
         render(){
-			const numDataPoints = this.props.coinPriceData.length
+			 
 			let coinCurrentPrice = 0
-			if(numDataPoints > 0) {
+			if(this.props.coinPriceData && this.props.coinPriceData.length > 0 ) {
+				const numDataPoints = this.props.coinPriceData.length
 				const coinCurrentPriceObj = this.props.coinPriceData[numDataPoints - 1]
 				coinCurrentPrice = coinCurrentPriceObj.close
 			}
+
+			
 
             return(
 			<View style={styles.container}>
 	        <Text style={styles.header}>{config.coinName}</Text>
 			{/*Conditionally Render coin price data*/}
+			<Text>Coin:{this.props.Cypher_Token}</Text>
 			<ActivityIndicator color="#fff" size="large" animating={this.props.isLoadingCoinPriceData}/>
-			{!(this.props.isLoadingCoinPriceData || this.props.coinPriceError) &&
+			{!(this.props.isLoadingCoinPriceData || this.props.coinPriceError) && (this.props.coinPriceData) &&
 			<View style={styles.gdaxContainer}>
 				<Text style={styles.content}>${coinCurrentPrice}</Text>
 	        	<StockGraph data={this.props.coinPriceData} />

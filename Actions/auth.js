@@ -6,7 +6,6 @@ import ActionTypes from '@Actions/ActionTypes.js'
 export function loginRequest(username, password, navigate) {
   return async (dispatch) => {
     //Start the login request
-    console.log("Starting login request")
     dispatch({type:ActionTypes.INITIATE_LOGIN_REQUEST})
     try {
         //Get the response from the Cypher Server

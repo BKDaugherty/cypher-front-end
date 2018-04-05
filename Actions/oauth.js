@@ -1,7 +1,6 @@
 import ActionTypes from '@Actions/ActionTypes.js'
 import CypherAPI from '@Data/CypherAPI/index.js'
 
-
 const genOnOAUTHComplete = (cypherAPILink) => {
     return (appAuthCode, cypherAccessToken) => {
 	return(dispatch) => {
@@ -14,7 +13,6 @@ const genOnOAUTHComplete = (cypherAPILink) => {
 	}
     }
 }
-
 
 //Generates the function to be dispatched
 //after the authCode is received
@@ -31,5 +29,3 @@ const genLinkToCypherAction = (CypherAPILink) => {
 
 export const plaidOnOAUTHComplete = genOnOAUTHComplete(CypherAPI.linkPlaidToCypher)
 export const coinbaseOnOAUTHComplete = genOnOAUTHComplete(CypherAPI.linkCoinbaseToCypher)
-
-

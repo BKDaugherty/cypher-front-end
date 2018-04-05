@@ -8,16 +8,17 @@
   "plugins": [
     ["module-resolver", {
       "alias": {
-       "@Components": "./Components",
-          "@Containers": "./Containers",
-          "@Actions":"./Actions",
-          "@Reducers":"./Reducers",
-          "@Store":"./Store",
-          "@Navigation":"./Navigation",
-          "@Data":"./Data",
-          "@Style":"./Style",
-          "@Images":"./Assets/Images",
-          "@Assets":"./Assets"
+        "@Components": "./Components",
+        "@Containers": "./Containers",
+        "@Actions":"./Actions",
+        "@Reducers":"./Reducers",
+        "@Store":"./Store",
+        "@Navigation":"./Navigation",          
+        "@Data":"./Data",
+        "@Style":"./Style",
+        "@Images":"./Assets/Images",
+        "@Assets":"./Assets",
+        "@Utility":"./Utility"
       }
     }]
   ]

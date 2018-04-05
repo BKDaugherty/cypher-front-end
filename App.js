@@ -1,19 +1,18 @@
 import React, { Component } from 'react'
 import { AppRegistry } from 'react-native'
 import { Provider } from 'react-redux'
-import Application from '@Containers/Application.js'
-import ReduxNavigation from '@Navigation/ReduxNavigation.js'
-import store from '@Store/store.js'
+import LoadingView from '@Components/LoadingView.js'
+import RootNav from '@Navigation/RootNav'
+import { PersistGate } from 'redux-persist/lib/integration/react';
+import {store, persistor} from '@Store/store.js'
 import { Font } from 'expo'
-
-const storeObj = store()
 
 export default class App extends Component {
     constructor(props){
 	super(props)
 	this.state = {
 	    loadedFonts:false,
-	}
+		}
     }
     
     async componentDidMount() {
@@ -30,9 +29,15 @@ export default class App extends Component {
     render() {
 
 	//Dont render app until fonts are loaded async
+	//Should render the loading splash screen?
 	return this.state.loadedFonts ?
-	       (<Provider store={storeObj}><ReduxNavigation />
-		   </Provider>) : null
+	       (
+		   <Provider store={store}>
+		   	<PersistGate loading={<LoadingView />} persistor={persistor}>
+		   		<RootNav />
+			</PersistGate>
+		   </Provider>
+		   ) : <LoadingView/>
 
     }
 }
