@@ -1,4 +1,4 @@
-export const BASEURL = "http://cypherapp.herokuapp.com/"
+export const BASEURL = "https://cypherapp.herokuapp.com"
 export const Endpoints = {
     userSignUp:'/user/sign-up',
     userLogin:'/user/login',

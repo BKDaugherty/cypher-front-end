@@ -3,7 +3,7 @@ import {ActivityIndicator, StyleSheet, Text, View, TouchableHighlight } from 're
 import {connect} from 'react-redux'
 import StockGraph from '@Components/StockGraph.js'
 import gdaxActions from '@Actions/GDAX'
-import {getCoinBalance} from '@Actions/balance'
+import {getBalance} from '@Actions/balance'
 
 //Used to get out of Redux/Native Optimization of requiring
 //styles to be an object if used with connect
@@ -48,7 +48,7 @@ export const genCypherTabPage = (config) => {
     const mapDispatchToProps = (dispatch) => {
         return {
 		   loadHistoricPriceData: (granularity) => {dispatch(gdaxActions[coinName].initiateRequest(granularity))},
-		   loadCoinBalance: (access_token) => {dispatch(getCoinBalance(access_token, coinName))}
+		   loadCoinBalance: (access_token) => {dispatch(getBalance(access_token, coinName))}
 		}
     }
 
@@ -110,7 +110,7 @@ export const genCypherTabPage = (config) => {
 			<View style={styles.container}>
 	        <Text style={styles.header}>{config.coinName}</Text>
 			{/*Conditionally Render coin price data*/}
-			<Text>Coin:{this.props.Cypher_Token}</Text>
+			{/*<Text>Coin:{this.props.Cypher_Token}</Text>*/}
 			<ActivityIndicator color="#fff" size="large" animating={this.props.isLoadingCoinPriceData}/>
 			{!(this.props.isLoadingCoinPriceData || this.props.coinPriceError) && (this.props.coinPriceData) &&
 			<View style={styles.gdaxContainer}>

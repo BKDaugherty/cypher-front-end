@@ -9,7 +9,12 @@ export async function getHistoricRates(coin, granularity){
     try {
         const responseRates = await fetch(`${baseURL}${endpoint}?granularity=${granularity}`)
         const jsonResponseRates = await responseRates.json()
-          //Format the array of buckets into a parseable object
+        if(!jsonResponseRates.map){
+            //Rate limit exceeded by gdax... just need to wait?
+            throw {jsonResponseRates}
+            console.log(jsonResponseRates)
+        }
+        //Format the array of buckets into a parseable object
         //Not necessary but I think its cleaner... Might be slow?
          const formattedRates = jsonResponseRates.map(bucket => 
             ({    
@@ -24,7 +29,6 @@ export async function getHistoricRates(coin, granularity){
         return formattedRates
     }
     catch (error) {
-        console.error(error)
         return null
     }  
 }

@@ -12,7 +12,7 @@ export function loginRequest(username, password, navigate) {
         //Get the response from the Cypher Server
         const response = await CypherAPI.postLogin(username, password)
         //Dispatch success
-        return dispatch(loginRequestSuccess(username, response.token, navigate))
+        return dispatch(loginRequestSuccess(username, response.access_token, navigate))
     }
     catch(error){
         //Extract the error

@@ -24,6 +24,7 @@ const postLogin = (email, password) => {
 }
 
 function parseResponse(response) {
+    console.log(response)
     if(response.status >= 400){
         throw response.json()
     } else {
@@ -74,19 +75,19 @@ const mapCoinToAbbrev = (coinName) => {
 //hold this information and throw it to the components...
 const getBalance = (access_token, coinName) => {
     const abbrev = mapCoinToAbbrev(coinName)
-    return secureRequest(access_token, Endpoints.userPortfolio)
+    return secureRequest(access_token, Endpoints.userPortfolio).then(parseResponse)
 }
 
 //Curried abstraction for fetch
 //With secure token inline
-const secureRequest = (access_token, endPoint, method = 'get',  body = {}, headers = {}) => {
+const secureRequest = (access_token, endPoint, method = 'get',  body = null, headers = {}) => {
     headers.Authorization = `Bearer ${access_token}`
     return standardRequest(endPoint, method, body, headers)
 }
 
 
 //Base abstraction for request to Cypher API
-const standardRequest = (endPoint, method ='get',  body = {}, passedHeaders = {}) => {
+const standardRequest = (endPoint, method ='get',  body = null, passedHeaders = {}) => {
 
     let headers = new Headers({
 	'Content-Type': 'application/json'
@@ -95,9 +96,17 @@ const standardRequest = (endPoint, method ='get',  body = {}, passedHeaders = {}
     Object.keys(passedHeaders).forEach( key => {
 	headers.append(key, passedHeaders[key])
     })
+
     
-    return fetch(`${BASEURL}${endPoint}`, {method, body:JSON.stringify(body), headers})
-    .then(parseResponse) 
+    if(body){
+        return fetch(`${BASEURL}${endPoint}`, {method, body:JSON.stringify(body), headers})
+        .then(parseResponse) 
+    } else {
+        return fetch(`${BASEURL}${endPoint}`, {method, headers})
+        .then(parseResponse) 
+    }
+
+   
 
     
 }
@@ -108,5 +117,6 @@ export default {
     postLogin,
     postSignUp,
     linkCoinbaseToCypher,
-    linkPlaidToCypher
+    linkPlaidToCypher,
+    getBalance
 }

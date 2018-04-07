@@ -1,26 +1,51 @@
 
 import React from 'react'
-import {SafeAreaView, Text, View, TextInput, TouchableHighlight, ScrollView} from 'react-native'
+import {StatusBar, SafeAreaView, Text, View, TextInput, TouchableHighlight, ScrollView, TouchableOpacity} from 'react-native'
 import {addNavigationHelpers, DrawerItems, StackNavigator, TabNavigator, DrawerNavigator} from 'react-navigation'
 import * as Routes from './Routes'
 import CustomTabBar from '@Components/CustomTabBar'
-import {APPDARKGRAY} from '@Style/constants'
+import {APPDARKGRAY, WEBLIGHTBLUE, WEBDARKBLUE, WEBPINK } from '@Style/constants'
 
 import {connect} from 'react-redux'
 
+const DrawerSlot = (props) => (
+<TouchableOpacity onPress={() => 
+    props.navigation.navigate(props.destination)
+}
+style={{
+    backgroundColor:props.color,
+    alignSelf: 'stretch',
+    display:"flex",
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center'
+}}
+/>
+)
+
 const customDrawer = (props) => {
     return (
-        <SafeAreaView>
-            <ScrollView>
-                <Text>Hello User! Balance: $0</Text>
-                <DrawerItems {...props}/>
-                <TouchableHighlight onPress={() => {props.navigation.navigate(Routes.LoginScreen)}}>
-                    <Text>Logout</Text>
-                </TouchableHighlight>
+        <SafeAreaView style={{display:"flex", flex:1, backgroundColor:APPDARKGRAY}}>
+            <ScrollView style={{display:"flex", flexDirection:'row'}}>
+                <View style={{backgroundColor:APPDARKGRAY, 
+                    flex:1}}>
+                    <Text>Hello {props.username}! Balance: $0</Text>
+                </View>
+                <DrawerSlot navigation={props.navigation} color={WEBDARKBLUE} destination={Routes.SignUpScreen}/>
+                <DrawerSlot navigation={props.navigation} color={WEBLIGHTBLUE} destination={Routes.SettingsScreen}/>
+                <DrawerSlot navigation={props.navigation} color={WEBPINK} destination={Routes.LoginScreen}/>
             </ScrollView>
         </SafeAreaView>
+        
     )
 }
+const customDrawerMap = (state, ownProps) => ({
+    username:state.auth.username,
+})
+
+const customDrawerContainer = connect(customDrawerMap)(customDrawer)
+
+//import customDrawer2 from '@Containers/CustomDrawerContainer'
 
 //Import custom screens
 
@@ -48,7 +73,7 @@ const MainDrawerConfig = {
     navigationOptions:{
         gesturesEnabled:true
     },
-    contentComponent:customDrawer,
+    contentComponent:customDrawerContainer,
 }
 
 const MainTabsConfig = {
@@ -61,6 +86,7 @@ const MainTabsConfig = {
 
 import AuthPageContainer from '@Containers/AuthPageContainer.js'
 import SignUpPageContainer from '@Containers/SignUpPageContainer.js'
+import HomePageContainer from '@Containers/HomePageContainer'
 import SplashScreen from '@Containers/SplashScreen'
 import SettingsPageContainer from '@Containers/SettingsPageContainer'
 
@@ -88,7 +114,7 @@ export const AppNavigator = StackNavigator({
         screen:DrawerNavigator({
             [Routes.MainApp]:{
                 screen:TabNavigator({
-                    [Routes.PortfolioTab]:{screen:SettingsPageContainer}, 
+                    [Routes.PortfolioTab]:{screen:HomePageContainer}, 
                     [Routes.BitcoinTab]: {screen:BitcoinContainer },
                     [Routes.EthereumTab]: { screen:EthereumContainer  },
                     [Routes.BitcoinCashTab]: { screen: BitcoinCashContainer },

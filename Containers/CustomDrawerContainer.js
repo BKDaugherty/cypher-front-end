@@ -1,44 +1,39 @@
 import React from 'react';
 import {connect} from 'react-redux'
-import { loginRequest } from '@Actions/auth.js'
-import {StyleSheet, Text, Button, TextInput,ScrollView, View} from 'react-native'
+import {TouchableHighlight, SafeAreaView, StyleSheet, Text, ScrollView, } from 'react-native'
 import {APPDARKGRAY} from '@Style/constants.js'
 import {NavigationActions} from 'react-navigation'
 import {SideDrawerComponent, SideDrawerHeader} from '@Components/DrawerComponent.js'
+import {PortfolioTab, SettingsScreen,LoginScreen} from "@Navigation/Routes"
 
-class SideSecureMenuContainer extends React.Component{
+const SideSecureMenuContainer = (props) => 
 
-    navigateToScreen = (route) => () => {
-	const navigateAction = NavigationActions.navigate({
-	    routeName:route
-	})
-	this.props.navigation.dispatch(navigateAction)
-    }
-    
-    render() {
+    {
 	return (
-	    <View style={styles.container}>
+	    <SafeAreaView style={styles.container}>
 	    <ScrollView style={styles.subContainer}>
-	    <SideDrawerHeader title={`Hello ${this.props.username}`}/>
+	    <SideDrawerHeader title={`Hello ${props.username}`}/>
 	    <SideDrawerComponent
 	      label="Home"
 	      iconProps={{size:32, type:'evilicon', name:'chart', color:'white'}}
-	      onPress={this.navigateToScreen('HomePage')}
+	      onPress={props.navigation.navigate(PortfolioTab)}
 	    />
 
 	    <SideDrawerComponent
 	      label="Settings"
 	      iconProps={{size:32, type:'evilicon', name:'gear', color:'white'}}
-	      onPress={this.navigateToScreen('SettingsPage')}
+	      onPress={props.navigation.navigate(SettingsScreen)}
 	    />
+		<TouchableHighlight onPress={() => { props.navigation.navigate(LoginScreen)}}>
+        <Text>Logout</Text>
+        </TouchableHighlight>
 
-	    
 	    </ScrollView>
-	    </View>
+	    </SafeAreaView>
 
 	    );
 	}    
-}
+
 
 const styles = StyleSheet.create({
   container: {
@@ -57,9 +52,9 @@ const styles = StyleSheet.create({
 
 const mapStateToProps = (state, ownProps) => {
     return {
-	username: state.auth.username
+		username: state.auth.username
     };
 }
 
 
-export default connect(mapStateToProps, null)(SideSecureMenuContainer);
+export default connect(mapStateToProps)(SideSecureMenuContainer);

@@ -7,7 +7,6 @@ import { PersistGate } from 'redux-persist/lib/integration/react';
 import {store, persistor} from '@Store/store.js'
 import { Font } from 'expo'
 
-persistor.purge()
 
 export default class App extends Component {
     constructor(props){
@@ -26,7 +25,7 @@ export default class App extends Component {
 	    'pt-sans':require('./Assets/fonts/PT_Sans/PT_Sans-Web-Regular.ttf')
 	})
 
-	this.setState({ loadedFonts:true })
+		this.setState({ loadedFonts:true })
     }
     render() {
 
