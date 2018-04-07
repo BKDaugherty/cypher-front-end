@@ -1,6 +1,7 @@
 import CypherAPI from '@Data/CypherAPI/index.js'
 import ActionTypes from '@Actions/ActionTypes.js'
 
+import {PortfolioTab, LoginScreen} from '@Navigation/Routes'
 
 //Pure functions yay!
 export function loginRequest(username, password, navigate) {
@@ -25,7 +26,7 @@ export function loginRequest(username, password, navigate) {
 //Dispatched on success
 export const loginRequestSuccess = (username, token, navigate) => {
     //Navigate to the homepage on success
-    navigate('HomePage')
+    navigate(PortfolioTab)
     return {type: ActionTypes.LOGIN_REQUEST_SUCCESS, username, token}
 }
 
@@ -46,7 +47,7 @@ export const signUpRequest = (firstName, lastName, email, password, navigate) =>
             const response = await CypherAPI.postSignUp(firstName, lastName, email, password)
 
             //Navigate back to login --> Don't really like that this is here...
-            navigate('loginScreen')
+            navigate(LoginScreen)
 
             //Dispatch the success of signup
             //Signal to the user that signup was successful

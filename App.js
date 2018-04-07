@@ -2,10 +2,12 @@ import React, { Component } from 'react'
 import { AppRegistry } from 'react-native'
 import { Provider } from 'react-redux'
 import LoadingView from '@Components/LoadingView.js'
-import RootNav from '@Navigation/RootNav'
+import {AppNavigation} from '@Navigation/AppNavigation'
 import { PersistGate } from 'redux-persist/lib/integration/react';
 import {store, persistor} from '@Store/store.js'
 import { Font } from 'expo'
+
+persistor.purge()
 
 export default class App extends Component {
     constructor(props){
@@ -34,10 +36,10 @@ export default class App extends Component {
 	       (
 		   <Provider store={store}>
 		   	<PersistGate loading={<LoadingView />} persistor={persistor}>
-		   		<RootNav />
+		   		<AppNavigation />
 			</PersistGate>
 		   </Provider>
-		   ) : <LoadingView/>
+		   ) : (<LoadingView/>)
 
     }
 }

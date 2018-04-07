@@ -5,6 +5,8 @@ import {TouchableOpacity, KeyboardAvoidingView, StyleSheet, Text, Button, TextIn
 import {APPDARKGRAY} from '@Style/constants.js'
 import AppLogo from '@Components/AppLogo.js'
 
+import {SignUpScreen} from '@Navigation/Routes'
+
 class AuthPageContainer extends React.Component{
 
   constructor(props) {
@@ -23,7 +25,8 @@ class AuthPageContainer extends React.Component{
   }
 
   userSignUp(e) {
-    this.props.navigation.navigate('signUpScreen')
+    console.log(this.props.navigation)
+    this.props.navigation.navigate(SignUpScreen)
     e.preventDefault()
   }
 
