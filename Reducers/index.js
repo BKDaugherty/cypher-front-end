@@ -5,11 +5,13 @@ import navigation from '@Reducers/navigation'
 import stockGraph from '@Reducers/stockGraph.js'
 import {coinbase, plaid} from '@Reducers/oauth.js'
 import gdax from '@Reducers/gdax.js'
+import balance from '@Reducers/balance.js'
 
 
 export default combineReducers({
   auth,
   navigation,
+  balance,
   stockGraph,
   coinbase,
   plaid,

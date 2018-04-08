@@ -7,7 +7,6 @@ import { PersistGate } from 'redux-persist/lib/integration/react';
 import {store, persistor} from '@Store/store.js'
 import { Font } from 'expo'
 
-
 export default class App extends Component {
     constructor(props){
 	super(props)

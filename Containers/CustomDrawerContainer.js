@@ -1,60 +1,45 @@
-import React from 'react';
+import React from 'react'
 import {connect} from 'react-redux'
-import {TouchableHighlight, SafeAreaView, StyleSheet, Text, ScrollView, } from 'react-native'
-import {APPDARKGRAY} from '@Style/constants.js'
-import {NavigationActions} from 'react-navigation'
-import {SideDrawerComponent, SideDrawerHeader} from '@Components/DrawerComponent.js'
-import {PortfolioTab, SettingsScreen,LoginScreen} from "@Navigation/Routes"
+import {SafeAreaView, ScrollView, View, TouchableOpacity, Text} from 'react-native'
+import {APPDARKGRAY, WEBDARKBLUE, WEBLIGHTBLUE, WEBPINK} from "@Style/constants"
+import {LoginScreen, SettingsScreen, PortfolioTab } from '@Navigation/Routes'
+import { CypherText } from '@Style/BaseComponents';
 
-const SideSecureMenuContainer = (props) => 
-
-    {
-	return (
-	    <SafeAreaView style={styles.container}>
-	    <ScrollView style={styles.subContainer}>
-	    <SideDrawerHeader title={`Hello ${props.username}`}/>
-	    <SideDrawerComponent
-	      label="Home"
-	      iconProps={{size:32, type:'evilicon', name:'chart', color:'white'}}
-	      onPress={props.navigation.navigate(PortfolioTab)}
-	    />
-
-	    <SideDrawerComponent
-	      label="Settings"
-	      iconProps={{size:32, type:'evilicon', name:'gear', color:'white'}}
-	      onPress={props.navigation.navigate(SettingsScreen)}
-	    />
-		<TouchableHighlight onPress={() => { props.navigation.navigate(LoginScreen)}}>
-        <Text>Logout</Text>
-        </TouchableHighlight>
-
-	    </ScrollView>
-	    </SafeAreaView>
-
-	    );
-	}    
+const DrawerSlot = (props) => (
+	<TouchableOpacity onPress={props.onPress}
+	style={{
+		backgroundColor:props.color,
+		display:"flex",
+		flex: 1,
+		alignItems: 'center',
+		justifyContent: 'center'
+	}}
+	>{props.children}</TouchableOpacity>
+	)
 
 
-const styles = StyleSheet.create({
-  container: {
-      flex: 1,
-      flexDirection:'column',
-      backgroundColor: APPDARKGRAY,
-      alignItems: 'center',
-      justifyContent: 'center',
-  },
-    subContainer:{
-	marginTop:'10%',
-	width:'85%',
-    }
-});
-
-
-const mapStateToProps = (state, ownProps) => {
-    return {
-		username: state.auth.username
-    };
+const customDrawer = (props) => {
+    return (
+        <SafeAreaView style={{display:"flex", flex:1, flexDirection:"column", alignItems:"stretch", justifyContent:"center", backgroundColor:APPDARKGRAY}}>
+                <DrawerSlot onPress={() => props.navigation.navigate(PortfolioTab)} color={APPDARKGRAY}>
+                    <CypherText>Hello {props.username}! Balance: $0</CypherText>
+                </DrawerSlot>
+                <DrawerSlot onPress={() => props.navigation.navigate(LoginScreen)} color={WEBDARKBLUE}>
+					<CypherText>About</CypherText>
+				</DrawerSlot>
+                <DrawerSlot onPress={() => props.navigation.navigate(SettingsScreen)} color={WEBLIGHTBLUE}>
+					<CypherText>Settings</CypherText>
+				</DrawerSlot>
+                <DrawerSlot onPress={() => props.navigation.navigate(LoginScreen)} color={WEBPINK}>
+					<CypherText>Logout</CypherText>
+				</DrawerSlot>
+        </SafeAreaView>
+        
+    )
 }
+const customDrawerMap = (state, ownProps) => ({
+    username:state.auth.username,
+})
 
-
-export default connect(mapStateToProps)(SideSecureMenuContainer);
+const customDrawerContainer = connect(customDrawerMap)(customDrawer)
+export default customDrawerContainer

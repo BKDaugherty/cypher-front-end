@@ -15,7 +15,7 @@ render() {
   </View>
 
   <View style={styles.StockGraphView}>
-    <StockGraph data={[0,1,2,3]}/>
+    {/*<StockGraph data={[0,1,2,3]}/>*/}
   </View>
 
   <View style={styles.AppFooter}>

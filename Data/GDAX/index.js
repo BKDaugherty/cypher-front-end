@@ -12,7 +12,7 @@ export async function getHistoricRates(coin, granularity){
         if(!jsonResponseRates.map){
             //Rate limit exceeded by gdax... just need to wait?
             throw {jsonResponseRates}
-            console.log(jsonResponseRates)
+            //console.log(jsonResponseRates)
         }
         //Format the array of buckets into a parseable object
         //Not necessary but I think its cleaner... Might be slow?

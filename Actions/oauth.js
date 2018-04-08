@@ -8,7 +8,9 @@ const genOnOAUTHComplete = (cypherAPILink) => {
 	    //plaid use the same configuration...
 	    
 	    const linkAppToCypher = genLinkToCypherAction(cypherAPILink)
-	    //Define general dispatch to link app with?
+		//Define general dispatch to link app with?
+		console.log("APP AUTH CODE:")
+		console.log(appAuthCode)
 	    return dispatch(linkAppToCypher(cypherAccessToken, appAuthCode))
 	}
     }
@@ -16,16 +18,19 @@ const genOnOAUTHComplete = (cypherAPILink) => {
 
 //Generates the function to be dispatched
 //after the authCode is received
-const genLinkToCypherAction = (CypherAPILink) => {
+const genLinkToCypherAction = (CypherAPILink, SUCCESS, FAILURE) => {
     return (access_token, appAuthCode) => {
-	return (dispatch) => {
-	    CypherAPILink(access_token, appAuthCode)
-		.then( response => {
-		    return {type: OAUTH_SUCCESS}
-		})
+		return async (dispatch) => {
+			try {
+				const response = await CypherAPILink(access_token, appAuthCode)
+				return {type:SUCCESS}
+			}
+			catch (error) {
+				return {type:FAILURE, error}
+			}
+		}
 	}
-    }
 }
 
-export const plaidOnOAUTHComplete = genOnOAUTHComplete(CypherAPI.linkPlaidToCypher)
-export const coinbaseOnOAUTHComplete = genOnOAUTHComplete(CypherAPI.linkCoinbaseToCypher)
+export const plaidOnOAUTHComplete = genOnOAUTHComplete(CypherAPI.linkPlaidToCypher, ActionTypes.COINBASE_OAUTH_SUCCESS, ActionTypes.COINBASE_OAUTH_FAILURE)
+export const coinbaseOnOAUTHComplete = genOnOAUTHComplete(CypherAPI.linkCoinbaseToCypher, ActionTypes.PLAID_OAUTH_SUCCESS,ActionTypes.PLAID_OAUTH_FAILURE)

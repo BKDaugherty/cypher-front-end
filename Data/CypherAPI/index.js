@@ -24,36 +24,39 @@ const postLogin = (email, password) => {
 }
 
 function parseResponse(response) {
-    console.log(response)
+    console.log(response)   
     if(response.status >= 400){
-        throw response.json()
+
+        throw {message:response.statusText, status:response.status}
     } else {
         return response.json()
     }
 }
 
 //These two could prolly be abstracted into one function as well...
-const linkCoinbaseToCypher = (access_token, coinbase_auth_token) => {
+const linkCoinbaseToCypher = (access_token, coinbase_code) => {
     const postBody = {
-	coinbase_auth_token
+        coinbase_code
     }
 
-    console.log("Coinbase Auth Token:")
-    console.log(coinbase_auth_token)
-    
-    return secureRequest(access_token, Endpoints.userCoinbase,"post", postBody).then((response) => {
-	return response.json()
-    })
+    if(!coinbase_code){
+        console.error("No coinbase token to post")
+    } else {
+        console.log(access_token)
+        return secureRequest(access_token, Endpoints.userCoinbase,"post", postBody)
+    }
 }
 
 const linkPlaidToCypher = (access_token, plaid_auth_token) => {
     const postBody = {
-	plaid_auth_token
+	    plaid_auth_token
     }
-    
-    return secureRequest(access_token, Endpoints.userPlaid,"post", postBody).then((response) => {
-	return response.json()
-    })
+
+    if(!plaid_auth_token){
+        console.error("No plaid token to post")
+    } else {
+        return secureRequest(access_token, Endpoints.userPlaid,"post", postBody)
+    }
 }
 
 //Enumeration or something to avoid all of this?
@@ -75,6 +78,7 @@ const mapCoinToAbbrev = (coinName) => {
 //hold this information and throw it to the components...
 const getBalance = (access_token, coinName) => {
     const abbrev = mapCoinToAbbrev(coinName)
+    //console.log("Sending request", access_token)
     return secureRequest(access_token, Endpoints.userPortfolio).then(parseResponse)
 }
 
@@ -90,14 +94,15 @@ const secureRequest = (access_token, endPoint, method = 'get',  body = null, hea
 const standardRequest = (endPoint, method ='get',  body = null, passedHeaders = {}) => {
 
     let headers = new Headers({
-	'Content-Type': 'application/json'
+	    'Content-Type': 'application/json'
     })
 
     Object.keys(passedHeaders).forEach( key => {
 	headers.append(key, passedHeaders[key])
     })
 
-    
+    console.log(`${BASEURL}${endPoint}`)
+
     if(body){
         return fetch(`${BASEURL}${endPoint}`, {method, body:JSON.stringify(body), headers})
         .then(parseResponse) 

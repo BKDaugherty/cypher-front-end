@@ -23,29 +23,8 @@ style={{
 />
 )
 
-const customDrawer = (props) => {
-    return (
-        <SafeAreaView style={{display:"flex", flex:1, backgroundColor:APPDARKGRAY}}>
-            <ScrollView style={{display:"flex", flexDirection:'row'}}>
-                <View style={{backgroundColor:APPDARKGRAY, 
-                    flex:1}}>
-                    <Text>Hello {props.username}! Balance: $0</Text>
-                </View>
-                <DrawerSlot navigation={props.navigation} color={WEBDARKBLUE} destination={Routes.SignUpScreen}/>
-                <DrawerSlot navigation={props.navigation} color={WEBLIGHTBLUE} destination={Routes.SettingsScreen}/>
-                <DrawerSlot navigation={props.navigation} color={WEBPINK} destination={Routes.LoginScreen}/>
-            </ScrollView>
-        </SafeAreaView>
-        
-    )
-}
-const customDrawerMap = (state, ownProps) => ({
-    username:state.auth.username,
-})
 
-const customDrawerContainer = connect(customDrawerMap)(customDrawer)
-
-//import customDrawer2 from '@Containers/CustomDrawerContainer'
+import customDrawerContainer from '@Containers/CustomDrawerContainer'
 
 //Import custom screens
 

@@ -1,5 +1,5 @@
 import React from 'react';
-import {ActivityIndicator, StyleSheet, Text, View, TouchableHighlight } from 'react-native';
+import {ActivityIndicator, StyleSheet, Text, View, TouchableHighlight, TouchableOpacity } from 'react-native';
 import {connect} from 'react-redux'
 import StockGraph from '@Components/StockGraph.js'
 import gdaxActions from '@Actions/GDAX'
@@ -48,18 +48,18 @@ export const genCypherTabPage = (config) => {
     const mapDispatchToProps = (dispatch) => {
         return {
 		   loadHistoricPriceData: (granularity) => {dispatch(gdaxActions[coinName].initiateRequest(granularity))},
-		   loadCoinBalance: (access_token) => {dispatch(getBalance(access_token, coinName))}
+		   loadCoinBalance: (access_token) => {
+			   dispatch(getBalance(access_token, coinName))}
 		}
     }
 
     //Redux state mapping
     const mapStateToProps = (state, ownProps) => {
-
         return {
             isLoadingCoinPriceData: state.gdax[coinName].isPending,
             coinPriceData:state.gdax[coinName].data,
 			coinPriceError:state.gdax[coinName].error,
-			coinBalance:0,
+			coinBalance:state.balance.balances[coinName],
 			Cypher_Token:state.auth.token
         };
     }
@@ -76,13 +76,16 @@ export const genCypherTabPage = (config) => {
 			this.loadHistoricPriceData.bind(this)
 			this.componentDidMount.bind(this)
 			this.loadCoinBalance.bind(this)
-			
+			this.loadPageData.bind(this)
 		}
 
 		componentDidMount(){
+			this.loadPageData()
+		}
+
+		loadPageData(){
 			this.loadHistoricPriceData()
 			if(this.props.Cypher_Token){
-				console.log("Going for coin balances")
 				this.loadCoinBalance(this.props.Cypher_Token)
 			}
 		}
@@ -95,22 +98,18 @@ export const genCypherTabPage = (config) => {
 			this.props.loadHistoricPriceData(86400)
 		}
 
-        render(){
-			 
+        render(){ 
 			let coinCurrentPrice = 0
 			if(this.props.coinPriceData && this.props.coinPriceData.length > 0 ) {
 				const numDataPoints = this.props.coinPriceData.length
 				const coinCurrentPriceObj = this.props.coinPriceData[numDataPoints - 1]
-				coinCurrentPrice = coinCurrentPriceObj.close
+				coinCurrentPrice = coinCurrentPriceObj.open
 			}
-
-			
 
             return(
 			<View style={styles.container}>
 	        <Text style={styles.header}>{config.coinName}</Text>
 			{/*Conditionally Render coin price data*/}
-			{/*<Text>Coin:{this.props.Cypher_Token}</Text>*/}
 			<ActivityIndicator color="#fff" size="large" animating={this.props.isLoadingCoinPriceData}/>
 			{!(this.props.isLoadingCoinPriceData || this.props.coinPriceError) && (this.props.coinPriceData) &&
 			<View style={styles.gdaxContainer}>
@@ -119,6 +118,9 @@ export const genCypherTabPage = (config) => {
 			</View>
             }
 	        <Text style={styles.footer}>Balance:{this.props.coinBalance}</Text>
+			<TouchableOpacity onPress={() => this.loadPageData()}>
+				<Text style={styles.footer}>Reload</Text>
+			</TouchableOpacity>
 	        </View>)
         }
     }

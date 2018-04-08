@@ -1,8 +1,10 @@
+
+
 export const CoinbaseConfig = {
-    APP_ID:'3d7cb5a5c583949d48027046310f7c50c7435dd1e5763caca6233bcaf85d5185',
+    APP_ID:'90b77a87cb39d951d90cffb4edf89bd4320fad42464caec84b7d7d0b90e39fab',
     AUTH_ENDPOINT:'https://www.coinbase.com/oauth/authorize?',
-    REDIRECT_URI:encodeURIComponent('https://infinite-atoll-68313.herokuapp.com/'),
-    EXTRAQUERYPARAMS:'&response_type=code&scope=wallet%3Auser%3Aread'
+    REDIRECT_URI:encodeURIComponent('https://infinite-atoll-68313.herokuapp.com'),
+    EXTRAQUERYPARAMS:'&response_type=code&account=all&scope=wallet%3Aaccounts%3Aread%20wallet%3Apayment-methods%3Aread%20wallet%3Abuys%3Acreate'
 }
 
 export const CoinbaseAuthRequestURL = `${CoinbaseConfig.AUTH_ENDPOINT}` +

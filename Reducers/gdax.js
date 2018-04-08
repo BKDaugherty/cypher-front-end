@@ -20,7 +20,7 @@ function curriedReducer(coin){
                     isPending:false,
                     data:action.historicRates,
                 })
-            case coin + ActionTypes.GDAX_REQUST_FAILURE:
+            case coin + ActionTypes.GDAX_REQUEST_FAILURE:
                 return Object.assign({},state, {
                     isPending:false,
                     error:action.error,
