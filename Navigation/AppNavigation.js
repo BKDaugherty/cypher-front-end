@@ -8,22 +8,6 @@ import {APPDARKGRAY, WEBLIGHTBLUE, WEBDARKBLUE, WEBPINK } from '@Style/constants
 
 import {connect} from 'react-redux'
 
-const DrawerSlot = (props) => (
-<TouchableOpacity onPress={() => 
-    props.navigation.navigate(props.destination)
-}
-style={{
-    backgroundColor:props.color,
-    alignSelf: 'stretch',
-    display:"flex",
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center'
-}}
-/>
-)
-
-
 import customDrawerContainer from '@Containers/CustomDrawerContainer'
 
 //Import custom screens
@@ -39,7 +23,8 @@ const AuthFlowConfig = {
     navigationOptions:{
         headerStyle:{
             backgroundColor:APPDARKGRAY,
-            borderBottomWidth:0
+            borderBottomWidth:0,
+            borderRightWidth:0
         }
     }
 }

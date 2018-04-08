@@ -26,7 +26,6 @@ const postLogin = (email, password) => {
 function parseResponse(response) {
     console.log(response)   
     if(response.status >= 400){
-
         throw {message:response.statusText, status:response.status}
     } else {
         return response.json()
