@@ -44,11 +44,7 @@ export default function reducer(state = defaultState, action) {
                 isSigningUp:false
             });
         case ActionTypes.LOGOUT:
-            return Object.assign({}, state, {
-                isLoggedIn: false,
-                username: '',
-                token: ''
-            });
+            return Object.assign({}, state, defaultState);
         default:
             return state;
     }

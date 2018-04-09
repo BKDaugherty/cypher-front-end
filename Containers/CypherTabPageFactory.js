@@ -1,5 +1,5 @@
 import React from 'react';
-import {ActivityIndicator, StyleSheet, Text, View, TouchableHighlight, TouchableOpacity } from 'react-native';
+import {SafeAreaView, ScrollView, RefreshControl, ActivityIndicator, StyleSheet, Text, View, TouchableHighlight, TouchableOpacity } from 'react-native';
 import {connect} from 'react-redux'
 import StockGraph from '@Components/StockGraph.js'
 import gdaxActions from '@Actions/GDAX'
@@ -60,6 +60,7 @@ export const genCypherTabPage = (config) => {
             coinPriceData:state.gdax[coinName].data,
 			coinPriceError:state.gdax[coinName].error,
 			coinBalance:state.balance.balances[coinName],
+			isLoadingCoinBalance:state.balance.isPending,
 			Cypher_Token:state.auth.token
         };
     }
@@ -107,7 +108,17 @@ export const genCypherTabPage = (config) => {
 			}
 
             return(
-			<View style={styles.container}>
+			<ScrollView style={{backgroundColor:config.backgroundColor}} contentContainerStyle={styles.container}
+			refreshControl={<RefreshControl 
+				refreshing={this.props.isLoadingCoinPriceData || this.props.isLoadingCoinBalance}
+				onRefresh={() => this.loadPageData()}
+				colors={["white"]}
+				style={{backgroundColor:config.backgroundColor}}/>}
+			endFillColor={config.backgroundColor}>
+			
+			{/*Add drag to refresh*/}
+			
+
 	        <Text style={styles.header}>{config.coinName}</Text>
 			{/*Conditionally Render coin price data*/}
 			<ActivityIndicator color="#fff" size="large" animating={this.props.isLoadingCoinPriceData}/>
@@ -116,12 +127,11 @@ export const genCypherTabPage = (config) => {
 				<Text style={styles.content}>${coinCurrentPrice}</Text>
 	        	<StockGraph data={this.props.coinPriceData} />
 			</View>
-            }
+			}
+			
 	        <Text style={styles.footer}>Balance:{this.props.coinBalance}</Text>
-			<TouchableOpacity onPress={() => this.loadPageData()}>
-				<Text style={styles.footer}>Reload</Text>
-			</TouchableOpacity>
-	        </View>)
+	        </ScrollView>
+			)
         }
     }
 

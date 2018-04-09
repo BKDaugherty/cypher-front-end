@@ -65,9 +65,3 @@ export const signUpRequest = (firstName, lastName, email, password, navigate) =>
         }
   }
 }
-
-export const logout = () => {
-    return {
-        type: ActionTypes.LOGOUT
-    };
-};

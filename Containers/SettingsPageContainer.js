@@ -3,7 +3,7 @@ import React from 'react'
 import {Button, StyleSheet, Text, View, TouchableHighlight, Modal } from 'react-native'
 
 //Styles
-import { WEBLIGHTBLUE} from '@Style/constants.js'
+import { WEBDARKBLUE} from '@Style/constants.js'
 
 //OAUTH Implementations
 import OAUTHSwitch from '@Components/OAUTHSwitch.js'
@@ -136,7 +136,7 @@ const styles = StyleSheet.create({
     container:{
 	flex:1,
 	flexDirection:'column',
-	  backgroundColor:WEBLIGHTBLUE,
+	  backgroundColor:WEBDARKBLUE,
 	justifyContent:'flex-start',
 	alignItems:'center',
 	

@@ -31,6 +31,7 @@ class AuthPageContainer extends React.Component{
   }
 
   render() {
+    console.log(this.props.navigation.state)
     return(
       <View style={style.PageView}>
       <AppLogo/>
