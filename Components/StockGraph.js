@@ -6,7 +6,7 @@ import {APPPURPLE, APPBLUE, APPRED} from '@Style/constants.js'
 
 
 export default (props) => {
-    const {data} = props
+    const {data, ...rest} = props
     
     return (
       <View>
@@ -18,9 +18,12 @@ export default (props) => {
               stroke: '#fff',
 	        strokeWidth:'4'
           }}
+          animate={false}
+          showGrid={false}
 
           contentInset={ { top: 20, bottom: 20 } }
-          curve={shape.curveLinear}
+          curve={shape.curveNatural}
+          {...rest}
         />
       </View>
     )

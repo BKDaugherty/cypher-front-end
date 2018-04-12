@@ -24,8 +24,14 @@ const AuthFlowConfig = {
         headerStyle:{
             backgroundColor:APPDARKGRAY,
             borderBottomWidth:0,
-            borderRightWidth:0
+            borderRightWidth:0,
+            
+        },
+        headerBackTitle:"Back",
+        headerBackTitleStyle:{
+            color:'#fff'
         }
+
     }
 }
 
@@ -48,9 +54,10 @@ const MainTabsConfig = {
 	lazy:false,
 }
 
-import AuthPageContainer from '@Containers/AuthPageContainer.js'
-import SignUpPageContainer from '@Containers/SignUpPageContainer.js'
-import HomePageContainer from '@Containers/HomePageContainer'
+import AuthPageContainer from '@Containers/AuthPageContainer'
+import SignUpPageContainer from '@Containers/SignUpPageContainer'
+import LoginPageContainer from '@Containers/LoginPageContainer'
+import PortfolioPageContainer from '@Containers/PortfolioPageContainer'
 import SplashScreen from '@Containers/SplashScreen'
 import SettingsPageContainer from '@Containers/SettingsPageContainer'
 
@@ -70,7 +77,8 @@ export const AppNavigator = StackNavigator({
             //         headerMode:"none"
             //     }
             // },
-            [Routes.LoginScreen]:{screen:AuthPageContainer},
+            [Routes.AuthScreen]:{screen:AuthPageContainer},
+            [Routes.LoginScreen]:{screen:LoginPageContainer},
             [Routes.SignUpScreen]:{screen:SignUpPageContainer}
         },AuthFlowConfig)
     },
@@ -78,7 +86,7 @@ export const AppNavigator = StackNavigator({
         screen:DrawerNavigator({
             [Routes.MainApp]:{
                 screen:TabNavigator({
-                    [Routes.PortfolioTab]:{screen:HomePageContainer}, 
+                    [Routes.PortfolioTab]:{screen:PortfolioPageContainer}, 
                     [Routes.BitcoinTab]: {screen:BitcoinContainer },
                     [Routes.EthereumTab]: { screen:EthereumContainer  },
                     [Routes.BitcoinCashTab]: { screen: BitcoinCashContainer },

@@ -3,7 +3,7 @@ import {connect} from 'react-redux'
 import ActionTypes from "@Actions/ActionTypes"
 import {SafeAreaView, ScrollView, View, TouchableOpacity, Text} from 'react-native'
 import {APPDARKGRAY, WEBDARKBLUE, WEBLIGHTBLUE, WEBPINK} from "@Style/constants"
-import {LoginScreen, SettingsScreen, PortfolioTab } from '@Navigation/Routes'
+import {AuthScreen, SettingsScreen, PortfolioTab } from '@Navigation/Routes'
 import { CypherText } from '@Style/BaseComponents';
 
 import {NavigationActions} from 'react-navigation'
@@ -28,9 +28,10 @@ const customDrawer = (props) => {
     return (
         <SafeAreaView style={{display:"flex", flex:1, flexDirection:"column", alignItems:"stretch", justifyContent:"center", backgroundColor:APPDARKGRAY}}>
                 <DrawerSlot onPress={() => props.navigation.navigate(PortfolioTab)} color={APPDARKGRAY}>
-                    <CypherText>{props.username}'s Portfolio</CypherText>
+                    <CypherText>{props.username}</CypherText>
+					<CypherText>${props.balance}</CypherText>
                 </DrawerSlot>
-                <DrawerSlot onPress={() => props.navigation.navigate(LoginScreen)} color={WEBLIGHTBLUE}>
+                <DrawerSlot onPress={() => props.navigation.navigate(AuthScreen)} color={WEBLIGHTBLUE}>
 					<CypherText>About</CypherText>
 				</DrawerSlot>
                 <DrawerSlot onPress={() => props.navigation.navigate(SettingsScreen)} color={WEBDARKBLUE}>
@@ -38,7 +39,7 @@ const customDrawer = (props) => {
 				</DrawerSlot>
                 <DrawerSlot onPress={() => {					
 					props.logout()
-					const resetAction = NavigationActions.reset({index:0, actions:[props.navigation.navigate(LoginScreen)]})
+					const resetAction = NavigationActions.reset({index:0, actions:[props.navigation.navigate(AuthScreen)]})
 					props.navigation.dispatch(resetAction)
 				}
 				} color={WEBPINK}>
@@ -49,7 +50,8 @@ const customDrawer = (props) => {
     )
 }
 const customDrawerMap = (state, ownProps) => ({
-    username:state.auth.username,
+	username:state.auth.username,
+	balance:state.balance.balances.usd
 })
 
 const dispatchMap = (dispatch) => ({

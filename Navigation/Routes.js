@@ -1,3 +1,4 @@
+export const AuthScreen = "Auth"
 export const LoginScreen = "Login"
 export const SignUpScreen = "SignUp"
 export const BitcoinTab = "Bitcoin"
