@@ -27,14 +27,14 @@ const customDrawer = (props) => {
     return (
         <SafeAreaView style={{display:"flex", flex:1, flexDirection:"column", alignItems:"stretch", justifyContent:"center", backgroundColor:APPDARKGRAY}}>
                 <DrawerSlot onPress={() => props.navigation.navigate(PortfolioTab)} color={APPDARKGRAY}>
-                    <CypherText>{props.username}</CypherText>
-					<CypherText>${props.balance}</CypherText>
+                    <CypherText center>{props.username}</CypherText>
+					<CypherText center>${props.balance}</CypherText>
                 </DrawerSlot>
                 <DrawerSlot onPress={() => props.navigation.navigate(AboutScreen)} color={WEBLIGHTBLUE}>
-					<CypherText>About</CypherText>
+					<CypherText center>About</CypherText>
 				</DrawerSlot>
                 <DrawerSlot onPress={() => props.navigation.navigate(SettingsScreen)} color={WEBDARKBLUE}>
-					<CypherText>Settings</CypherText>
+					<CypherText center>Settings</CypherText>
 				</DrawerSlot>
                 <DrawerSlot onPress={() => {					
 					props.logout()
@@ -42,7 +42,7 @@ const customDrawer = (props) => {
 					props.navigation.dispatch(resetAction)
 				}
 				} color={WEBPINK}>
-					<CypherText>Logout</CypherText>
+					<CypherText center>Logout</CypherText>
 				</DrawerSlot>
         </SafeAreaView>
         

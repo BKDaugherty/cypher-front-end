@@ -122,5 +122,6 @@ export default {
     postSignUp,
     linkCoinbaseToCypher,
     linkPlaidToCypher,
-    getBalance
+    getBalance,
+    mapCoinToAbbrev
 }

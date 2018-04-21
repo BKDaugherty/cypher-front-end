@@ -1,5 +1,5 @@
 import React from 'react'
-import {StyleSheet, TouchableOpacity, View} from 'react-native'
+import {StyleSheet, TouchableOpacity, View, ActivityIndicator} from 'react-native'
 import {CypherText} from '@Style/BaseComponents'
 
 const styles = StyleSheet.create({
@@ -15,13 +15,13 @@ const styles = StyleSheet.create({
 })
 
 export default (props) => {
-    const {children, style, error, textStyle, textContent, pending, ...rest} = props
+    const {children, style, error, pending, ...rest} = props
      
     return (
     <TouchableOpacity style={[styles.defaultButton, style]} {...rest}>
         <View>
         {pending && <ActivityIndicator size="small" color="#fff" animating={true}/>}
-        {error && <CypherText>{error.message}</CypherText>}
+        {error && <CypherText>{error}</CypherText>}
         {!error && !pending && children}
         </View>
     </TouchableOpacity>

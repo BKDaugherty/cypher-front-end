@@ -41,7 +41,8 @@ class LoginPageContainer extends React.Component{
           onChangeText={(text) => this.setState({ password: text })}/>
         <View style ={style.ButtonContainer}>
           <Button style={{marginTop:30}}onPress={() => this.userLogin()} 
-            pending={this.props.isLoggingIn}>
+            pending={this.props.isLoggingIn}
+            error={this.props.error}>
             <CypherText>Login</CypherText>
           </Button>
         </View>
@@ -66,28 +67,11 @@ const style = StyleSheet.create({
     padding:15,
     flex:1
   },
-  CustomInputBox:{
-    color:'#fff',
-    padding:10,
-    margin:1,
-    borderWidth:0.5,
-    borderColor:'#fff',
-    fontFamily:'pt-mono',
-    borderRadius:20,
-    marginTop:15,
-    padding:10
-  },
   formContainer:{
     flex:1,
     paddingTop:10,
     justifyContent:'flex-start'
   },
-  Header:{
-    color:'#fff',
-    fontSize:32,
-    fontFamily:'pt-mono',
-    alignSelf:'center'
-  }
 })
 
 const mapStateToProps = (state, ownProps) => {

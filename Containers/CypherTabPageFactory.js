@@ -4,7 +4,7 @@ import {connect} from 'react-redux'
 import StockGraph from '@Components/StockGraph.js'
 import gdaxActions from '@Actions/GDAX'
 import {getBalance} from '@Actions/balance'
-
+import {CypherText} from '@Style/BaseComponents'
 //Used to get out of Redux/Native Optimization of requiring
 //styles to be an object if used with connect
 const genStyles = (config) => {
@@ -44,6 +44,7 @@ return StyleSheet.create({
 
 export const genCypherTabPage = (config) => {
 	const coinName = config.coinName.replace(/\s+/g, '').toLowerCase();
+	const coinAbbrev = config.coinAbbrev
 	//Dispatch mapper
     const mapDispatchToProps = (dispatch) => {
         return {
@@ -119,17 +120,17 @@ export const genCypherTabPage = (config) => {
 				style={{backgroundColor:config.backgroundColor}}/>}
 			endFillColor={config.backgroundColor}>
 						
-	        <Text style={styles.header}>{config.coinName}</Text>
+	        <CypherText header center>{config.coinName}</CypherText>
 			{/*Conditionally Render coin price data*/}
 			<ActivityIndicator color="#fff" size="large" animating={this.props.isLoadingCoinPriceData}/>
 			{!(this.props.isLoadingCoinPriceData || this.props.coinPriceError) && (this.props.coinPriceData) &&
 			<View style={styles.gdaxContainer}>
-				<Text style={styles.content}>${coinCurrentPrice}</Text>
+				<CypherText center header>${coinCurrentPrice}</CypherText>
 	        	<StockGraph data={this.props.coinPriceData} />
 			</View>
 			}
 			
-	        <Text style={styles.footer}>Balance:{this.props.coinBalance}</Text>
+	        <CypherText center header>Balance:{`${this.props.coinBalance} ${coinAbbrev}`}</CypherText>
 	        </ScrollView>
 			)
         }

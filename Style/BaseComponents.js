@@ -17,6 +17,8 @@ const cypherTextStyle = (props) => {
 export const CypherTextInput = (props) => (
 <TextInput style={cypherTextInputStyle(props)}
 placeholderTextColor={props.placeholderTextColor ? props.placeholderTextColor : "#fff"}
+autoCapitalize={props.autoCapitalize? props.autoCapitalize : "none"}
+autoCorrect={props.autoCorrect? props.autoCorrect : false}
 {...props}>
 {props.children}
 </TextInput>
