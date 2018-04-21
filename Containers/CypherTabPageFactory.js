@@ -61,7 +61,8 @@ export const genCypherTabPage = (config) => {
 			coinPriceError:state.gdax[coinName].error,
 			coinBalance:state.balance.balances[coinName],
 			isLoadingCoinBalance:state.balance.isPending,
-			Cypher_Token:state.auth.token
+			Cypher_Token:state.auth.token,
+			...ownProps
         };
     }
 
@@ -107,6 +108,8 @@ export const genCypherTabPage = (config) => {
 				coinCurrentPrice = coinCurrentPriceObj.open
 			}
 
+			coinCurrentPrice = coinCurrentPrice.toFixed(2)
+
             return(
 			<ScrollView style={{backgroundColor:config.backgroundColor}} contentContainerStyle={styles.container}
 			refreshControl={<RefreshControl 
@@ -115,10 +118,7 @@ export const genCypherTabPage = (config) => {
 				colors={["white"]}
 				style={{backgroundColor:config.backgroundColor}}/>}
 			endFillColor={config.backgroundColor}>
-			
-			{/*Add drag to refresh*/}
-			
-
+						
 	        <Text style={styles.header}>{config.coinName}</Text>
 			{/*Conditionally Render coin price data*/}
 			<ActivityIndicator color="#fff" size="large" animating={this.props.isLoadingCoinPriceData}/>

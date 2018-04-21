@@ -14,3 +14,6 @@ export const APPYELLOW = "#FFAD24"
 export const WEBLIGHTBLUE = "#00BFFF"
 export const WEBDARKBLUE = "#564BF2"
 export const WEBPINK = "#C644C3"
+
+export const HEADERTEXTSIZE = 40
+export const BODYTEXTSIZE = 20

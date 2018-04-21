@@ -1,12 +1,13 @@
 import React from 'react';
 import {connect} from 'react-redux'
 import { loginRequest } from '@Actions/auth.js'
-import {TouchableOpacity, KeyboardAvoidingView, StyleSheet, Text, Button, TextInput,ScrollView, View, ActivityIndicator} from 'react-native'
+import {TouchableOpacity, KeyboardAvoidingView, StyleSheet, Text, TextInput,ScrollView, View, ActivityIndicator} from 'react-native'
 import {APPDARKGRAY} from '@Style/constants.js'
 import AppLogo from '@Components/AppLogo.js'
 
 import {SignUpScreen} from '@Navigation/Routes'
-import AsyncButton from '@Components/AsyncButton'
+import Button from '@Components/Button'
+import { CypherText, CypherTextInput } from '@Style/BaseComponents';
 
 class LoginPageContainer extends React.Component{
 
@@ -27,31 +28,22 @@ class LoginPageContainer extends React.Component{
   render() {
     return(
       <View style={style.PageView}>
-        <Text style={style.Header}>Login</Text>
-
-        <TextInput style={style.CustomInputBox}
-            placeholderTextColor='#fff'
-            placeholder='Username'
-            autoCapitalize='none'
-            autoCorrect={false}
-            autoFocus={false}
-            keyboardType='email-address'
-            value={this.state.username}
-            onChangeText={(text) => this.setState({ username: text })} />
-        <TextInput style={style.CustomInputBox}
-            placeholderTextColor='#fff'
-            placeholder='Password'
-            autoCapitalize='none'
-            autoCorrect={false}
-            secureTextEntry={true}
-            value={this.state.password}
-            onChangeText={(text) => this.setState({ password: text })}/>
-
-
+        <CypherText header center>Login</CypherText>
+        <CypherTextInput 
+          placeholder="Username"
+          keyboardType='email-address'
+          value={this.state.username}
+          onChangeText={(text) => this.setState({ username: text })}/>
+        <CypherTextInput
+          placeholder='Password'
+          secureTextEntry={true}
+          value={this.state.password}
+          onChangeText={(text) => this.setState({ password: text })}/>
         <View style ={style.ButtonContainer}>
-          <AsyncButton style={{marginTop:30}}onPress={() => this.userLogin()} 
-            pending={this.props.isLoggingIn} textContent={"Login"}>
-          </AsyncButton>
+          <Button style={{marginTop:30}}onPress={() => this.userLogin()} 
+            pending={this.props.isLoggingIn}>
+            <CypherText>Login</CypherText>
+          </Button>
         </View>
       </View>
       );
@@ -64,13 +56,15 @@ const style = StyleSheet.create({
     padding:20,
     backgroundColor: APPDARKGRAY,
     flexDirection:'column',
-    justifyContent: 'flex-start',
+    justifyContent: 'center',
     alignItems:'stretch'
   },
   ButtonContainer:{
-    justifyContent:'center',
-    flexDirection:'row',
-    padding:2,
+    justifyContent:'space-between',
+    flexDirection:'column',
+    alignItems:'stretch',
+    padding:15,
+    flex:1
   },
   CustomInputBox:{
     color:'#fff',

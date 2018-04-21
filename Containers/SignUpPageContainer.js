@@ -3,6 +3,15 @@ import {connect} from 'react-redux'
 import {signUpRequest } from '@Actions/auth.js'
 import {TouchableOpacity, StyleSheet,Text, TextInput,ScrollView, View, ActivityIndicator} from 'react-native'
 import {APPDARKGRAY, APPRED} from '@Style/constants.js'
+import Button from '@Components/Button'
+import {CypherText, CypherTextInput} from "@Style/BaseComponents"
+
+
+/*
+        autoCapitalize='none'
+        autoCorrect={false}
+        autoFocus={false}
+*/
 
 class SignUpPageContainer extends React.Component{
 
@@ -22,86 +31,52 @@ userSignUp(e){
   e.preventDefault()
 }
 
-
 render() {
-  return(
-  <View style={style.PageView}>
-    <Text style={{fontFamily:'pt-mono', color:'#fff', fontSize:30, padding:20, alignSelf:'center'}}>{"Sign Up"}</Text>
-  <View style={style.formContainer}>
-    <TextInput style={style.CustomInputBox}
-        placeholderTextColor='#fff'
-        placeholder='First Name'
-        autoCapitalize='none'
-        autoCorrect={false}
-        autoFocus={false}
-        value={this.state.first_name}
-        onChangeText={(text) => this.setState({ first_name: text })} />
-    <TextInput style={style.CustomInputBox}
-    placeholderTextColor='#fff'
-            placeholder='Last Name'
-            autoCapitalize='none'
-            autoCorrect={false}
-            autoFocus={false}
-            value={this.state.last_name}
-            onChangeText={(text) => this.setState({ last_name: text })} />
-    <TextInput style={style.CustomInputBox}
-    placeholderTextColor='#fff'
-        placeholder='Email'
-        autoCapitalize='none'
-        autoCorrect={false}
-        autoFocus={false}
-        keyboardType='email-address'
-        value={this.state.email}
-        onChangeText={(text) => this.setState({ email: text })} />
-    <TextInput style={style.CustomInputBox}
-    placeholderTextColor='#fff'
-            placeholder='Password'
-            autoCapitalize='none'
-            autoCorrect={false}
-            secureTextEntry={true}
-            value={this.state.password}
-            onChangeText={(text) => this.setState({ password: text })}/>
+  return(<View style={style.PageView}>
+    <CypherText header center>Sign Up</CypherText>
+    <CypherTextInput
+          placeholder='First Name'
+          value={this.state.first_name}
+          onChangeText={(text) => this.setState({ first_name: text })} />
+      <CypherTextInput
+          placeholder='Last Name'
+          value={this.state.last_name}
+          onChangeText={(text) => this.setState({ last_name: text })} />
+      <CypherTextInput
+          placeholder='Email'
+          keyboardType='email-address'
+          value={this.state.email}
+          onChangeText={(text) => this.setState({ email: text })} />
+      <CypherTextInput
+          placeholder='Password'
+          secureTextEntry={true}
+          value={this.state.password}
+          onChangeText={(text) => this.setState({ password: text })}/>
     <View style ={style.ButtonContainer}>
-      <ActivityIndicator color="#fff" animating={this.props.isSigningUp} size="small"/>
-      <Text>{/*Put error here*/}</Text>
-      <TouchableOpacity style={{backgroundColor:APPDARKGRAY}} onPress={(e) => this.userSignUp(e)}>
-        <Text style={{color:'#fff', fontFamily:'pt-mono'}}>Sign Up</Text>
-      </TouchableOpacity>
-      </View>
+      <Button pending={this.props.isSigningUp} onPress={(e) => this.userSignUp(e)}>
+        <CypherText>Sign Up</CypherText>
+      </Button>
     </View>
-    </View>);
-}
+  </View>)
+  }
 }
 
 const style = StyleSheet.create({
   PageView:{
     flex: 1,
-    flexDirection:'column',
     padding:20,
-    backgroundColor:APPDARKGRAY,
+    backgroundColor: APPDARKGRAY,
+    flexDirection:'column',
     justifyContent: 'center',
+    alignItems:'stretch'
   },
   ButtonContainer:{
-    justifyContent:'center',
-    flexDirection:'row',
-    padding:2,
+    justifyContent:'space-between',
+    flexDirection:'column',
+    alignItems:'stretch',
+    padding:15,
+    flex:1
   },
-  CustomInputBox:{
-    color:'#fff',
-    padding:10,
-    margin:1,
-    borderWidth:0.5,
-    borderColor:'#fff',
-    fontFamily:'pt-mono'
-  },
-  signUpView:{
-    flexDirection:'row',
-    justifyContent:'center',
-  },
-  formContainer:{
-    flex:1,
-    justifyContent:'center'
-  }
 })
 
 

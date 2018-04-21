@@ -26,7 +26,10 @@ export async function getHistoricRates(coin, granularity){
                     "volume":bucket[5]
                 })
             )
-        return formattedRates
+
+        //Gdax returns an array backwards!
+        const reversedRates = formattedRates.reverse()
+        return reversedRates
     }
     catch (error) {
         return null

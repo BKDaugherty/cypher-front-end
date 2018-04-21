@@ -1,8 +1,10 @@
 import React from 'react';
-import {View, StyleSheet} from 'react-native'
+import {View, StyleSheet, } from 'react-native'
 import {APPDARKGRAY} from '@Style/constants.js'
 import AppLogo from '@Components/AppLogo.js'
 import Button from '@Components/Button'
+import {CypherText} from '@Style/BaseComponents'
+
 
 import {SignUpScreen, LoginScreen} from '@Navigation/Routes'
 
@@ -12,9 +14,11 @@ export default (props) => (
       <AppLogo/>
     </View>
     <View style={style.ButtonContainer}>
-      <Button textContent={"Login"} onPress={() => props.navigation.navigate(LoginScreen)}>
+      <Button onPress={() => props.navigation.navigate(LoginScreen)}>
+        <CypherText>Login</CypherText>
       </Button>
-      <Button textContent={"Sign Up"} onPress={() => props.navigation.navigate(SignUpScreen)}>
+      <Button  onPress={() => props.navigation.navigate(SignUpScreen)}>
+        <CypherText>Sign Up</CypherText>
       </Button>
     </View>
   </View>

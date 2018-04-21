@@ -5,6 +5,9 @@
 		"sdkVersion": "25.0.0",
 		"scheme":"cypherapp",
 		"orientation":"portrait",
-		"description":"CYPHER WOOOOOO"
+	"description":"CYPHER WOOOOOO",
+	"ios":{
+	    "bundleIdentifier":"com.Daugherty.Cypher"
+	}
   }
 }

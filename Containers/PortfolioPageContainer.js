@@ -1,5 +1,5 @@
 import React from 'react';
-import {SafeAreaView, StyleSheet, Text, View, TouchableHighlight } from 'react-native';
+import {RefreshControl, ScrollView, SafeAreaView, StyleSheet, Text, View, TouchableHighlight } from 'react-native';
 import StockGraph from '@Components/StockGraph.js';
 import { Icon } from 'react-native-elements';
 import {APPDARKGRAY} from '@Style/constants.js'
@@ -11,6 +11,12 @@ const {bitcoinPriceData, ethereumPriceData, litecoinPriceData, bitcoinCashPriceD
 
   return (
     <SafeAreaView style={styles.container}>
+      <ScrollView contentContainerStyle={styles.container}
+      refreshControl={<RefreshControl 
+				refreshing={props.pending}
+				onRefresh={() => { props.pending = true}}
+				colors={["white"]}
+				style={{backgroundColor:APPDARKGRAY}}/>}>
       <View>
         <Text style={styles.Header}>Portfolio</Text>
       </View>
@@ -25,14 +31,16 @@ const {bitcoinPriceData, ethereumPriceData, litecoinPriceData, bitcoinCashPriceD
     }
       
 
-      <Text style={styles.Balance}>
-        Balance: {props.balance}
-      </Text> 
-      
+      <View style={styles.BalanceContainer}>
+        <Text style={styles.Balance}>
+          Balance: {props.balance}
+        </Text> 
+      </View>
+
       <View style={styles.AppFooter}>
         <Text style={{color:'#fff'}}>Cypher Inc.</Text>
       </View>
-      
+      </ScrollView>
     </SafeAreaView>
   )
 }
@@ -42,7 +50,8 @@ const mapStateToProps = (state) => ({
   ethereumPriceData:state.gdax.ethereum.data,
   litecoinPriceData:state.gdax.bitcoin.data,
   bitcoinCashPriceData:state.gdax.bitcoincash.data,
-  balance:state.balance.balances.usd
+  balance:state.balance.balances.usd,
+  pending:false
 })
 
 
@@ -50,15 +59,16 @@ export default connect(mapStateToProps)(PortfolioPageContainer)
 
 const styles = StyleSheet.create({
   StockGraphView:{
-    flex:1,
+    alignItems:'center',
+		justifyContent:'space-between'
   },
   container: {
-    flex: 1,
-    flexDirection:'column',
-    backgroundColor: APPDARKGRAY,
-    alignItems: 'center',
-    justifyContent: 'space-between',
-    paddingTop:20,
+    flex:1,
+		backgroundColor:APPDARKGRAY,
+	  justifyContent: 'space-between',
+	  alignItems:'center',
+	    paddingTop:'10%',
+	    paddingBottom:'15%'
   },
   AppFooter:{
     flex:1,
@@ -70,8 +80,11 @@ const styles = StyleSheet.create({
     fontFamily:'pt-mono'
   },
   Balance:{
-    fontSize:24,
+    fontSize:32,
     color:'#fff',
     fontFamily:'pt-mono'
+  },
+  BalanceView:{
+
   }
 });

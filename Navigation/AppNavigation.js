@@ -6,6 +6,8 @@ import * as Routes from './Routes'
 import CustomTabBar from '@Components/CustomTabBar'
 import {APPDARKGRAY, WEBLIGHTBLUE, WEBDARKBLUE, WEBPINK } from '@Style/constants'
 
+
+
 import {connect} from 'react-redux'
 
 import customDrawerContainer from '@Containers/CustomDrawerContainer'
@@ -41,7 +43,7 @@ const MainFlowConfig = {
 
 const MainDrawerConfig = {
     navigationOptions:{
-        gesturesEnabled:true
+        gesturesEnabled:true,
     },
     contentComponent:customDrawerContainer,
 }
@@ -51,7 +53,7 @@ const MainTabsConfig = {
 	tabBarPosition:'bottom',
 	swipeEnabled:true,
 	animationEnabled:true,
-	lazy:false,
+    lazy:false,
 }
 
 import AuthPageContainer from '@Containers/AuthPageContainer'
@@ -60,6 +62,7 @@ import LoginPageContainer from '@Containers/LoginPageContainer'
 import PortfolioPageContainer from '@Containers/PortfolioPageContainer'
 import SplashScreen from '@Containers/SplashScreen'
 import SettingsPageContainer from '@Containers/SettingsPageContainer'
+import AboutPageContainer from '@Containers/AboutPageContainer'
 
 import {
 	BitcoinContainer,
@@ -86,12 +89,15 @@ export const AppNavigator = StackNavigator({
         screen:DrawerNavigator({
             [Routes.MainApp]:{
                 screen:TabNavigator({
-                    [Routes.PortfolioTab]:{screen:PortfolioPageContainer}, 
-                    [Routes.BitcoinTab]: {screen:BitcoinContainer },
-                    [Routes.EthereumTab]: { screen:EthereumContainer  },
-                    [Routes.BitcoinCashTab]: { screen: BitcoinCashContainer },
-                    [Routes.LitecoinTab]: { screen: LitecoinContainer },
+                    [Routes.PortfolioTab]:{screen:PortfolioPageContainer, navigationOptions:{drawerLockMode:"unlocked"}}, 
+                    [Routes.BitcoinTab]: {screen:BitcoinContainer, navigationOptions:{drawerLockMode:"locked-closed"} },
+                    [Routes.EthereumTab]: { screen:EthereumContainer, navigationOptions:{drawerLockMode:"locked-closed"}  },
+                    [Routes.BitcoinCashTab]: { screen: BitcoinCashContainer, navigationOptions:{drawerLockMode:"locked-closed"} },
+                    [Routes.LitecoinTab]: { screen: LitecoinContainer, navigationOptions:{drawerLockMode:"locked-closed"} },
                 }, MainTabsConfig)
+            },
+            [Routes.AboutScreen]:{
+                screen:AboutPageContainer
             },
             [Routes.SettingsScreen]:{
                 screen:SettingsPageContainer

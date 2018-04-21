@@ -1,32 +1,29 @@
 import React from 'react'
-import {StyleSheet, TouchableOpacity, Text} from 'react-native'
+import {StyleSheet, TouchableOpacity, View} from 'react-native'
+import {CypherText} from '@Style/BaseComponents'
 
 const styles = StyleSheet.create({
     defaultButton:{
         backgroundColor:'#000',
         borderRadius:20,
         display:'flex',
+        alignItems:'center',
         padding:10,
-    },
-    defaultText:{
-        color:'#fff',
-        fontFamily:'pt-mono',
-        alignSelf:'center',
-        fontSize:24
+        paddingLeft:15
 
-    }
+    },
 })
 
 export default (props) => {
-    const {children, style, textStyle, textContent, customContent, ...rest} = props
+    const {children, style, error, textStyle, textContent, pending, ...rest} = props
      
     return (
     <TouchableOpacity style={[styles.defaultButton, style]} {...rest}>
-        {customContent ? 
-        customContent() :
-        (<Text style={[styles.defaultText, textStyle]}>
-                {textContent}
-        </Text>)}
+        <View>
+        {pending && <ActivityIndicator size="small" color="#fff" animating={true}/>}
+        {error && <CypherText>{error.message}</CypherText>}
+        {!error && !pending && children}
+        </View>
     </TouchableOpacity>
 )
 }

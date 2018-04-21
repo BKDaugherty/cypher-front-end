@@ -3,7 +3,7 @@ import {connect} from 'react-redux'
 import ActionTypes from "@Actions/ActionTypes"
 import {SafeAreaView, ScrollView, View, TouchableOpacity, Text} from 'react-native'
 import {APPDARKGRAY, WEBDARKBLUE, WEBLIGHTBLUE, WEBPINK} from "@Style/constants"
-import {AuthScreen, SettingsScreen, PortfolioTab } from '@Navigation/Routes'
+import {AboutScreen, AuthScreen, SettingsScreen, PortfolioTab } from '@Navigation/Routes'
 import { CypherText } from '@Style/BaseComponents';
 
 import {NavigationActions} from 'react-navigation'
@@ -24,14 +24,13 @@ const DrawerSlot = (props) => (
 
 const customDrawer = (props) => {
 
-
     return (
         <SafeAreaView style={{display:"flex", flex:1, flexDirection:"column", alignItems:"stretch", justifyContent:"center", backgroundColor:APPDARKGRAY}}>
                 <DrawerSlot onPress={() => props.navigation.navigate(PortfolioTab)} color={APPDARKGRAY}>
                     <CypherText>{props.username}</CypherText>
 					<CypherText>${props.balance}</CypherText>
                 </DrawerSlot>
-                <DrawerSlot onPress={() => props.navigation.navigate(AuthScreen)} color={WEBLIGHTBLUE}>
+                <DrawerSlot onPress={() => props.navigation.navigate(AboutScreen)} color={WEBLIGHTBLUE}>
 					<CypherText>About</CypherText>
 				</DrawerSlot>
                 <DrawerSlot onPress={() => props.navigation.navigate(SettingsScreen)} color={WEBDARKBLUE}>
