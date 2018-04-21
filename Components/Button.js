@@ -16,12 +16,12 @@ const styles = StyleSheet.create({
 
 export default (props) => {
     const {children, style, error, pending, ...rest} = props
-     
+     if(error) console.log(error)
     return (
     <TouchableOpacity style={[styles.defaultButton, style]} {...rest}>
         <View>
         {pending && <ActivityIndicator size="small" color="#fff" animating={true}/>}
-        {error && <CypherText>{error}</CypherText>}
+        {error && <CypherText center>{error}</CypherText>}
         {!error && !pending && children}
         </View>
     </TouchableOpacity>

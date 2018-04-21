@@ -77,7 +77,7 @@ const style = StyleSheet.create({
 const mapStateToProps = (state, ownProps) => {
     return {
         isLoggingIn: state.auth.isLoggingIn,
-        error:state.auth.error
+        error:state.auth.loginerror
     };
 }
 

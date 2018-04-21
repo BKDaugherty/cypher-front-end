@@ -1,6 +1,6 @@
 //React
 import React from 'react'
-import {Button, StyleSheet, Text, View, TouchableHighlight, Modal } from 'react-native'
+import {StyleSheet, Text, View, TouchableHighlight, Modal } from 'react-native'
 
 //Styles
 import { WEBDARKBLUE} from '@Style/constants.js'
@@ -12,6 +12,9 @@ import {plaidOnOAUTHComplete, coinbaseOnOAUTHComplete} from '@Actions/oauth.js'
 //OAUTH Configurations
 import {CoinbaseAuthRequestURL} from '@Data/OAUTH/CoinbaseConfig.js'
 import PlaidAuthenticator from 'react-native-plaid-link'
+
+import {CypherText} from '@Style/BaseComponents'
+import Button from '@Components/Button'
 
 //Redux
 import {connect} from 'react-redux'
@@ -91,19 +94,20 @@ class SettingsPageContainer extends React.Component {
 	    //Should get state for oauthComplete
 	    OAUTHComplete:this.props.coinbaseComplete,
 	    authURL:CoinbaseAuthRequestURL,
-	    label:"Coinbase",
+	    label:"Press here to link your Coinbase account, and start your journey in the decentralized world!",
 	    callback:this.coinbaseOAUTHCompletion
 	}
 
 	
 	return (
 	    <View style={styles.container}>
-	    <Text style={styles.headerText}>Settings</Text>
-	    <View style={styles.oauthContainer}>
-	    <OAUTHSwitch {...coinbaseOAUTH} />
-	    <TouchableHighlight onPress={ () => this.openModal()}>
-	    <Text style={styles.headerText}>Plaid</Text>
-	    </TouchableHighlight>
+	    <CypherText header center>Settings</CypherText>
+	    <View style={styles.buttonContainer}>
+		<OAUTHSwitch {...coinbaseOAUTH} />
+
+	    <Button style={{margin:10}} onPress={ () => this.openModal()}>
+	    	<CypherText center>Press here to link your bank account, and start your journey in the decentralized world!</CypherText>
+	    </Button>
 	    
 	    <Modal
 	    	visible={this.state.modalVisible}
@@ -144,23 +148,25 @@ const mapDispatchToProps = (dispatch) => {
 	    
 const styles = StyleSheet.create({
     container:{
-		flex:1,
-		flexDirection:'column',
+		flex: 1,
+		padding:20,
 		backgroundColor:WEBDARKBLUE,
-		justifyContent:'flex-start',
-		alignItems:'center',
+		flexDirection:'column',
+		justifyContent: 'flex-start',
+		alignItems:'stretch'
     },
     headerText:{
 		paddingTop:20,
 		fontSize:25,
 		color:'white'
     },
-    oauthContainer:{
+    buttonContainer:{
+		flex:1,
 		display:'flex',
 		justifyContent:'flex-start',
 		alignSelf:'stretch',
 		alignItems:'center',
-		paddingTop:20,
+		padding:20,
     }
 })
 

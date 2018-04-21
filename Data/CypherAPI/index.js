@@ -23,10 +23,10 @@ const postLogin = (email, password) => {
     return standardRequest(Endpoints.userLogin, 'post', postBody)
 }
 
-function parseResponse(response) {
-    console.log(response)   
+async function parseResponse(response) {
     if(response.status >= 400){
-        throw {message:response.statusText, status:response.status}
+        let errorResponse = await response.json()
+        throw {message:errorResponse.error, status:response.status}
     } else {
         return response.json()
     }

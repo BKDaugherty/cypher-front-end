@@ -37,7 +37,10 @@ render() {
     <CypherTextInput
           placeholder='First Name'
           value={this.state.first_name}
-          onChangeText={(text) => this.setState({ first_name: text })} />
+          onChangeText={(text) => {
+            this.setState({ first_name: text })
+          }
+          } />
       <CypherTextInput
           placeholder='Last Name'
           value={this.state.last_name}
@@ -53,7 +56,7 @@ render() {
           value={this.state.password}
           onChangeText={(text) => this.setState({ password: text })}/>
     <View style ={style.ButtonContainer}>
-      <Button pending={this.props.isSigningUp} onPress={(e) => this.userSignUp(e)}>
+      <Button pending={this.props.isSigningUp} error={this.props.error} onPress={(e) => this.userSignUp(e)}>
         <CypherText>Sign Up</CypherText>
       </Button>
     </View>
@@ -83,7 +86,8 @@ const style = StyleSheet.create({
 
   const mapStateToProps = (state, ownProps) => {
       return {
-          isSigningUp: state.auth.isSigningUp
+          isSigningUp: state.auth.isSigningUp,
+          error:state.auth.signuperror
       };
   }
 

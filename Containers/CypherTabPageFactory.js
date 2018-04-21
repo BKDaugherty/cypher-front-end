@@ -130,7 +130,7 @@ export const genCypherTabPage = (config) => {
 			</View>
 			}
 			
-	        <CypherText center header>Balance:{`${this.props.coinBalance} ${coinAbbrev}`}</CypherText>
+	        <CypherText center>Balance:{` ${this.props.coinBalance} ${coinAbbrev}`}</CypherText>
 	        </ScrollView>
 			)
         }

@@ -3,6 +3,8 @@ import {connect} from 'react-redux'
 import {Switch, StyleSheet, Text, View, TouchableHighlight } from 'react-native'
 import {APPDARKGRAY} from '@Style/constants.js'
 import {AuthSession} from 'expo'
+import Button from '@Components/Button'
+import {CypherText} from '@Style/BaseComponents'
 
 //OauthComponent to handle
 //Oauth integration
@@ -28,11 +30,12 @@ export default class OAUTHSwitch extends React.Component {
     
     render(){
 	return (
-	    <View style={styles.container}>
-	    <Text style={styles.OauthLabel}>{this.props.label}</Text>
-	    <Switch value={this.state.oauthSetup} onValueChange={(value) => {
-		this._handleAsyncSwitch()
-	    }}/>
+	    <View>
+	    	<Button onPress={(value) => {
+				this._handleAsyncSwitch()
+	    	}}>
+			<CypherText center>{this.props.label}</CypherText>
+			</Button>
 	    </View>
 	);
 

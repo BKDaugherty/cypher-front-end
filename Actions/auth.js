@@ -3,6 +3,10 @@ import ActionTypes from '@Actions/ActionTypes.js'
 
 import {PortfolioTab, LoginScreen} from '@Navigation/Routes'
 
+const errorDelay = 3000
+export const resetLogin = () => ({type:ActionTypes.RESET_LOGIN})
+export const resetSignUp = () => ({type:ActionTypes.RESET_SIGNUP})
+
 //Pure functions yay!
 export function loginRequest(username, password, navigate) {
   return async (dispatch) => {
@@ -16,9 +20,13 @@ export function loginRequest(username, password, navigate) {
     }
     catch(error){
         //Extract the error
-        const errorObject = await error
-        const errorMessage = errorObject.error
-        return dispatch(loginRequestFailure(errorMessage))
+        const message = await extractErrorMessage(error)
+
+        setTimeout(() => {
+            dispatch(resetLogin())
+        }, errorDelay)
+
+        return dispatch(loginRequestFailure(message))
     }
   }
 }
@@ -34,6 +42,26 @@ export const loginRequestSuccess = (username, token, navigate) => {
 export const loginRequestFailure = (error) => {
     return {type:ActionTypes.LOGIN_REQUEST_FAILURE, error}
 }
+
+const extractErrorMessage = async (error) => {
+    const errorObj = await error
+    const errorMessageObj = errorObj.message
+    if(typeof(errorMessageObj) == "string"){
+        return errorMessageObj
+    } else {
+        let message = "" 
+        for(val in errorMessageObj){
+            if(message == ""){
+                message = message + errorMessageObj[val]
+            } else {
+                message = message + '\n' + errorMessageObj[val]
+            }
+            
+        } 
+        return message
+    }
+}
+
 
 export const signUpRequest = (firstName, lastName, email, password, navigate) => {
 
@@ -54,14 +82,16 @@ export const signUpRequest = (firstName, lastName, email, password, navigate) =>
             return dispatch({type:ActionTypes.SIGNUP_REQUEST_SUCCESS})
         } 
         catch(error){
-            const errorObj = await error
-            const errorMessage = error.error
-            console.log(errorObj)
+            const message = await extractErrorMessage(error)
+
+            setTimeout(() => {
+                dispatch(resetSignUp())
+            }, errorDelay)
+
             return dispatch({
                 type:ActionTypes.SIGNUP_REQUEST_FAILURE,
-                error: errorMessage
+                error: message
             })
-            
         }
   }
 }
