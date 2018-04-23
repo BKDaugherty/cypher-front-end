@@ -12,13 +12,13 @@ YOOOO THIS THE README
 * Forgot Password  API Endpoint (@Matt) --> Matt and I
 * Refresh Token?? --> @Matt
 * Use name --> instead of email (Endpoint from Matt)
-** Drawer Tab interaction.
-** Less space on Drawer
-** Tension on the pull
-** Logout, come back down
-** Grow out of drawer
-** Grow out on Tabs
-** No shadow --> Drawer should push the whole screen to the right
+  * Drawer Tab interaction.
+  * Less space on Drawer
+  * Tension on the pull
+  * Logout, come back down
+  * Grow out of drawer
+  * Grow out on Tabs
+  * No shadow --> Drawer should push the whole screen to the right
 
 
 
