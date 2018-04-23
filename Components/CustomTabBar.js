@@ -3,12 +3,12 @@ import { View, StyleSheet,TouchableOpacity, Text, TouchableWithoutFeedback } fro
 
 /* Custom Navigation */
 
-import {APPDARK, APPGREEN, APPGRAY, APPNAVY, APPYELLOW} from '@Style/constants'
+import {APPDARKGRAY, APPGREEN, APPGRAY, APPNAVY, APPYELLOW} from '@Style/constants'
 
 //Map from route name to background color
 
 const colorArray = [
-    APPDARK,
+    APPDARKGRAY,
     APPYELLOW,
     APPNAVY,
     APPGREEN,

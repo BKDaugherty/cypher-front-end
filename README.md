@@ -1,7 +1,24 @@
 YOOOO THIS THE README
 
-To start the app, use 'yarn install', then 'yarn start'
+# Design Meeting with Owen
 
-That should get everything going on your laptop. Then, download Expo on your iphone,
-and scan the QR code that shows up in terminal. Should enable live-reloading on your
-device.
+## Feature Requests
+* Confirm Password (20 second job)
+* Clear form already
+* Sign up directly into app --> (Send duplicate request)
+* Look into Graph (Tough) --> Information (6 mo's)
+* Custom Anims on clicking tabs --> Grow out
+* Welcome to Cypher Email --> Not me (Trigger with matt)
+* Forgot Password  API Endpoint (@Matt) --> Matt and I
+* Refresh Token?? --> @Matt
+* Use name --> instead of email (Endpoint from Matt)
+** Drawer Tab interaction.
+** Less space on Drawer
+** Tension on the pull
+** Logout, come back down
+** Grow out of drawer
+** Grow out on Tabs
+** No shadow --> Drawer should push the whole screen to the right
+
+
+
