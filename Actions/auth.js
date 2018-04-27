@@ -1,7 +1,7 @@
 import CypherAPI from '@Data/CypherAPI/index.js'
 import ActionTypes from '@Actions/ActionTypes.js'
 
-import {PortfolioTab, LoginScreen} from '@Navigation/Routes'
+import {PortfolioTab, OAuthScreen} from '@Navigation/Routes'
 
 const errorDelay = 3000
 export const resetLogin = () => ({type:ActionTypes.RESET_LOGIN})
@@ -80,8 +80,8 @@ export const signUpRequest = (firstName, lastName, email, password, navigate) =>
             //Await the response from the cypher server
             const response = await CypherAPI.postSignUp(firstName, lastName, email, password)
 
-            //Navigate back to login --> Don't really like that this is here...
-            navigate(LoginScreen)
+            
+            navigate(OAuthScreen)
 
             //Dispatch the success of signup
             //Signal to the user that signup was successful

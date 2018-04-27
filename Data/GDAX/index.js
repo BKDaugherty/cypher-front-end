@@ -8,7 +8,6 @@ const baseURL = "https://api.gdax.com"
 const getGDAXParams = (lengthOfTime) => {
     switch(lengthOfTime){
         case GRAPHSCALES.HOUR:
-
             break
         case GRAPHSCALES.DAY:
             break

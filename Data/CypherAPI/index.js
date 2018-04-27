@@ -41,7 +41,7 @@ const linkCoinbaseToCypher = (access_token, coinbase_code) => {
     if(!coinbase_code){
         console.error("No coinbase token to post")
     } else {
-        console.log(access_token)
+        console.log("Access token:", access_token)
         return secureRequest(access_token, Endpoints.userCoinbase,"post", postBody)
     }
 }

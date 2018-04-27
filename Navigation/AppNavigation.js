@@ -61,7 +61,8 @@ import PortfolioPageContainer from '@Containers/PortfolioPageContainer'
 import SplashScreen from '@Containers/SplashScreen'
 import SettingsPageContainer from '@Containers/SettingsPageContainer'
 import AboutPageContainer from '@Containers/AboutPageContainer'
-import ManagePageContainer from '@Containers/ManagePageContainer';
+import ManagePageContainer from '@Containers/ManagePageContainer'
+import OAuthPageContainer from '@Containers/OAuthPageContainer'
 
 
 import {
@@ -74,15 +75,10 @@ import {
 export const AppNavigator = StackNavigator({
     [Routes.AuthFlow]:{
         screen:StackNavigator({
-            // [Routes.SplashScreen]:{
-            //     screen:SplashScreen,
-            //     navigationOptions:{
-            //         headerMode:"none"
-            //     }
-            // },
             [Routes.AuthScreen]:{screen:AuthPageContainer},
             [Routes.LoginScreen]:{screen:LoginPageContainer},
-            [Routes.SignUpScreen]:{screen:SignUpPageContainer}
+            [Routes.SignUpScreen]:{screen:SignUpPageContainer},
+            [Routes.OAuthScreen]:{screen:OAuthPageContainer}
         },AuthFlowConfig)
     },
     [Routes.MainFlow]:{

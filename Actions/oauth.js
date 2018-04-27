@@ -9,8 +9,6 @@ const genOnOAUTHComplete = (cypherAPILink) => {
 	    
 	    const linkAppToCypher = genLinkToCypherAction(cypherAPILink)
 		//Define general dispatch to link app with?
-		console.log("APP AUTH CODE:")
-		console.log(appAuthCode)
 	    return dispatch(linkAppToCypher(cypherAccessToken, appAuthCode))
 	}
     }

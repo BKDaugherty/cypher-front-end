@@ -7,13 +7,6 @@ import Button from '@Components/Button'
 import {CypherText, CypherTextInput} from "@Style/BaseComponents"
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 
-
-/*
-        autoCapitalize='none'
-        autoCorrect={false}
-        autoFocus={false}
-*/
-
 class SignUpPageContainer extends React.Component{
 
   constructor(props) {
