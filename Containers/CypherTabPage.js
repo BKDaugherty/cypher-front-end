@@ -1,4 +1,4 @@
-import {APPDARK, APPGREEN, APPGRAY, APPNAVY, APPYELLOW} from '@Style/constants'
+import {APPDARKGRAY, APPGREEN, APPGRAY, APPNAVY, APPYELLOW} from '@Style/constants'
 import {genCypherTabPage} from '@Containers/CypherTabPageFactory'
 
 export const BitcoinContainer = genCypherTabPage({

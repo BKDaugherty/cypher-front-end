@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { AppRegistry } from 'react-native'
+import { AppRegistry, StatusBar } from 'react-native'
 import { Provider } from 'react-redux'
 import LoadingView from '@Components/LoadingView.js'
 import {AppNavigation} from '@Navigation/AppNavigation'
@@ -34,6 +34,8 @@ export default class App extends Component {
 	       (
 		   <Provider store={store}>
 		   	<PersistGate loading={<LoadingView />} persistor={persistor}>
+				<StatusBar 
+					barStyle="light-content"/>
 		   		<AppNavigation />
 			</PersistGate>
 		   </Provider>

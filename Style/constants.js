@@ -5,7 +5,6 @@ export const APPDARKGRAY = "#393F4E"
 
 //Used for tabs
 
-export const APPDARK = "#3A3A4C"
 export const APPGREEN= "#8ABF53"
 export const APPGRAY = "#B3B3B3"
 export const APPNAVY = "#687EBA"

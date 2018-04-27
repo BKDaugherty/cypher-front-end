@@ -6,8 +6,6 @@ import * as Routes from './Routes'
 import CustomTabBar from '@Components/CustomTabBar'
 import {APPDARKGRAY, WEBLIGHTBLUE, WEBDARKBLUE, WEBPINK } from '@Style/constants'
 
-
-
 import {connect} from 'react-redux'
 
 import customDrawerContainer from '@Containers/CustomDrawerContainer'

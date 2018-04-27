@@ -13,3 +13,11 @@ export const GRANULARITY = {
     HOUR6:21600,
     DAY:86400
 }
+
+
+// Hour --> MINUTE (30)
+// Day --> 1 Hour (24)
+// Week --> 6 Hours
+// Month --> Day (30)
+// Year --> Day --> 10
+

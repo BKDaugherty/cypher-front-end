@@ -24,6 +24,7 @@ function curriedReducer(coin){
                 return Object.assign({},state, {
                     isPending:false,
                     error:action.error,
+                    data:state.gdax[coin].data
                 })
             default:
                 return state

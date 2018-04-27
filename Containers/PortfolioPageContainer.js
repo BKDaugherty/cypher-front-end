@@ -38,7 +38,7 @@ const {bitcoinPriceData, ethereumPriceData, litecoinPriceData, bitcoinCashPriceD
       </View>
 
       <View style={styles.AppFooter}>
-        <Text style={{color:'#fff'}}>Cypher Inc.</Text>
+        <Text style={{color:'#fff'}}>Cypher App LLC</Text>
       </View>
       </ScrollView>
     </SafeAreaView>
