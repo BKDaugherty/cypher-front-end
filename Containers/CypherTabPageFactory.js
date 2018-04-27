@@ -1,10 +1,12 @@
 import React from 'react';
-import {SafeAreaView, ScrollView, RefreshControl, ActivityIndicator, StyleSheet, Text, View, TouchableHighlight, TouchableOpacity } from 'react-native';
+import {SafeAreaView, ScrollView, RefreshControl, ActivityIndicator, StyleSheet, Text, View, TouchableOpacity } from 'react-native';
 import {connect} from 'react-redux'
 import StockGraph from '@Components/StockGraph.js'
+import StockGraphController from '@Components/StockGraphController'
 import gdaxActions from '@Actions/GDAX'
 import {getBalance} from '@Actions/balance'
 import {CypherText} from '@Style/BaseComponents'
+
 //Used to get out of Redux/Native Optimization of requiring
 //styles to be an object if used with connect
 const genStyles = (config) => {
@@ -48,7 +50,7 @@ export const genCypherTabPage = (config) => {
 	//Dispatch mapper
     const mapDispatchToProps = (dispatch) => {
         return {
-		   loadHistoricPriceData: (granularity) => {dispatch(gdaxActions[coinName].initiateRequest(granularity))},
+		   loadHistoricPriceData: (length) => {dispatch(gdaxActions[coinName].initiateRequest(length))},
 		   loadCoinBalance: (access_token) => {
 			   dispatch(getBalance(access_token, coinName))}
 		}
@@ -63,6 +65,7 @@ export const genCypherTabPage = (config) => {
 			coinBalance:state.balance.balances[coinName],
 			isLoadingCoinBalance:state.balance.isPending,
 			Cypher_Token:state.auth.token,
+			currentPrice:state.gdax[coinName].currentPrice,
 			...ownProps
         };
     }
@@ -70,16 +73,31 @@ export const genCypherTabPage = (config) => {
     //Don't really like this, but it seems tab navigation relies
 	//on accepting a class...
 
+	const graphScales = ["1HR","1D","1W", "1M","3M"]
+
 	const styles = genStyles(config)
     class CypherTabPage extends React.Component{
 		constructor(props){
 			super(props)
+			//Bind member function to use this within method
+			this.toggleBalanceDisplay = this.toggleBalanceDisplay.bind(this)
+			this.loadHistoricPriceData = this.loadHistoricPriceData.bind(this)
+			this.updateGraphScale = this.updateGraphScale.bind(this)
+			this.state = {
+				balanceInFiat:false,
+				graphScale:graphScales[0]
+			}
+		}
 
-			//Bind member functions
-			this.loadHistoricPriceData.bind(this)
-			this.componentDidMount.bind(this)
-			this.loadCoinBalance.bind(this)
-			this.loadPageData.bind(this)
+		// Local, presentational state
+		toggleBalanceDisplay(){
+			const alt = !this.state.balanceInFiat
+			this.setState({balanceInFiat:alt})
+		}
+
+		// Local, presentational state
+		updateGraphScale(value){
+			this.setState({graphScale:value})
 		}
 
 		componentDidMount(){
@@ -98,19 +116,10 @@ export const genCypherTabPage = (config) => {
 		}
 
 		loadHistoricPriceData(){
-			this.props.loadHistoricPriceData(86400)
+			this.props.loadHistoricPriceData(this.state.graphScale)
 		}
 
         render(){ 
-			let coinCurrentPrice = 0
-			if(this.props.coinPriceData && this.props.coinPriceData.length > 0 ) {
-				const numDataPoints = this.props.coinPriceData.length
-				const coinCurrentPriceObj = this.props.coinPriceData[numDataPoints - 1]
-				coinCurrentPrice = coinCurrentPriceObj.open
-			}
-
-			coinCurrentPrice = coinCurrentPrice.toFixed(2)
-
             return(
 			<ScrollView style={{backgroundColor:config.backgroundColor}} contentContainerStyle={styles.container}
 			refreshControl={<RefreshControl 
@@ -125,12 +134,19 @@ export const genCypherTabPage = (config) => {
 			<ActivityIndicator color="#fff" size="large" animating={this.props.isLoadingCoinPriceData}/>
 			{!(this.props.isLoadingCoinPriceData || this.props.coinPriceError) && (this.props.coinPriceData) &&
 			<View style={styles.gdaxContainer}>
-				<CypherText center header>${coinCurrentPrice}</CypherText>
+				<CypherText center header>${this.props.currentPrice}</CypherText>
 	        	<StockGraph data={this.props.coinPriceData} />
 			</View>
 			}
-			
-	        <CypherText center>Balance:{` ${this.props.coinBalance} ${coinAbbrev}`}</CypherText>
+			{!this.props.isLoadingCoinPriceData && <StockGraphController onPress={this.updateGraphScale} />}
+
+
+			<TouchableOpacity onPress={this.toggleBalanceDisplay}>
+	       	 	<CypherText center>
+					{this.state.balanceInFiat ?  `Balance: ${this.props.coinBalance} ${coinAbbrev}` : 
+					`Balance: ${this.props.coinBalance * this.props.currentPrice} USD` }
+				</CypherText>
+			</TouchableOpacity>	
 	        </ScrollView>
 			)
         }

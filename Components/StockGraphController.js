@@ -1,37 +1,39 @@
 import React from 'react';
-import {connect} from 'react-redux'
-import {StyleSheet, Button, View, Text} from 'react-native'
-import {setTimeScale} from '@Actions/stockGraph'
-import {APPPURPLE, APPBLUE, APPRED} from '@Style/constants.js'
+import {StyleSheet, View, Text, TouchableOpacity} from 'react-native'
+import {CypherText} from '@Style/BaseComponents'
 
 
-class StockGraphController extends React.Component {
-  render() {
-    return (
-    <View style={styles.ButtonView}>
-      <Button color={'#fff'} onPress={() => {this.props.onUpdateTimescale("24HR")}} title="24HR"/>
-      <Button color={'#fff'} onPress={() => {this.props.onUpdateTimescale("1W")}} title="1W"/>
-      <Button color={'#fff'} onPress={() => {this.props.onUpdateTimescale("1M")}} title="1M"/>
-      <Button color={'#fff'} onPress={() => {this.props.onUpdateTimescale("3M")}} title="3M"/>
-      <Button color={'#fff'} onPress={() => {this.props.onUpdateTimescale("1YR")}} title="1YR"/>
-    </View>);
-  }
+const StockGraphButton = (props) => {
+  const {onPress, value, center, header} = props
+
+  return (<TouchableOpacity onPress={() => onPress(value)}>
+            <CypherText center={center} header={header}>{value}</CypherText>
+          </TouchableOpacity>)
 }
+
+const timeScales = ["24HR", "1W", "1M", "3M", "1YR"]
+
+const StockGraphController = (props) => (
+    <View style={styles.ButtonView}>
+      {timeScales.map(
+        ts => (
+        <StockGraphButton
+          key={"STOCKGRAPHBUTTON" + ts}
+          onPress={props.onPress}
+          value={ts}/>))
+      }
+    </View>)
 
 const styles = StyleSheet.create({
   ButtonView:{
-    borderTopWidth:0.45,
-    borderColor:'#ddd',
-    flexDirection:"row",
-    justifyContent:"space-between"
+    display:'flex',
+    alignSelf:'stretch',
+    justifyContent:"space-around",
+    flexDirection:'row',
+    paddingLeft:"10%",
+    paddingRight:"10%"
   }
 })
 
 
-const mapDispatchToProps = (dispatch) => {
-    return {
-        onUpdateTimescale: (timeScale) => { dispatch(setTimeScale(timeScale)); },
-    }
-}
-
-export default connect(null, mapDispatchToProps)(StockGraphController);
+export default StockGraphController

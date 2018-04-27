@@ -62,6 +62,12 @@ const extractErrorMessage = async (error) => {
     }
 }
 
+export const signUpError = (errorMessage) => {
+    return {
+        type:ActionTypes.SIGNUP_REQUEST_FAILURE,
+        error: errorMessage
+    }
+}
 
 export const signUpRequest = (firstName, lastName, email, password, navigate) => {
 
@@ -88,10 +94,8 @@ export const signUpRequest = (firstName, lastName, email, password, navigate) =>
                 dispatch(resetSignUp())
             }, errorDelay)
 
-            return dispatch({
-                type:ActionTypes.SIGNUP_REQUEST_FAILURE,
-                error: message
-            })
+            // Send the error to the store
+            dispatch(signUpError(message))
         }
   }
 }

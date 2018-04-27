@@ -6,6 +6,7 @@ function curriedReducer(coin){
         isPending:false,
         data:[],
         error:null,
+        currentPrice:0
     }
 
     return (state = defaultState, action) => {
@@ -13,18 +14,19 @@ function curriedReducer(coin){
             case coin + ActionTypes.INITIATE_GDAX_REQUEST:
                 return Object.assign({}, state, {
                     isPending:true,
-                    error:null
+                    error:null,
                 });
             case coin + ActionTypes.GDAX_REQUEST_SUCCESS:
                 return Object.assign({},state, {
                     isPending:false,
                     data:action.historicRates,
+                    currentPrice:action.currentPrice,
+                    error:null
                 })
             case coin + ActionTypes.GDAX_REQUEST_FAILURE:
                 return Object.assign({},state, {
                     isPending:false,
                     error:action.error,
-                    data:state.gdax[coin].data
                 })
             default:
                 return state

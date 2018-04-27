@@ -11,10 +11,9 @@ import {CypherText} from '@Style/BaseComponents'
 export default class OAUTHSwitch extends React.Component {
     constructor(props){
 	super(props)
-	console.log(this.props.callback)
 	this.state = {
 	    oauthSetup: this.props.OAUTHComplete ? true : false
-	}
+		}
     }
     
     _handleAsyncSwitch = async () => {

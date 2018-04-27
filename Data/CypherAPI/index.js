@@ -81,6 +81,11 @@ const getBalance = (access_token, coinName) => {
     return secureRequest(access_token, Endpoints.userPortfolio).then(parseResponse)
 }
 
+const getRoundups = (access_token) => {
+    
+}
+
+
 //Curried abstraction for fetch
 //With secure token inline
 const secureRequest = (access_token, endPoint, method = 'get',  body = null, headers = {}) => {
@@ -109,10 +114,6 @@ const standardRequest = (endPoint, method ='get',  body = null, passedHeaders = 
         return fetch(`${BASEURL}${endPoint}`, {method, headers})
         .then(parseResponse) 
     }
-
-   
-
-    
 }
 
 

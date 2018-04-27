@@ -3,8 +3,9 @@ import {connect} from 'react-redux'
 import ActionTypes from "@Actions/ActionTypes"
 import {SafeAreaView, ScrollView, View, TouchableOpacity, Text} from 'react-native'
 import {APPDARKGRAY, WEBDARKBLUE, WEBLIGHTBLUE, WEBPINK} from "@Style/constants"
-import {AboutScreen, AuthScreen, SettingsScreen, PortfolioTab } from '@Navigation/Routes'
+import {AboutScreen, AuthScreen, ManageScreen, SettingsScreen, PortfolioTab } from '@Navigation/Routes'
 import { CypherText } from '@Style/BaseComponents';
+import Button from '@Components/Button'
 
 import {NavigationActions} from 'react-navigation'
 
@@ -29,20 +30,22 @@ const customDrawer = (props) => {
                 <DrawerSlot onPress={() => props.navigation.navigate(PortfolioTab)} color={APPDARKGRAY}>
                     <CypherText center>{props.username}</CypherText>
 					<CypherText center>${props.balance}</CypherText>
+					<Button onPress={() =>{ 
+						props.logout()
+						const resetAction = NavigationActions.reset({index:0, actions:[props.navigation.navigate(AuthScreen)]})
+						props.navigation.dispatch(resetAction)
+					}}>
+						<CypherText>Logout</CypherText>
+					</Button>
                 </DrawerSlot>
-                <DrawerSlot onPress={() => props.navigation.navigate(AboutScreen)} color={WEBLIGHTBLUE}>
-					<CypherText center>About</CypherText>
+                <DrawerSlot onPress={() => props.navigation.navigate(ManageScreen)} color={WEBLIGHTBLUE}>
+					<CypherText header center>Manage</CypherText>
 				</DrawerSlot>
                 <DrawerSlot onPress={() => props.navigation.navigate(SettingsScreen)} color={WEBDARKBLUE}>
-					<CypherText center>Settings</CypherText>
+					<CypherText header center>Settings</CypherText>
 				</DrawerSlot>
-                <DrawerSlot onPress={() => {					
-					props.logout()
-					const resetAction = NavigationActions.reset({index:0, actions:[props.navigation.navigate(AuthScreen)]})
-					props.navigation.dispatch(resetAction)
-				}
-				} color={WEBPINK}>
-					<CypherText center>Logout</CypherText>
+                <DrawerSlot onPress={() => props.navigation.navigate(AboutScreen)} color={WEBPINK}>
+					<CypherText header center>About</CypherText>
 				</DrawerSlot>
         </SafeAreaView>
         

@@ -1,10 +1,11 @@
 import React from 'react';
 import {connect} from 'react-redux'
-import {signUpRequest } from '@Actions/auth.js'
-import {TouchableOpacity, StyleSheet,Text, TextInput,ScrollView, View, ActivityIndicator} from 'react-native'
+import {signUpRequest, signUpError } from '@Actions/auth.js'
+import {TouchableOpacity, StyleSheet,Text, TextInput,ScrollView, View, ActivityIndicator, KeyboardAvoidingView} from 'react-native'
 import {APPDARKGRAY, APPRED} from '@Style/constants.js'
 import Button from '@Components/Button'
 import {CypherText, CypherTextInput} from "@Style/BaseComponents"
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 
 
 /*
@@ -17,22 +18,29 @@ class SignUpPageContainer extends React.Component{
 
   constructor(props) {
     super(props)
+    this.userSignUp = this.userSignUp.bind(this)
     this.state = {
       first_name: '',
       last_name: '',
       email:'',
-      password:''
+      password:'',
+      confirm_password:'',
     }
   }
 
 userSignUp(e){
-  const navigate = this.props.navigation.navigate
-  this.props.onSignUp(this.state.first_name, this.state.last_name, this.state.email, this.state.password, navigate)
-  e.preventDefault()
+  if(this.state.password != this.state.confirm_password){
+    // notify the user that their passwords dont match
+    this.props.passwordsDontMatch()
+  } else {
+    const navigate = this.props.navigation.navigate
+    this.props.onSignUp(this.state.first_name, this.state.last_name, this.state.email, this.state.password, navigate)
+    e.preventDefault()
+  }
 }
 
 render() {
-  return(<View style={style.PageView}>
+  return(<KeyboardAwareScrollView style={{backgroundColor:APPDARKGRAY}} contentContainerStyle={style.PageView}>
     <CypherText header center>Sign Up</CypherText>
     <CypherTextInput
           placeholder='First Name'
@@ -55,12 +63,19 @@ render() {
           secureTextEntry={true}
           value={this.state.password}
           onChangeText={(text) => this.setState({ password: text })}/>
+      <CypherTextInput
+          placeholder='Confirm Password'
+          secureTextEntry={true}
+          value={this.state.confirmPassword}
+          onChangeText={(text) => this.setState({ confirm_password: text })}/>
     <View style ={style.ButtonContainer}>
       <Button pending={this.props.isSigningUp} error={this.props.error} onPress={(e) => this.userSignUp(e)}>
         <CypherText>Sign Up</CypherText>
       </Button>
     </View>
-  </View>)
+
+    </KeyboardAwareScrollView>
+  )
   }
 }
 
@@ -93,7 +108,8 @@ const style = StyleSheet.create({
 
   const mapDispatchToProps = (dispatch) => {
       return {
-          onSignUp: (first_name,last_name,email, password, navigate) => { dispatch(signUpRequest(first_name,last_name,email, password, navigate)); }
+          onSignUp: (first_name,last_name,email, password, navigate) => { dispatch(signUpRequest(first_name,last_name,email, password, navigate)); },
+          passwordsDontMatch:() => dispatch(signUpError("Please ensure that your passwords match!"))
       }
   }
 

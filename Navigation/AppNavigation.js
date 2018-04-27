@@ -61,6 +61,8 @@ import PortfolioPageContainer from '@Containers/PortfolioPageContainer'
 import SplashScreen from '@Containers/SplashScreen'
 import SettingsPageContainer from '@Containers/SettingsPageContainer'
 import AboutPageContainer from '@Containers/AboutPageContainer'
+import ManagePageContainer from '@Containers/ManagePageContainer';
+
 
 import {
 	BitcoinContainer,
@@ -99,7 +101,10 @@ export const AppNavigator = StackNavigator({
             },
             [Routes.SettingsScreen]:{
                 screen:SettingsPageContainer
-            }
+            },
+            [Routes.ManageScreen]:{
+                screen:ManagePageContainer
+            },
         }, MainDrawerConfig)
     }
 },AppNavigationConfig)

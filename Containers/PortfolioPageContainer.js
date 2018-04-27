@@ -29,8 +29,6 @@ const {bitcoinPriceData, ethereumPriceData, litecoinPriceData, bitcoinCashPriceD
         </View>
       )
     }
-      
-
       <View style={styles.BalanceContainer}>
         <Text style={styles.Balance}>
           Balance: {props.balance}

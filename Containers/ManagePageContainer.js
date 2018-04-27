@@ -4,13 +4,13 @@ import {SafeAreaView, StyleSheet, Image, View} from 'react-native'
 import {CypherText} from '@Style/BaseComponents'
 
 //Styles
-import { WEBPINK} from '@Style/constants.js'
+import { WEBLIGHTBLUE} from '@Style/constants.js'
 
 
-const AboutPageContainer = (props) => {
+const ManagePageContainer = (props) => {
 	return (
 	    <SafeAreaView style={styles.container}>
-            <CypherText center header>About</CypherText>
+            <CypherText center header>Manage</CypherText>
 			<View style={styles.contentContainer}>
 			<CypherText center>
 				At Cypher, we'd like to build a platform that gives everyone easy access to cryptocurrency investments.
@@ -31,7 +31,7 @@ const styles = StyleSheet.create({
     container:{
 	flex:1,
 	flexDirection:'column',
-	backgroundColor:WEBPINK,
+	backgroundColor:WEBLIGHTBLUE,
 	justifyContent:'flex-start',
 	alignItems:'center',
 	paddingTop:10
@@ -53,4 +53,4 @@ const styles = StyleSheet.create({
     },
 })
 
-export default AboutPageContainer
+export default ManagePageContainer

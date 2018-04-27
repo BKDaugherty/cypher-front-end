@@ -14,10 +14,12 @@ export const GRANULARITY = {
     DAY:86400
 }
 
+export const GRAPHSCALES = {
+    HOUR:3600,
+    DAY:86400,
+    WEEK:86400 * 7,
+    MONTH:86400 * 30,
+    MONTH3:86400 * 30 * 3,
+}
 
-// Hour --> MINUTE (30)
-// Day --> 1 Hour (24)
-// Week --> 6 Hours
-// Month --> Day (30)
-// Year --> Day --> 10
 
