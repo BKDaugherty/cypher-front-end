@@ -130,7 +130,7 @@ export const genCypherTabPage = (config) => {
 				style={{backgroundColor:config.backgroundColor}}/>}
 			endFillColor={config.backgroundColor}>
 						
-	        <CypherText header center>{config.coinName}</CypherText>
+	        <CypherText bold header center>{config.coinName}</CypherText>
 			{/*Conditionally Render coin price data*/}
 			<ActivityIndicator color="#fff" size="large" animating={this.props.isLoadingCoinPriceData}/>
 			{!(this.props.isLoadingCoinPriceData || this.props.coinPriceError) && (this.props.coinPriceData) &&
@@ -143,8 +143,8 @@ export const genCypherTabPage = (config) => {
 
 			<TouchableOpacity onPress={this.toggleBalanceDisplay}>
 	       	 	<CypherText center>
-				{this.props.coinBalance && this.props.currentPrice && this.state.balanceInFiat ?  `Balance: ${this.props.coinBalance} ${coinAbbrev}` : 
-					`Balance: ${(this.props.coinBalance * this.props.currentPrice).toFixed(2)} USD` }
+				{(this.props.coinBalance && this.props.currentPrice) && (this.state.balanceInFiat ?  `Balance: ${this.props.coinBalance} ${coinAbbrev}` : 
+					`Balance: ${(this.props.coinBalance * this.props.currentPrice).toFixed(2)} USD`) }
 				</CypherText>
 			</TouchableOpacity>	
 	        </ScrollView>

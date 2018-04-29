@@ -24,13 +24,13 @@ const customDrawer = (props) => {
 				</Button>
 			</DrawerSlot>
 			<DrawerSlot onPress={() => props.navigation.navigate(ManageScreen)} color={WEBLIGHTBLUE}>
-				<CypherText header center>Manage</CypherText>
+				<CypherText bold header center>Manage</CypherText>
 			</DrawerSlot>
 			<DrawerSlot onPress={() => props.navigation.navigate(SettingsScreen)} color={WEBDARKBLUE}>
-				<CypherText header center>Settings</CypherText>
+				<CypherText bold header center>Settings</CypherText>
 			</DrawerSlot>
 			<DrawerSlot onPress={() => props.navigation.navigate(AboutScreen)} color={WEBPINK}>
-				<CypherText header center>About</CypherText>
+				<CypherText bold header center>About</CypherText>
 			</DrawerSlot>
         </SafeAreaView>
         
