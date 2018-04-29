@@ -2,7 +2,7 @@ import React from 'react';
 import {connect} from 'react-redux'
 import { loginRequest } from '@Actions/auth.js'
 import {TouchableOpacity, KeyboardAvoidingView, StyleSheet, Text, TextInput,ScrollView, View, ActivityIndicator} from 'react-native'
-import {APPDARKGRAY} from '@Style/constants.js'
+import {WEBLIGHTBLUE} from '@Style/constants.js'
 import AppLogo from '@Components/AppLogo.js'
 
 import {SignUpScreen} from '@Navigation/Routes'
@@ -28,7 +28,7 @@ class LoginPageContainer extends React.Component{
   render() {
     return(
       <View style={style.PageView}>
-        <CypherText header center>Login</CypherText>
+        <CypherText bold header center>Cypher</CypherText>
         <CypherTextInput 
           placeholder="Username"
           keyboardType='email-address'
@@ -55,7 +55,7 @@ const style = StyleSheet.create({
   PageView:{
     flex: 1,
     padding:20,
-    backgroundColor: APPDARKGRAY,
+    backgroundColor: WEBLIGHTBLUE,
     flexDirection:'column',
     justifyContent: 'center',
     alignItems:'stretch'

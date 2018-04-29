@@ -2,7 +2,7 @@ import React from 'react';
 import {connect} from 'react-redux'
 import {signUpRequest, signUpError } from '@Actions/auth.js'
 import {TouchableOpacity, StyleSheet,Text, TextInput,ScrollView, View, ActivityIndicator, KeyboardAvoidingView} from 'react-native'
-import {APPDARKGRAY, APPRED} from '@Style/constants.js'
+import {WEBDARKBLUE} from '@Style/constants.js'
 import Button from '@Components/Button'
 import {CypherText, CypherTextInput} from "@Style/BaseComponents"
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
@@ -33,8 +33,8 @@ userSignUp(e){
 }
 
 render() {
-  return(<KeyboardAwareScrollView style={{backgroundColor:APPDARKGRAY}} contentContainerStyle={style.PageView}>
-    <CypherText header center>Sign Up</CypherText>
+  return(<KeyboardAwareScrollView style={{backgroundColor:WEBDARKBLUE}} contentContainerStyle={style.PageView}>
+    <CypherText bold header center>Cypher</CypherText>
     <CypherTextInput
           placeholder='First Name'
           value={this.state.first_name}
@@ -76,7 +76,7 @@ const style = StyleSheet.create({
   PageView:{
     flex: 1,
     padding:20,
-    backgroundColor: APPDARKGRAY,
+    backgroundColor: WEBDARKBLUE,
     flexDirection:'column',
     justifyContent: 'center',
     alignItems:'stretch'

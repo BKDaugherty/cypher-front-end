@@ -13,11 +13,13 @@ function curriedReducer(coin){
         switch(action.type){
             case coin + ActionTypes.INITIATE_GDAX_REQUEST:
                 return Object.assign({}, state, {
+                    ...state,
                     isPending:true,
                     error:null,
                 });
             case coin + ActionTypes.GDAX_REQUEST_SUCCESS:
                 return Object.assign({},state, {
+                    ...state,
                     isPending:false,
                     data:action.historicRates,
                     currentPrice:action.currentPrice,
@@ -25,6 +27,7 @@ function curriedReducer(coin){
                 })
             case coin + ActionTypes.GDAX_REQUEST_FAILURE:
                 return Object.assign({},state, {
+                    ...state,
                     isPending:false,
                     error:action.error,
                 })

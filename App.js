@@ -17,7 +17,8 @@ export default class App extends Component {
     
     async componentDidMount() {
 	await Font.loadAsync({
-	    'pt-mono': require('./Assets/fonts/PT_Mono/PTM55FT.ttf'),
+		'pt-mono': require('./Assets/fonts/PT_Mono/PTM55FT.ttf'),
+		'pt-mono-bold': require('./Assets/fonts/PT_Mono/pt-mono.bold.ttf'),
 	    'pt-sans-bold':require('./Assets/fonts/PT_Sans/PT_Sans-Web-Bold.ttf'),
 	    'pt-sans-bold-italic':require('./Assets/fonts/PT_Sans/PT_Sans-Web-BoldItalic.ttf'),
 	    'pt-sans-italic':require('./Assets/fonts/PT_Sans/PT_Sans-Web-Italic.ttf'),

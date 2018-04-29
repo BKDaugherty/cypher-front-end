@@ -105,6 +105,7 @@ export const genCypherTabPage = (config) => {
 		}
 
 		loadPageData(){
+			console.log("Loading Page Data")
 			this.loadHistoricPriceData()
 			if(this.props.Cypher_Token){
 				this.loadCoinBalance(this.props.Cypher_Token)
@@ -134,16 +135,15 @@ export const genCypherTabPage = (config) => {
 			<ActivityIndicator color="#fff" size="large" animating={this.props.isLoadingCoinPriceData}/>
 			{!(this.props.isLoadingCoinPriceData || this.props.coinPriceError) && (this.props.coinPriceData) &&
 			<View style={styles.gdaxContainer}>
-				<CypherText center header>${this.props.currentPrice.toFixed(2)}</CypherText>
+				<CypherText center header>${this.props.currentPrice && this.props.currentPrice.toFixed(2)}</CypherText>
 	        	<StockGraph data={this.props.coinPriceData} />
 			</View>
 			}
 			{!this.props.isLoadingCoinPriceData && <StockGraphController onPress={this.updateGraphScale} />}
 
-
 			<TouchableOpacity onPress={this.toggleBalanceDisplay}>
 	       	 	<CypherText center>
-					{this.state.balanceInFiat ?  `Balance: ${this.props.coinBalance} ${coinAbbrev}` : 
+				{this.props.coinBalance && this.props.currentPrice && this.state.balanceInFiat ?  `Balance: ${this.props.coinBalance} ${coinAbbrev}` : 
 					`Balance: ${(this.props.coinBalance * this.props.currentPrice).toFixed(2)} USD` }
 				</CypherText>
 			</TouchableOpacity>	

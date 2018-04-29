@@ -1,10 +1,12 @@
 
 import React from 'react'
-import {StatusBar, SafeAreaView, Text, View, TextInput, TouchableHighlight, ScrollView, TouchableOpacity} from 'react-native'
+import {StatusBar, Image, SafeAreaView, Text, View, TextInput, TouchableHighlight, ScrollView, TouchableOpacity} from 'react-native'
 import {addNavigationHelpers, DrawerItems, StackNavigator, TabNavigator, DrawerNavigator} from 'react-navigation'
 import * as Routes from './Routes'
 import CustomTabBar from '@Components/CustomTabBar'
 import {APPDARKGRAY, WEBLIGHTBLUE, WEBDARKBLUE, WEBPINK } from '@Style/constants'
+
+import BackButtonImage from '@Images/nav.png'
 
 import {connect} from 'react-redux'
 
@@ -19,6 +21,12 @@ const AppNavigationConfig = {
     }
 }
 
+const Left = ({onPress}) => (
+    <TouchableOpacity onPress={onPress} style={{paddingTop:20, paddingLeft:10}}>
+        <Image source={BackButtonImage}/>
+    </TouchableOpacity>
+)
+
 const AuthFlowConfig = {
     navigationOptions:{
         headerStyle:{
@@ -27,13 +35,19 @@ const AuthFlowConfig = {
             borderRightWidth:0,
             
         },
-        headerBackTitle:"Back",
         headerBackTitleStyle:{
             color:'#fff'
         }
-
     }
 }
+const AuthFlowWithBack = (color) => ({navigation}) => ({
+        headerLeft: <Left onPress={() => navigation.goBack()}/>,
+        headerStyle:{
+            backgroundColor:color,
+            borderBottomWidth:0,
+            borderRightWidth:0,
+        } 
+})
 
 const MainFlowConfig = {
     headerMode:"none",
@@ -76,9 +90,9 @@ export const AppNavigator = StackNavigator({
     [Routes.AuthFlow]:{
         screen:StackNavigator({
             [Routes.AuthScreen]:{screen:AuthPageContainer},
-            [Routes.LoginScreen]:{screen:LoginPageContainer},
-            [Routes.SignUpScreen]:{screen:SignUpPageContainer},
-            [Routes.OAuthScreen]:{screen:OAuthPageContainer}
+            [Routes.LoginScreen]:{screen:LoginPageContainer, navigationOptions:AuthFlowWithBack(WEBLIGHTBLUE)},
+            [Routes.SignUpScreen]:{screen:SignUpPageContainer, navigationOptions:AuthFlowWithBack(WEBDARKBLUE)},
+            [Routes.OAuthScreen]:{screen:OAuthPageContainer, navigationOptions:AuthFlowWithBack(APPDARKGRAY)}
         },AuthFlowConfig)
     },
     [Routes.MainFlow]:{

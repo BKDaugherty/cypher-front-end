@@ -17,9 +17,13 @@ export const getBalance = (access_token, coinName) => {
                     litecoin:response.ltc,
                     usd:response.usd
                 }
+
+                console.log("Success")
                 dispatch({type:ActionTypes.BALANCE_REQUEST_SUCCESS, balances})
             }
             catch (error) {
+                console.log(error)
+                console.log("Failure")
                 dispatch({type:ActionTypes.BALANCE_REQUEST_FAILURE, error})
             }
         }

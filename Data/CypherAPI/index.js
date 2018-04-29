@@ -77,17 +77,12 @@ const mapCoinToAbbrev = (coinName) => {
 //hold this information and throw it to the components...
 const getBalance = (access_token, coinName) => {
     const abbrev = mapCoinToAbbrev(coinName)
-    //console.log("Sending request", access_token)
-    return secureRequest(access_token, Endpoints.userPortfolio).then(parseResponse)
+    console.log("Sending balance request")
+    return secureRequest(access_token, Endpoints.userPortfolio)
 }
 
-const getRoundups = (access_token) => {
-    
-}
-
-
-//Curried abstraction for fetch
-//With secure token inline
+// Curried abstraction for fetch
+// With secure token inline
 const secureRequest = (access_token, endPoint, method = 'get',  body = null, headers = {}) => {
     headers.Authorization = `Bearer ${access_token}`
     return standardRequest(endPoint, method, body, headers)
@@ -104,8 +99,6 @@ const standardRequest = (endPoint, method ='get',  body = null, passedHeaders = 
     Object.keys(passedHeaders).forEach( key => {
 	headers.append(key, passedHeaders[key])
     })
-
-    console.log(`${BASEURL}${endPoint}`)
 
     if(body){
         return fetch(`${BASEURL}${endPoint}`, {method, body:JSON.stringify(body), headers})
