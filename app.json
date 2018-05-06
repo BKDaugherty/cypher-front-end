@@ -7,7 +7,7 @@
 		"orientation":"portrait",
 	"description":"CYPHER WOOOOOO",
 	"ios":{
-	    "bundleIdentifier":"com.Daugherty.Cypher"
+	    "bundleIdentifier":"com.CypherApp.CypherApp"
 	}
   }
 }
