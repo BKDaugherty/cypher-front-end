@@ -1,6 +1,6 @@
 import React from 'react'
 import {View, StyleSheet, Image} from 'react-native'
-import Logo from '@Images/Logo.png'
+import Logo from '@Images/logo.png'
 export default class AppLogo extends React.Component {
   render() {
     return (

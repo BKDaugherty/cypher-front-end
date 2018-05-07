@@ -72,7 +72,7 @@ class OAuthPageContainer extends React.Component {
     }
 
     plaidOnMessage(data){
-	console.log(data)
+		console.log(data)
 	if(data && data.eventName){
 		console.log(data.eventName)
 		

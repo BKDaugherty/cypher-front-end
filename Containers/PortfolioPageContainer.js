@@ -39,7 +39,7 @@ const pieData = coinData.filter(value => value > 0)
     }
       <View style={styles.BalanceContainer}>
         <CypherText center>
-          Pending Roundups: ${props.balance.toFixed(2)}
+          {props.balance ? `Pending Roundups: ${props.balance.toFixed(2)}` : null}
         </CypherText> 
       </View>
 
