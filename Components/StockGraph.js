@@ -13,7 +13,7 @@ export default (props) => {
       <View>
         <LineChart
         style={ {height:250, width:250, } }
-          dataPoints={ data.map(elem => elem.open) }
+          data={ data.map(elem => elem.open) }
           fillColor={ '#fff' }
           svg={{
               stroke: '#fff',

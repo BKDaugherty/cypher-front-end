@@ -19,7 +19,7 @@ const AboutPageContainer = (props) => {
 				Thank you for being a part of our beta program. If you have any questions or feedback, please let us know through testflight, or email info@cypherapp.io.
 			</CypherText>
 			<CypherText center>
-				Thanks again, The Cypher Team
+				{"Thanks again\nThe Cypher Team"}
 			</CypherText>
 			</View>
 
@@ -34,7 +34,7 @@ const styles = StyleSheet.create({
 	backgroundColor:WEBPINK,
 	justifyContent:'flex-start',
 	alignItems:'center',
-	paddingTop:10
+	paddingTop:20
 	
 	},
 	contentContainer:{

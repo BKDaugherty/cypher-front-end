@@ -15,16 +15,13 @@ export const getBalance = (access_token, coinName) => {
                     bitcoincash:response.bch,
                     ethereum:response.eth,
                     litecoin:response.ltc,
-                    usd:response.usd
+                    usd:response.usd ? response.usd : 0
                 }
 
-                console.log("Success")
                 console.log(balances)
                 dispatch({type:ActionTypes.BALANCE_REQUEST_SUCCESS, balances})
             }
             catch (error) {
-                console.log(error)
-                console.log("Failure")
                 dispatch({type:ActionTypes.BALANCE_REQUEST_FAILURE, error})
             }
         }

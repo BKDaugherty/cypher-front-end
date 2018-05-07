@@ -10,36 +10,40 @@ import { PieChart } from 'react-native-svg-charts'
 
 const PortfolioPageContainer = (props) => {
 
-const {bitcoinPriceData, ethereumPriceData, litecoinPriceData, bitcoinCashPriceData} = props
-const coinData = [1, ethereumPriceData, litecoinPriceData, bitcoinCashPriceData]
+const {bitcoin, ethereum, litecoin, bitcoincash} = props
+const coinData = [bitcoin, ethereum, litecoin, bitcoincash]
 const coinColor = [APPYELLOW, APPGREEN, APPNAVY, APPGRAY]
-const pieData = coinData.filter(value => value > 0)
-  .map((value, idx) => ({value, color:coinColor[idx], svg:{fill:coinColor[idx]}, key: `pie-${idx}`}))
+const mappedPieData = coinData.filter(value => value > 0).map((value, idx) => ({value, svg:{fill:coinColor[idx]}, key: `pie-${idx}`}))
+
+const pieData = mappedPieData.length == 0 ? [{value:1, svg:{fill:"#666"}, key:`pie-empty`}] : mappedPieData
 
 
   return (
-    <SafeAreaView style={styles.container}>
-      <ScrollView contentContainerStyle={styles.container}
+      <ScrollView style={{backgroundColor:APPDARKGRAY}} contentContainerStyle={styles.container}
       refreshControl={<RefreshControl 
 				refreshing={props.pending}
 				onRefresh={() => { props.pending = true}}
 				colors={["white"]}
 				style={{backgroundColor:APPDARKGRAY}}/>}>
-      <View>
+      <View style={styles.header}>
         <CypherText center bold header>Portfolio</CypherText>
       </View>
 
-    {/*Currently block until we raise state back a bit*/}
-    {bitcoinPriceData && ethereumPriceData && litecoinPriceData && bitcoinCashPriceData &&
-      (
-        <View style={styles.StockGraphView}>
-          <PieChart style={{height:300}} data={pieData}/>
-        </View>
-      )
-    }
+      
+      <View style={styles.StockGraphView}>
+        <PieChart style={{height:300, width:200}} data={pieData}/>
+      </View>
+    
+    
       <View style={styles.BalanceContainer}>
+
+        <CypherText center>Bitcoin: {props.btc} BTC</CypherText>
+        <CypherText center>Ethereum: {props.eth} ETH</CypherText>
+        <CypherText center>Litecoin: {props.ltc} LTC</CypherText>
+        <CypherText center>Bitcoin Cash: {props.bch} BCH </CypherText>
+
         <CypherText center>
-          {props.balance ? `Pending Roundups: ${props.balance.toFixed(2)}` : null}
+          {(typeof(props.roundups) == "number" ) ? `Pending Roundups: $${props.roundups.toFixed(2)}`: null}
         </CypherText> 
       </View>
 
@@ -47,7 +51,6 @@ const pieData = coinData.filter(value => value > 0)
         <Text style={{color:'#fff'}}>Cypher App LLC</Text>
       </View>
       </ScrollView>
-    </SafeAreaView>
   )
 }
 
@@ -56,7 +59,11 @@ const mapStateToProps = (state) => ({
   ethereumPriceData:state.gdax.ethereum.data,
   litecoinPriceData:state.gdax.bitcoin.data,
   bitcoinCashPriceData:state.gdax.bitcoincash.data,
-  balance:state.balance.balances.usd,
+  roundups:state.balance.balances.usd,
+  btc:state.balance.balances.bitcoin,
+  eth:state.balance.balances.ethereum,
+  ltc:state.balance.balances.litecoin,
+  bch:state.balance.balances.bitcoincash,
   pending:false
 })
 
@@ -81,9 +88,7 @@ const styles = StyleSheet.create({
     marginBottom:5
   },
   Header:{
-    fontSize:32,
-    color:'#fff',
-    fontFamily:'pt-mono'
+   paddingBottom:"20%"
   },
   Balance:{
     fontSize:32,
