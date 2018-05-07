@@ -59,14 +59,14 @@ export const genCypherTabPage = (config) => {
     //Redux state mapping
     const mapStateToProps = (state, ownProps) => {
         return {
+			...ownProps,
             isLoadingCoinPriceData: state.gdax[coinName].isPending,
             coinPriceData:state.gdax[coinName].data,
 			coinPriceError:state.gdax[coinName].error,
 			coinBalance:state.balance.balances[coinName],
 			isLoadingCoinBalance:state.balance.isPending,
-			Cypher_Token:state.auth.token,
+			Cypher_Token:state.auth.access_token,
 			currentPrice:state.gdax[coinName].currentPrice,
-			...ownProps
         };
     }
 
@@ -113,6 +113,7 @@ export const genCypherTabPage = (config) => {
 		}
 
 		loadCoinBalance(access_token){
+			console.log(access_token)
 			this.props.loadCoinBalance(access_token)
 		}
 
@@ -143,8 +144,8 @@ export const genCypherTabPage = (config) => {
 
 			<TouchableOpacity onPress={this.toggleBalanceDisplay}>
 	       	 	<CypherText center>
-				{(this.props.coinBalance && this.props.currentPrice) && (this.state.balanceInFiat ?  `Balance: ${this.props.coinBalance} ${coinAbbrev}` : 
-					`Balance: ${(this.props.coinBalance * this.props.currentPrice).toFixed(2)} USD`) }
+				{(this.state.balanceInFiat ?  `Balance: ${this.props.coinBalance} ${coinAbbrev}` : 
+					`Balance: ${(this.props.coinBalance * this.props.currentPrice).toFixed(2)} USD`)}
 				</CypherText>
 			</TouchableOpacity>	
 	        </ScrollView>

@@ -7,38 +7,70 @@ const errorDelay = 3000
 export const resetLogin = () => ({type:ActionTypes.RESET_LOGIN})
 export const resetSignUp = () => ({type:ActionTypes.RESET_SIGNUP})
 
-//Pure functions yay!
-export function loginRequest(username, password, navigate) {
+export function loginRequest(email, password, navigate) {
   return async (dispatch) => {
-    //Start the login request
+    // Tell UI we are starting login request
     dispatch({type:ActionTypes.INITIATE_LOGIN_REQUEST})
     try {
-        //Get the response from the Cypher Server
-        const response = await CypherAPI.postLogin(username, password)
-        //Dispatch success
-        return dispatch(loginRequestSuccess(username, response.access_token, navigate))
+        // Send the login Request to CypherAPI
+        const response = await CypherAPI.postLogin(email, password)
+
+        if(navigate){
+            navigate(PortfolioTab)
+        }
+
+        // Request Success! Tell the store what happened
+        return dispatch(loginRequestSuccess(email, response.access_token, response.refresh_token, response.expires_in))
     }
     catch(error){
-        //Extract the error
+        // Extract the error
         const message = await extractErrorMessage(error)
 
-        setTimeout(() => {
-            dispatch(resetLogin())
-        }, errorDelay)
+        // Set a timeout to adjust the UI
+        setTimeout(() => {dispatch(resetLogin())}, errorDelay)
 
+        // Display the error
         return dispatch(loginRequestFailure(message))
     }
   }
 }
 
-//Dispatched on success
-export const loginRequestSuccess = (username, token, navigate) => {
-    //Navigate to the homepage on success
-    navigate(PortfolioTab)
-    return {type: ActionTypes.LOGIN_REQUEST_SUCCESS, username, token}
+// Refresh the access_token using the long-lasting refresh_token
+export function refreshLogin(email, refresh_token){
+    return async(dispatch) => {
+        dispatch({type:ActionTypes.INITIATE_LOGIN_REFRESH_REQUEST})
+        try {
+            const response = await CypherAPI.refreshLogin(refresh_token)
+            return dispatch(loginRequestSuccess(email, response.access_token, response.refresh_token, response.expires_in))
+        } catch (error) {
+            const message = await extractErrorMessage(error)
+            return dispatch(loginRequestFailure(message))
+        }
+    }
 }
 
-//Dispatched on failure
+// export function refreshAuthOnError(){
+//     return async(dispatch, getState) => {
+//         const {email, refresh_token} = getState().auth
+//         if(email && refresh_token)
+//             dispatch(refreshLogin(email, refresh_token))
+//     }
+// }
+
+// Successful login sets a timeout to refresh the token when needed!
+// Probably better to set a flag that says its stale, and then check in 
+// calls that require the access_token. But this might work! Subtracted some to be safe
+export const loginRequestSuccess = (email, access_token, refresh_token, timeout) => 
+    (dispatch) => {
+    setTimeout(() => {
+        dispatch(refreshLogin(email, refresh_token))
+    }, (timeout) * 1000)
+
+    return dispatch({type: ActionTypes.LOGIN_REQUEST_SUCCESS, email, access_token, refresh_token})
+}
+
+
+
 export const loginRequestFailure = (error) => {
     return {type:ActionTypes.LOGIN_REQUEST_FAILURE, error}
 }
@@ -77,15 +109,17 @@ export const signUpRequest = (firstName, lastName, email, password, navigate) =>
         dispatch({type:ActionTypes.INITIATE_SIGNUP_REQUEST})
 
         try{
-            //Await the response from the cypher server
-            const response = await CypherAPI.postSignUp(firstName, lastName, email, password)
+            // Sign the user up for cypher. Await the response from the server
+            const signUpResponse = await CypherAPI.postSignUp(firstName, lastName, email, password)
+            dispatch({type:ActionTypes.SIGNUP_REQUEST_SUCCESS})
 
-            
+            // If the response was successful, we make a login request.
+            const loginResponse = await CypherAPI.postLogin(email, password)
+            dispatch(loginRequestSuccess(email, loginResponse.access_token, loginResponse.refresh_token, loginResponse.expires_in))
+
+            // If still successful, navigate to the oauth screen
             navigate(OAuthScreen)
-
-            //Dispatch the success of signup
-            //Signal to the user that signup was successful
-            return dispatch({type:ActionTypes.SIGNUP_REQUEST_SUCCESS})
+            return
         } 
         catch(error){
             const message = await extractErrorMessage(error)

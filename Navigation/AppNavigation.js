@@ -49,10 +49,6 @@ const AuthFlowWithBack = (color) => ({navigation}) => ({
         } 
 })
 
-const MainFlowConfig = {
-    headerMode:"none",
-}
-
 const MainDrawerConfig = {
     navigationOptions:{
         gesturesEnabled:true,
@@ -92,7 +88,7 @@ export const AppNavigator = StackNavigator({
             [Routes.AuthScreen]:{screen:AuthPageContainer},
             [Routes.LoginScreen]:{screen:LoginPageContainer, navigationOptions:AuthFlowWithBack(WEBLIGHTBLUE)},
             [Routes.SignUpScreen]:{screen:SignUpPageContainer, navigationOptions:AuthFlowWithBack(WEBDARKBLUE)},
-            [Routes.OAuthScreen]:{screen:OAuthPageContainer, navigationOptions:AuthFlowWithBack(APPDARKGRAY)}
+            [Routes.OAuthScreen]:{screen:OAuthPageContainer}
         },AuthFlowConfig)
     },
     [Routes.MainFlow]:{

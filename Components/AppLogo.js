@@ -16,6 +16,7 @@ export default class AppLogo extends React.Component {
 const style = StyleSheet.create({
   imageContainer:{
     paddingTop:10,
+    paddingBottom:"14%",
     flex:1,
     alignSelf:'center',
   },

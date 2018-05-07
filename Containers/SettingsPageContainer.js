@@ -94,7 +94,7 @@ class SettingsPageContainer extends React.Component {
 	    //Should get state for oauthComplete
 	    OAUTHComplete:this.props.coinbaseComplete,
 	    authURL:CoinbaseAuthRequestURL,
-	    label:"Press here to link your Coinbase account, and start your journey in the decentralized world!",
+	    label:"Setup Coinbase",
 	    callback:this.coinbaseOAUTHCompletion
 	}
 
@@ -106,7 +106,7 @@ class SettingsPageContainer extends React.Component {
 		<OAUTHSwitch {...coinbaseOAUTH} />
 
 	    <Button style={{margin:10}} onPress={ () => this.openModal()}>
-	    	<CypherText center>Press here to link your bank account, and start your journey in the decentralized world!</CypherText>
+	    	<CypherText center>Setup Plaid</CypherText>
 	    </Button>
 	    
 	    <Modal
@@ -131,7 +131,7 @@ const mapStateToProps = (state, ownProps) => {
     return {
 	  	coinbaseComplete:state.coinbase.isComplete,
 	  	plaidComplete:state.plaid.isComplete,
-	  	cypherAccessToken:state.auth.token
+	  	cypherAccessToken:state.auth.access_token
     };
 }
 

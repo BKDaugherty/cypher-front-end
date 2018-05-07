@@ -8,6 +8,7 @@ const defaultState = {
 //Higher order reducer for OAUTH
 const createReducer = (OAUTH_SUCCESS, OAUTH_FAILURE) => {
     return (state = defaultState, action) => {
+		console.log(state, action)
 		if(action.type == OAUTH_SUCCESS){
 			return Object.assign({}, state, {
 				isComplete:true,

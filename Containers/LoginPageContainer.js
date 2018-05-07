@@ -5,7 +5,7 @@ import {TouchableOpacity, KeyboardAvoidingView, StyleSheet, Text, TextInput,Scro
 import {WEBLIGHTBLUE} from '@Style/constants.js'
 import AppLogo from '@Components/AppLogo.js'
 
-import {SignUpScreen} from '@Navigation/Routes'
+import {SignUpScreen, PortfolioTab} from '@Navigation/Routes'
 import Button from '@Components/Button'
 import { CypherText, CypherTextInput } from '@Style/BaseComponents';
 
@@ -83,7 +83,9 @@ const mapStateToProps = (state, ownProps) => {
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        onLogin: (username, password, navigate) => { dispatch(loginRequest(username, password, navigate)); },
+        onLogin: (username, password, navigate) => { 
+          dispatch(loginRequest(username, password, navigate)) 
+        },
     }
 }
 

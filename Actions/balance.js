@@ -19,6 +19,7 @@ export const getBalance = (access_token, coinName) => {
                 }
 
                 console.log("Success")
+                console.log(balances)
                 dispatch({type:ActionTypes.BALANCE_REQUEST_SUCCESS, balances})
             }
             catch (error) {

@@ -10,8 +10,9 @@ const cypherTextStyle = (props) => {
     return {
         color: props.color ? props.color : '#fff',
         fontSize:props.size ? props.size : defaultSize,
-        fontFamily: (props.header ? 'pt-mono' : 'pt-sans') + fontSuffix,
-        alignSelf: props.center ? 'center' : 'flex-start' 
+        fontFamily: (props.header ? 'pt-sans' : 'pt-mono') + fontSuffix,
+        alignSelf: props.center ? 'center' : 'flex-start' ,
+        textAlign: props.center ?   'center' : 'left'
     }
 }
 

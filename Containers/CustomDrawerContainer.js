@@ -13,7 +13,7 @@ const customDrawer = (props) => {
     return (
         <SafeAreaView style={{display:"flex", flex:1, flexDirection:"column", alignItems:"stretch", justifyContent:"center", backgroundColor:APPDARKGRAY}}>
 			<DrawerSlot onPress={() => props.navigation.navigate(PortfolioTab)} color={APPDARKGRAY}>
-				<CypherText center>{props.username}</CypherText>
+				<CypherText center>{props.email}</CypherText>
 				<CypherText center>${props.balance}</CypherText>
 				<Button onPress={() =>{ 
 					props.logout()
@@ -37,7 +37,7 @@ const customDrawer = (props) => {
     )
 }
 const customDrawerMap = (state, ownProps) => ({
-	username:state.auth.username,
+	email:state.auth.email,
 	balance:state.balance.balances.usd
 })
 

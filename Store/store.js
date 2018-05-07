@@ -1,4 +1,5 @@
 import { createStore, applyMiddleware } from 'redux';
+import logger from 'redux-logger'
 import rootReducer from '@Reducers';
 import thunk from 'redux-thunk';
 //import { middleware } from '@Navigation/reduxMiddleware'
@@ -17,6 +18,7 @@ const persistConfig = {
 
 export const store = createStore(persistReducer(persistConfig, rootReducer),
     applyMiddleware(thunk),
+    //applyMiddleware(logger)
     //applyMiddleware(middleware)
 );
 

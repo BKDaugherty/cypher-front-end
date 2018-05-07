@@ -5,23 +5,22 @@ import AppLogo from '@Components/AppLogo.js'
 import Button from '@Components/Button'
 import {CypherText, DrawerSlot} from '@Style/BaseComponents'
 import {SignUpScreen, LoginScreen, TandCScreen} from '@Navigation/Routes'
-
+const TextButtonSize = 24
 export default (props) => (
   <SafeAreaView style={style.PageView}>
     <View style={style.LogoContainer}>
       <AppLogo/>
-      <CypherText bold center header size={60}>Cypher</CypherText>
+      <View style={style.empty}/>
+      <CypherText bold center header>Cypher</CypherText>
     </View>
-    
-
     <DrawerSlot onPress={() => props.navigation.navigate(LoginScreen)} color={WEBLIGHTBLUE}>
-      <CypherText bold center header>Login</CypherText>
+      <CypherText size={TextButtonSize} bold center header>Login</CypherText>
     </DrawerSlot>
     <DrawerSlot onPress={() => props.navigation.navigate(SignUpScreen)} color={WEBDARKBLUE}>
-      <CypherText bold center header>Sign Up</CypherText>
+      <CypherText size={TextButtonSize} bold center header>Sign Up</CypherText>
     </DrawerSlot>
     <DrawerSlot onPress={() => props.navigation.navigate(TandCScreen)} color={WEBPINK}>
-      <CypherText bold center header>Terms and Conditions</CypherText>
+      <CypherText size={TextButtonSize} bold center header>Terms and Conditions</CypherText>
     </DrawerSlot>
   </SafeAreaView>
 )
@@ -44,5 +43,12 @@ const style = StyleSheet.create({
   },
   LogoContainer:{
     flex:2,
-    padding:"10%"
-  }})
+    padding:"10%",
+    flexDirection:'column',
+    alignItems:'center',
+    justifyContent:'space-between'
+  },
+  empty:{
+    padding:5
+  }
+})

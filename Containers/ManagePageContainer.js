@@ -13,13 +13,7 @@ const ManagePageContainer = (props) => {
             <CypherText center header>Manage</CypherText>
 			<View style={styles.contentContainer}>
 			<CypherText center>
-				At Cypher, we'd like to build a platform that gives everyone easy access to cryptocurrency investments.
-			</CypherText>
-			<CypherText center>
-				Thank you for being a part of our beta program. If you have any questions or feedback, please let us know through testflight, or email info@cypherapp.io.
-			</CypherText>
-			<CypherText center>
-				Thanks again, The Cypher Team
+				Coming soon to an alpha near you.
 			</CypherText>
 			</View>
 

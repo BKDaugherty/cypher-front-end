@@ -13,11 +13,11 @@ class SignUpPageContainer extends React.Component{
     super(props)
     this.userSignUp = this.userSignUp.bind(this)
     this.state = {
-      first_name: '',
-      last_name: '',
-      email:'',
-      password:'',
-      confirm_password:'',
+      first_name: 'Brendon',
+      last_name: 'Test',
+      email:`bb${Math.random()}@gmail.com`,
+      password:'Cypherisagreatapp!',
+      confirm_password:'Cypherisagreatapp!',
     }
   }
 

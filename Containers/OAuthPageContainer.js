@@ -37,8 +37,15 @@ class OAuthPageContainer extends React.Component {
 		this.plaidOnMessage = this.plaidOnMessage.bind(this)
 		this.plaidOnSuccess = this.plaidOnSuccess.bind(this)
 		this.plaidOnExit = this.plaidOnExit.bind(this)
+		this.openApp = this.openApp.bind(this)
 	
-    }
+	}
+	
+	// Removes the back button
+	static navigationOptions = {
+		headerLeft:null,
+		gesturesEnabled:false,
+	}
     
     coinbaseOAUTHCompletion(result) {
 		const token = this.props.cypherAccessToken
@@ -53,7 +60,6 @@ class OAuthPageContainer extends React.Component {
 
     plaidOnSuccess(public_token, metadata) {
 	//Dispatch this to matthew
-		console.log(public_token)
 		const token = this.props.cypherAccessToken
 		this.props.onPlaidOAUTHComplete(public_token, token)
 		this.closeModal()
@@ -82,6 +88,11 @@ class OAuthPageContainer extends React.Component {
 	}
 	
 }
+
+	openApp(){
+		const navigate = this.props.navigation.navigate
+		navigate(PortfolioTab)
+	}
     
     openModal(){
 		this.setState({modalVisible:true})
@@ -93,7 +104,7 @@ class OAuthPageContainer extends React.Component {
 
     render(){
 
-	const coinbaseOAUTH= {
+	const coinbaseOAUTH = {
 	    //Should get state for oauthComplete
 	    OAUTHComplete:this.props.coinbaseComplete,
 	    authURL:CoinbaseAuthRequestURL,
@@ -101,11 +112,9 @@ class OAuthPageContainer extends React.Component {
 	    callback:this.coinbaseOAUTHCompletion
 	}
 
-    if(this.props.coinbaseComplete && this.props.plaidComplete){
-        this.props.navigate(PortfolioTab)
-    }
+	// Avoid plaid for now
+	const canContinue = this.props.coinbaseComplete && (this.props.plaidComplete || true)
 
-	
 	return (
 	    <View style={styles.container}>
 	    <CypherText header center>Almost There...</CypherText>
@@ -123,6 +132,11 @@ class OAuthPageContainer extends React.Component {
         <CypherText>{this.props.coinbaseComplete}{this.props.plaidComplete}</CypherText>
 	    
 		<OAUTHSwitch {...coinbaseOAUTH} />
+
+		<Button disabled={!canContinue} style={{margin:10, backgroundColor: canContinue? '#000':'#555'}} onPress={ () => this.openApp()}>
+			<CypherText center>Continue</CypherText>
+		</Button>
+
 
 	    <Modal
 	    	visible={this.state.modalVisible}
@@ -146,7 +160,7 @@ const mapStateToProps = (state, ownProps) => {
     return {
 	  	coinbaseComplete:state.coinbase.isComplete,
 	  	plaidComplete:state.plaid.isComplete,
-	  	cypherAccessToken:state.auth.token
+	  	cypherAccessToken:state.auth.access_token
     };
 }
 
