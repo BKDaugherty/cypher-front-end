@@ -20,6 +20,7 @@
         "@Assets":"./Assets",
         "@Utility":"./Utility"
       }
-    }]
+    }],
+    ["transform-react-jsx-source"]
   ]
 }

@@ -1,18 +1,18 @@
 {
     "expo": {
-		"name":"Cypher",
-		"icon": "./Assets/Images/icon.png",
-		"slug":"cypher",
-		"sdkVersion": "25.0.0",
-		"scheme":"cypherapp",
-		"orientation":"portrait",
-		"splash": {
-  			"image": "./Assets/Images/splash.png",
-  			"backgroundColor": "#3A3B4C"
-		},
-	"description":"CYPHER DESC.",
-	"ios":{
-	    "bundleIdentifier":"com.CypherApp.CypherApp"
-	}
+			"name":"Cypher",
+			"icon": "./Assets/Images/icon.png",
+			"slug":"cypher",
+			"sdkVersion": "25.0.0",
+			"scheme":"cypherapp",
+			"orientation":"portrait",
+			"splash": {
+					"image": "./Assets/Images/splash.png",
+					"backgroundColor": "#3A3B4C"
+			},
+		"description":"CYPHER DESC.",
+		"ios":{
+				"bundleIdentifier":"com.CypherApp.CypherApp",
+		}
   }
 }
