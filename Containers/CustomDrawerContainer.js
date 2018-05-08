@@ -6,6 +6,7 @@ import {APPDARKGRAY, WEBDARKBLUE, WEBLIGHTBLUE, WEBPINK} from "@Style/constants"
 import {AboutScreen, AuthScreen, ManageScreen, SettingsScreen, PortfolioTab } from '@Navigation/Routes'
 import { CypherText, DrawerSlot } from '@Style/BaseComponents';
 import Button from '@Components/Button'
+import AppLogo from '@Components/AppLogo'
 
 import {NavigationActions} from 'react-navigation'
 
@@ -13,8 +14,8 @@ const customDrawer = (props) => {
     return (
         <SafeAreaView style={{display:"flex", flex:1, flexDirection:"column", alignItems:"stretch", justifyContent:"center", backgroundColor:APPDARKGRAY}}>
 			<DrawerSlot onPress={() => props.navigation.navigate(PortfolioTab)} color={APPDARKGRAY}>
-				<CypherText center>{props.email}</CypherText>
-				<CypherText center>${props.balance}</CypherText>
+				<AppLogo style={{width:40, height:40}}/>
+				<CypherText center bold>{props.email}</CypherText>
 				<Button onPress={() =>{ 
 					props.logout()
 					const resetAction = NavigationActions.reset({index:0, actions:[props.navigation.navigate(AuthScreen)]})
@@ -24,13 +25,13 @@ const customDrawer = (props) => {
 				</Button>
 			</DrawerSlot>
 			<DrawerSlot onPress={() => props.navigation.navigate(ManageScreen)} color={WEBLIGHTBLUE}>
-				<CypherText bold header center>Manage</CypherText>
+				<CypherText bold header center size={24}>Manage</CypherText>
 			</DrawerSlot>
 			<DrawerSlot onPress={() => props.navigation.navigate(SettingsScreen)} color={WEBDARKBLUE}>
-				<CypherText bold header center>Settings</CypherText>
+				<CypherText bold header center size={24}>Settings</CypherText>
 			</DrawerSlot>
 			<DrawerSlot onPress={() => props.navigation.navigate(AboutScreen)} color={WEBPINK}>
-				<CypherText bold header center>About</CypherText>
+				<CypherText bold header center size={24}>About</CypherText>
 			</DrawerSlot>
         </SafeAreaView>
         

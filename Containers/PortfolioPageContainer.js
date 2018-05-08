@@ -33,8 +33,7 @@ const pieData = mappedPieData.length == 0 ? [{value:1, svg:{fill:"#666"}, key:`p
       <View style={styles.StockGraphView}>
         <PieChart style={{height:300, width:200}} data={pieData}/>
       </View>
-    
-    
+        
       <View style={styles.BalanceContainer}>
 
         <CypherText center>Bitcoin: {props.btc} BTC</CypherText>

@@ -5,7 +5,7 @@ export default class AppLogo extends React.Component {
   render() {
     return (
       <View style={style.imageContainer}>
-        <Image style={style.imageStyle}
+        <Image style={this.props.style ? this.props.style : style.imageStyle }
           source={Logo}
         />
       </View>
