@@ -5,6 +5,8 @@ import AppLogo from '@Components/AppLogo.js'
 import Button from '@Components/Button'
 import {CypherText, DrawerSlot} from '@Style/BaseComponents'
 import {SignUpScreen, LoginScreen, TandCScreen} from '@Navigation/Routes'
+import {persistor} from '@Store/store'
+
 const TextButtonSize = 24
 export default (props) => (
   <SafeAreaView style={style.PageView}>
@@ -19,7 +21,9 @@ export default (props) => (
     <DrawerSlot onPress={() => props.navigation.navigate(SignUpScreen)} color={WEBDARKBLUE}>
       <CypherText size={TextButtonSize} bold center header>Sign Up</CypherText>
     </DrawerSlot>
-    <DrawerSlot onPress={() => props.navigation.navigate(TandCScreen)} color={WEBPINK}>
+    <DrawerSlot onPress={() => {
+      persistor.purge()
+      props.navigation.navigate(TandCScreen)}} color={WEBPINK}>
       <CypherText size={TextButtonSize} bold center header>Terms and Conditions</CypherText>
     </DrawerSlot>
   </SafeAreaView>
