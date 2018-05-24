@@ -20,8 +20,7 @@ export default (props) => (
     <DrawerSlot onPress={() => props.navigation.navigate(SignUpScreen)} color={WEBDARKBLUE}>
       <CypherText size={TextButtonSize} bold center header>Sign Up</CypherText>
     </DrawerSlot>
-    <DrawerSlot onPress={() => {
-    }} color={WEBPINK}>
+    <DrawerSlot onPress={() => {}} color={WEBPINK}>
       <CypherText size={TextButtonSize} bold center header>Terms and Conditions</CypherText>
     </DrawerSlot>
   </SafeAreaView>

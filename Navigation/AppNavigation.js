@@ -1,18 +1,21 @@
+/**
+ * Navigation file, defines the 
+ */
 
 import React from 'react'
+import {connect} from 'react-redux'
 import {StatusBar, Image, SafeAreaView, Text, View, TextInput, TouchableHighlight, ScrollView, TouchableOpacity} from 'react-native'
 import {addNavigationHelpers, DrawerItems, StackNavigator, TabNavigator, DrawerNavigator} from 'react-navigation'
+
+// Custom Components
 import * as Routes from './Routes'
 import CustomTabBar from '@Components/CustomTabBar'
-import {APPDARKGRAY, WEBLIGHTBLUE, WEBDARKBLUE, WEBPINK } from '@Style/constants'
-
-import BackButtonImage from '@Images/nav.png'
-
-import {connect} from 'react-redux'
-
 import customDrawerContainer from '@Containers/CustomDrawerContainer'
 
-//Import custom screens
+// Assets and Styles
+import BackButtonImage from '@Images/nav.png'
+import {APPDARKGRAY, WEBLIGHTBLUE, WEBDARKBLUE, WEBPINK } from '@Style/constants'
+
 
 const AppNavigationConfig = {
     headerMode:"none",
@@ -21,7 +24,8 @@ const AppNavigationConfig = {
     }
 }
 
-const Left = ({onPress}) => (
+
+const BackButton = ({onPress}) => (
     <TouchableOpacity onPress={onPress} style={{paddingTop:20, paddingLeft:10}}>
         <Image source={BackButtonImage}/>
     </TouchableOpacity>
@@ -41,7 +45,7 @@ const AuthFlowConfig = {
     }
 }
 const AuthFlowWithBack = (color) => ({navigation}) => ({
-        headerLeft: <Left onPress={() => navigation.goBack()}/>,
+        headerLeft: <BackButton onPress={() => navigation.goBack()}/>,
         headerStyle:{
             backgroundColor:color,
             borderBottomWidth:0,

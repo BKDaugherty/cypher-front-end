@@ -19,7 +19,7 @@ const iconArray = [
 	LTCIcon,
 ]
 
-//Map from route name to background color
+// Map from route name to background color
 const colorArray = [
     APPDARKGRAY,
     APPYELLOW,
@@ -28,8 +28,7 @@ const colorArray = [
     APPGRAY
 ]
 
-
-//Custom tab bar
+// Custom tab bar
 export default ({ navigation }) => {
     const { routes } = navigation.state;
     
