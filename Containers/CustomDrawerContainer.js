@@ -15,7 +15,7 @@ const customDrawer = (props) => {
         <SafeAreaView style={{display:"flex", flex:1, flexDirection:"column", alignItems:"stretch", justifyContent:"center", backgroundColor:APPDARKGRAY}}>
 			<DrawerSlot onPress={() => props.navigation.navigate(PortfolioTab)} color={APPDARKGRAY}>
 				<AppLogo style={{width:40, height:40}}/>
-				<CypherText center bold>{props.email}</CypherText>
+				<CypherText center bold>{`${props.first_name} ${props.last_name}`}</CypherText>
 				<Button onPress={() =>{ 
 					props.logout()
 					const resetAction = NavigationActions.reset({index:0, actions:[props.navigation.navigate(AuthScreen)]})
@@ -38,8 +38,8 @@ const customDrawer = (props) => {
     )
 }
 const customDrawerMap = (state, ownProps) => ({
-	email:state.auth.email,
-	balance:state.balance.balances.usd
+	first_name:state.profile.first_name,
+	last_name:state.profile.last_name,
 })
 
 const dispatchMap = (dispatch) => ({

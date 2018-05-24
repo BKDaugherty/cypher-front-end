@@ -8,5 +8,6 @@ export const Endpoints = {
     userLogin:'/user/login',
     userCoinbase:'/user/coinbase',
     userPlaid:'/user/plaid',
-    userPortfolio:'/user/portfolio'
+    userPortfolio:'/user/portfolio',
+    userProfile:'/user/profile'
 }

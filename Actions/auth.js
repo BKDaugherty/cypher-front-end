@@ -2,6 +2,7 @@ import CypherAPI from '@Data/CypherAPI/index.js'
 import ActionTypes from '@Actions/ActionTypes.js'
 
 import {PortfolioTab, OAuthScreen} from '@Navigation/Routes'
+import {GetUserProfile} from '@Actions/profile'
 
 const errorDelay = 3000
 export const resetLogin = () => ({type:ActionTypes.RESET_LOGIN})
@@ -65,6 +66,9 @@ export const loginRequestSuccess = (email, access_token, refresh_token, timeout)
     setTimeout(() => {
         dispatch(refreshLogin(email, refresh_token))
     }, (timeout) * 1000)
+
+    // Load the profile of the logged in user
+    dispatch(GetUserProfile(access_token))
 
     return dispatch({type: ActionTypes.LOGIN_REQUEST_SUCCESS, email, access_token, refresh_token})
 }

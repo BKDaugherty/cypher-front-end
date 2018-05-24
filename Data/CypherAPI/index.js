@@ -1,6 +1,6 @@
-//Wrapper for CypherAPI --> Could have a request manager?
-//It queries the state of the application and checks if things are allowed to
-//happen?
+/**
+ * JavaScript SDK for Cypher API
+ */
 import {BASEURL, Endpoints} from './config'
 
 const postSignUp = (first_name, last_name, email, password) => 
@@ -23,6 +23,8 @@ const postLogin = (email, password) =>
 const refreshLogin = (refresh_token) =>
     standardRequest(Endpoints.userLogin, 'post', {grant_type:'refresh_token', refresh_token})
 
+
+const getProfile = (access_token) => secureRequest(access_token, Endpoints.userProfile)
 
 //These two could prolly be abstracted into one function as well...
 const linkCoinbaseToCypher = (coinbase_code, access_token) => {
@@ -118,5 +120,6 @@ export default {
     linkPlaidToCypher,
     getBalance,
     mapCoinToAbbrev,
-    refreshLogin
+    refreshLogin,
+    getProfile
 }

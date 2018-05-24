@@ -1,3 +1,8 @@
+/**
+ * Defines all of the possible routes in our app
+ */
+
+
 export const AuthScreen = "Auth"
 export const LoginScreen = "Login"
 export const SignUpScreen = "SignUp"

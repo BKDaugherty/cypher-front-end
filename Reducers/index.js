@@ -6,6 +6,7 @@ import stockGraph from '@Reducers/stockGraph.js'
 import {coinbase, plaid} from '@Reducers/oauth.js'
 import gdax from '@Reducers/gdax.js'
 import balance from '@Reducers/balance.js'
+import profile from '@Reducers/profile'
 
 
 export default combineReducers({
@@ -15,5 +16,6 @@ export default combineReducers({
   stockGraph,
   coinbase,
   plaid,
-  gdax
+  gdax,
+  profile
 })
