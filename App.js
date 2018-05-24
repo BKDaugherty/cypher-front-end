@@ -6,12 +6,12 @@ import {AppNavigation} from '@Navigation/AppNavigation'
 import { PersistGate } from 'redux-persist/lib/integration/react';
 import {store, persistor} from '@Store/store.js'
 import { Font } from 'expo'
-persistor.purge()
+// persistor.purge()
 export default class App extends Component {
     constructor(props){
 	super(props)
 	this.state = {
-	    loadedFonts:false,
+	    	loadedFonts:false,
 		}
     }
     
