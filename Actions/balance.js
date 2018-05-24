@@ -18,7 +18,6 @@ export const getBalance = (access_token, coinName) => {
                     usd:response.usd ? response.usd : 0
                 }
 
-                console.log(balances)
                 dispatch({type:ActionTypes.BALANCE_REQUEST_SUCCESS, balances})
             }
             catch (error) {

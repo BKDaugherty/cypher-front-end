@@ -29,7 +29,6 @@ autoCorrect={props.autoCorrect? props.autoCorrect : false}
 const cypherTextInputStyle = (props) => {
 
     const fontSuffix = props.bold ? '-bold' : (props.italic? '-italic' : '')
-    if(fontSuffix == '-bold') console.log(fontSuffix)
     return {
         color: props.color? props.color : '#bbb',
         padding:10,
@@ -37,7 +36,7 @@ const cypherTextInputStyle = (props) => {
         borderWidth:0.5,
         borderColor:'#fff',
         backgroundColor:'#fff',
-        fontFamily: (props.header? 'pt-mono' : 'pt-sans') + fontSuffix,
+        fontFamily: (props.header? 'pt-sans' : 'pt-sans') + fontSuffix,
         fontSize: props.header? HEADERTEXTSIZE : BODYTEXTSIZE,
         borderRadius: props.square ? 0 : 10,
         marginTop:15,

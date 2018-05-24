@@ -113,7 +113,7 @@ class OAuthPageContainer extends React.Component {
 	}
 
 	// Avoid plaid for now
-	const canContinue = this.props.coinbaseComplete && (this.props.plaidComplete || true)
+	const canContinue = this.props.coinbaseComplete && this.props.plaidComplete 
 
 	return (
 	    <View style={styles.container}>

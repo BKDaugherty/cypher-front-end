@@ -30,6 +30,7 @@ const linkCoinbaseToCypher = (coinbase_code, access_token) => {
         console.error("No coinbase token to post")
     } else {
         console.log("Access token:", access_token)
+        console.log("Coinbase Code:", coinbase_code)
         return secureRequest(access_token, Endpoints.userCoinbase,"post", {coinbase_code})
     }
 }
@@ -67,10 +68,12 @@ const getBalance = (access_token, coinName) => {
 // Used to extract the response in json form
 async function parseResponse(response) {
     if(response.status >= 400){
-        console.log(response)
         let errorResponse = await response.json()
         if(response.status == 401)
-        throw {message:errorResponse.error, status:response.status}
+            throw {message:errorResponse.error, status:response.status}
+        else {
+            throw {message:errorResponse.error, status:response.status}
+        }
     } else {
         return response.json()
     }
@@ -96,8 +99,8 @@ const standardRequest = (endPoint, method ='get',  body = null, passedHeaders = 
 	    headers.append(key, passedHeaders[key])
     })
 
-    console.log(`Sending ${method} to ${endPoint}`)
-    console.log(body)
+    // console.log(`Sending ${method} to ${endPoint}`)
+    // console.log(body)
 
     if(body){
         return fetch(`${BASEURL}${endPoint}`, {method, body:JSON.stringify(body), headers})

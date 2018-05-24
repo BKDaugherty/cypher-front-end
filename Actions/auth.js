@@ -14,7 +14,7 @@ export function loginRequest(email, password, navigate) {
     try {
         // Send the login Request to CypherAPI
         const response = await CypherAPI.postLogin(email, password)
-
+        
         if(navigate){
             navigate(PortfolioTab)
         }
